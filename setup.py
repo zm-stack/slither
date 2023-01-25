@@ -14,7 +14,7 @@ setup(
     install_requires=[
         "prettytable>=0.7.2",
         "pysha3>=1.0.2",
-        "crytic-compile>=0.2.3",
+        "crytic-compile>=0.2.3,<0.3.0",
         # "crytic-compile",
     ],
     # dependency_links=["git+https://github.com/crytic/crytic-compile.git@master#egg=crytic-compile"],
