@@ -3,7 +3,7 @@ import logging
 import os
 import re
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 from slither.analyses.data_dependency.data_dependency import compute_dependency
 from slither.core.compilation_unit import SlitherCompilationUnit
@@ -27,6 +27,7 @@ from slither.solc_parsing.declarations.using_for_top_level import UsingForTopLev
 from slither.solc_parsing.exceptions import VariableNotFound
 from slither.solc_parsing.variables.top_level_variable import TopLevelVariableSolc
 from slither.solc_parsing.declarations.caller_context import CallerContextExpression
+from slither.core.scope.scope import DeclarationType
 
 logging.basicConfig()
 logger = logging.getLogger("SlitherSolcParsing")
@@ -35,7 +36,7 @@ logger.setLevel(logging.INFO)
 
 def _handle_import_aliases(
     symbol_aliases: Dict, import_directive: Import, scope: FileScope
-) -> None:
+) -> List[Tuple[str, str]]:
     """
     Handle the parsing of import aliases
 
@@ -47,15 +48,19 @@ def _handle_import_aliases(
     Returns:
 
     """
+    aliases = []
     for symbol_alias in symbol_aliases:
+        print(symbol_alias)
         if "foreign" in symbol_alias and "local" in symbol_alias:
             if isinstance(symbol_alias["foreign"], dict) and "name" in symbol_alias["foreign"]:
 
                 original_name = symbol_alias["foreign"]["name"]
                 local_name = symbol_alias["local"]
-                import_directive.renaming[local_name] = original_name
-                # Assuming that two imports cannot collide in renaming
-                scope.renaming[local_name] = original_name
+                print(local_name)
+                aliases.append((local_name, original_name))
+                # import_directive.renaming[local_name] = original_name
+                # # Assuming that two imports cannot collide in renaming
+                # scope.renaming[local_name] = original_name
 
             # This path should only be hit for the malformed AST of solc 0.5.12 where
             # the foreign identifier cannot be found but is required to resolve the alias.
@@ -64,6 +69,7 @@ def _handle_import_aliases(
                 raise SlitherException(
                     "Cannot resolve local alias for import directive due to malformed AST. Please upgrade to solc 0.6.0 or higher."
                 )
+    return aliases
 
 
 class SlitherCompilationUnitSolc(CallerContextExpression):
@@ -189,6 +195,7 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
         scope = self.compilation_unit.get_scope(filename)
         enum = EnumTopLevel(name, canonicalName, values, scope)
         scope.enums[name] = enum
+        scope.symbol_map[name + top_level_data["src"]] = DeclarationType.EnumTopLevel
         enum.set_offset(top_level_data["src"], self._compilation_unit)
         self._compilation_unit.enums_top_level.append(enum)
 
@@ -202,7 +209,7 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
             for sourcePath in data_loaded["sourcePaths"]:
                 if os.path.isfile(sourcePath):
                     self._compilation_unit.core.add_source_code(sourcePath)
-
+                    
         if data_loaded[self.get_key()] == "root":
             logger.error("solc <0.4 is not supported")
             return
@@ -221,6 +228,7 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
                 contract = Contract(self._compilation_unit, scope)
                 contract_parser = ContractSolc(self, contract, top_level_data)
                 scope.contracts[contract.name] = contract
+                scope.symbol_map[contract.name + top_level_data["src"]] = DeclarationType.Contract
                 if "src" in top_level_data:
                     contract.set_offset(top_level_data["src"], self._compilation_unit)
 
@@ -260,7 +268,7 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
                         import_directive.alias = top_level_data["unitAlias"]
                     if "symbolAliases" in top_level_data:
                         symbol_aliases = top_level_data["symbolAliases"]
-                        _handle_import_aliases(symbol_aliases, import_directive, scope)
+                        alias_to_orig = _handle_import_aliases(symbol_aliases, import_directive, scope)
                 else:
                     import_directive = Import(
                         Path(
@@ -278,14 +286,47 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
                 import_directive.set_offset(top_level_data["src"], self._compilation_unit)
                 self._compilation_unit.import_directives.append(import_directive)
 
-                get_imported_scope = self.compilation_unit.get_scope(import_directive.filename)
-                scope.accessible_scopes.append(get_imported_scope)
+
+                #maybe we could apply the aliases here
+                # class Module:
+                # def item_import
+                # (
+                    # src: &Path,
+                    # item: &Ident,
+                    # dst: &Path,
+                    # alias: Option<Ident>,
+                # ):
+                # get_module(dst).symbol_map.get(item, None)
+                # if alias:
+                # use_aliases[alias] = item
+                # self.
+                # class Items
+                    # use_aliases: Dict[str, Ident] 
+                    # symbol_map : Dict[Ident, DeclarationType]
+                    # insert_symbol Ident, 
+                # star_import (can also have alias)
+
+
+                # unit alias import submodule as alias
+                # all declarations in submodule now have the alias
+
+                # symbol alias import {a as b} from submodule
+                # all declarations in submodule with name a now have the name b
+                imported_scope = self.compilation_unit.get_scope(import_directive.filename)
+                if symbol_aliases:
+                    for alias, orig in alias_to_orig:
+                        scope.item_import(imported_scope, alias, orig)
+                elif import_directive.alias:
+                    scope.star_import(imported_scope, alias=import_directive.alias)
+                else:
+                    scope.star_import(imported_scope, alias=None)
 
             elif top_level_data[self.get_key()] == "StructDefinition":
                 st = StructureTopLevel(self.compilation_unit, scope)
                 st.set_offset(top_level_data["src"], self._compilation_unit)
                 st_parser = StructureTopLevelSolc(st, top_level_data, self)
                 scope.structures[st.name] = st
+                scope.symbol_map[st.name + top_level_data["src"]] = DeclarationType.StructureTopLevel
 
                 self._compilation_unit.structures_top_level.append(st)
                 self._structures_top_level_parser.append(st_parser)
@@ -302,9 +343,11 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
                 self._compilation_unit.variables_top_level.append(var)
                 self._variables_top_level_parser.append(var_parser)
                 scope.variables[var.name] = var
+                scope.symbol_map[var.name + top_level_data["src"]] = DeclarationType.TopLevelVariable
             elif top_level_data[self.get_key()] == "FunctionDefinition":
                 func = FunctionTopLevel(self._compilation_unit, scope)
                 scope.functions.add(func)
+                scope.symbol_map[func.name + top_level_data["src"]] = DeclarationType.FunctionTopLevel
                 func.set_offset(top_level_data["src"], self._compilation_unit)
                 func_parser = FunctionSolc(func, top_level_data, None, self)
 
@@ -318,6 +361,7 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
 
                 custom_error_parser = CustomErrorSolc(custom_error, top_level_data, self)
                 scope.custom_errors.add(custom_error)
+                scope.symbol_map[custom_error.name + top_level_data["src"]] = DeclarationType.CustomErrorTopLevel
                 self._compilation_unit.custom_errors.append(custom_error)
                 self._custom_error_parser.append(custom_error_parser)
 
@@ -338,6 +382,7 @@ class SlitherCompilationUnitSolc(CallerContextExpression):
                 user_defined_type.set_offset(top_level_data["src"], self._compilation_unit)
                 self._compilation_unit.user_defined_value_types[alias] = user_defined_type
                 scope.user_defined_types[alias] = user_defined_type
+                scope.symbol_map[alias + top_level_data["src"]] = DeclarationType.TypeAlias
 
             else:
                 raise SlitherException(f"Top level {top_level_data[self.get_key()]} not supported")
@@ -429,9 +474,10 @@ Please rename it, this name is reserved for Slither's internals"""
             for i in contract_parser.linearized_base_contracts[1:]:
                 if i in contract_parser.remapping:
                     contract_name = contract_parser.remapping[i]
+                    print(contract_name)
                     if contract_name in contract_parser.underlying_contract.file_scope.renaming:
                         contract_name = contract_parser.underlying_contract.file_scope.renaming[
-                            contract_name
+                            contract_name 
                         ]
                     target = contract_parser.underlying_contract.file_scope.get_contract_from_name(
                         contract_name

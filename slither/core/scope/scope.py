@@ -1,5 +1,5 @@
 from typing import List, Any, Dict, Optional, Union, Set, TypeVar, Callable
-
+from enum import Enum
 from crytic_compile import CompilationUnit
 from crytic_compile.source_unit import SourceUnit
 from crytic_compile.utils.naming import Filename
@@ -21,6 +21,18 @@ def _dict_contain(d1: Dict, d2: Dict) -> bool:
     """
     d2_keys = d2.keys()
     return all(item in d2_keys for item in d1.keys())
+
+class DeclarationType(Enum):
+    Contract= 1
+    CustomErrorTopLevel= 2
+    EnumTopLevel= 3
+    FunctionTopLevel= 4
+    UsingForTopLevel= 5
+    Import= 6
+    Pragma= 7
+    StructureTopLevel= 8
+    TopLevelVariable= 9 
+    TypeAlias= 10
 
 
 # pylint: disable=too-many-instance-attributes
@@ -45,10 +57,11 @@ class FileScope:
         self.structures: Dict[str, StructureTopLevel] = {}
         self.variables: Dict[str, TopLevelVariable] = {}
 
+        self.symbol_map: Dict[str, DeclarationType] = {}
         # Renamed created by import
         # import A as B
         # local name -> original name (A -> B)
-        self.renaming: Dict[str, str] = {}
+        # self.renaming: Dict[str, str] = {}
 
         # User defined types
         # Name -> type alias
@@ -100,6 +113,16 @@ class FileScope:
                 learn_something = True
 
         return learn_something
+
+    def item_import(self, imported_scope: "FileScope", alias: str, orig: str):
+        self.symbol_map[alias] = imported_scope.symbol_map[orig]
+
+    def star_import(self, imported_scope: "FileScope", alias: str):
+        for k, v in imported_scope.symbol_map.items():
+            ident_name = k
+            if alias:
+                ident_name = alias + "." + k
+            self.symbol_map[ident_name] = v
 
     def get_contract_from_name(self, name: Union[str, Constant]) -> Optional[Contract]:
         if isinstance(name, Constant):

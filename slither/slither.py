@@ -32,19 +32,19 @@ def _check_common_things(
         raise Exception(f"You can't register {cls!r} twice.")
 
 
-def _update_file_scopes(candidates: ValuesView[FileScope]):
-    """
-    Because solc's import allows cycle in the import
-    We iterate until we aren't adding new information to the scope
+# def _update_file_scopes(candidates: ValuesView[FileScope]):
+#     """
+#     Because solc's import allows cycle in the import
+#     We iterate until we aren't adding new information to the scope
 
-    """
-    learned_something = False
-    while True:
-        for candidate in candidates:
-            learned_something |= candidate.add_accesible_scopes()
-        if not learned_something:
-            break
-        learned_something = False
+#     """
+#     learned_something = False
+#     while True:
+#         for candidate in candidates:
+#             learned_something |= candidate.add_accesible_scopes()
+#         if not learned_something:
+#             break
+#         learned_something = False
 
 
 class Slither(SlitherCore):  # pylint: disable=too-many-instance-attributes
@@ -108,11 +108,30 @@ class Slither(SlitherCore):  # pylint: disable=too-many-instance-attributes
             self._compilation_units.append(compilation_unit_slither)
             parser = SlitherCompilationUnitSolc(compilation_unit_slither)
             self._parsers.append(parser)
+
+            import networkx
+            source_unit_dependencies = {}
+            path_ast_by_id = {}
             for path, ast in compilation_unit.asts.items():
+                for source_unit in ast["sourceUnit"]:
+                    if source_unit in source_unit_dependencies:
+                        source_unit_dependencies[exported_symbol].append(exported_symbol)
+                else:
+                    source_unit_dependencies[exported_symbol] = []
+                    path_ast_by_id[exported_symbol] = (path, ast)
+                graph = networkx.DiGraph(source_unit_dependencies)
+                
+
+            print(source_unit_dependencies)
+            ordered_source_units = list(reversed(list(networkx.topological_sort(graph))))
+
+
+            for source_unit_id in ordered_source_units:
+                path, ast = path_ast_by_id[source_unit_id]
                 parser.parse_top_level_from_loaded_json(ast, path)
                 self.add_source_code(path)
 
-            _update_file_scopes(compilation_unit_slither.scopes.values())
+            # _update_file_scopes(compilation_unit_slither.scopes.values())
 
         if kwargs.get("generate_patches", False):
             self.generate_patches = True

@@ -17,7 +17,7 @@ from slither.solc_parsing.declarations.structure_contract import StructureContra
 from slither.solc_parsing.exceptions import ParsingError, VariableNotFound
 from slither.solc_parsing.solidity_types.type_parsing import parse_type
 from slither.solc_parsing.variables.state_variable import StateVariableSolc
-
+from slither.core.scope.scope import DeclarationType
 LOGGER = logging.getLogger("ContractSolcParsing")
 
 if TYPE_CHECKING:
@@ -281,13 +281,14 @@ class ContractSolc(CallerContextExpression):
         # For example during the type parsing the canonical name
         # Note that Solidity allows shadowing of user defined types
         # Between top level and contract definitions
-        alias = item["name"]
-        alias_canonical = self._contract.name + "." + item["name"]
+        name = item["name"]
+        canonical_name = self._contract.name + "." + item["name"]
 
-        user_defined_type = TypeAliasContract(original_type, alias, self.underlying_contract)
+        user_defined_type = TypeAliasContract(original_type, name, self.underlying_contract)
         user_defined_type.set_offset(item["src"], self.compilation_unit)
-        self._contract.file_scope.user_defined_types[alias] = user_defined_type
-        self._contract.file_scope.user_defined_types[alias_canonical] = user_defined_type
+        self._contract.file_scope.user_defined_types[name] = user_defined_type
+        self._contract.file_scope.user_defined_types[canonical_name] = user_defined_type
+        self._contract.file_scope.symbol_map[name + item["src"]] = DeclarationType.TypeAlias
 
     def _parse_struct(self, struct: Dict):
 
@@ -643,16 +644,16 @@ class ContractSolc(CallerContextExpression):
         # We check if the first part appear as alias for an import
         # if it is then function_name must be a top level function
         # otherwise it's a library function
-        for i in self._contract.file_scope.imports:
-            if i.alias == first_part:
-                self._analyze_top_level_function(function_name, type_name)
-                return
+        is_import = first_part in self._contract.file_scope.imports
+        if is_import:
+            self._analyze_top_level_function(function_name, type_name)
+            return
         self._analyze_library_function(first_part, function_name, type_name)
 
     def _analyze_top_level_function(self, function_name: str, type_name: Type):
-        for tl_function in self.compilation_unit.functions_top_level:
-            if tl_function.name == function_name:
-                self._contract.using_for[type_name].append(tl_function)
+        tl_function = self.compilation_unit.functions_top_level.get(function_name, None)
+        if tl_function:
+            self._contract.using_for[type_name].append(tl_function)
 
     def _analyze_library_function(
         self, library_name: str, function_name: str, type_name: Type
