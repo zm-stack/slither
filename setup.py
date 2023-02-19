@@ -16,7 +16,7 @@ setup(
         "prettytable>=0.7.2",
         "pycryptodome>=3.4.6",
         # "crytic-compile>=0.3.0",
-        "crytic-compile@git+https://github.com/crytic/crytic-compile.git@dev-fix-hh-path-ignore-compile#egg=crytic-compile",
+        "crytic-compile@git+https://github.com/crytic/crytic-compile.git@53167f3f3d63b73916b1660312a53fd952f2e3dd#egg=crytic-compile",
     ],
     extras_require={
         "dev": [
