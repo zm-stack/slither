@@ -1,5 +1,6 @@
 # Function computing the code complexity
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Tuple
+from collections import OrderedDict
 
 if TYPE_CHECKING:
     from slither.core.declarations import Function
@@ -80,3 +81,19 @@ def compute_cyclomatic_complexity(function: "Function") -> int:
     N = len(function.nodes)
     P = 1
     return E - N + 2 * P
+
+def count_abstracts(contracts) -> Tuple[int, int]:
+    """
+    Count the number of abstract contracts and the total number of contracts
+    Args:
+        contracts(list): list of contracts
+    Returns:
+        Tuple of (abstract_contract_count, total_contract_count)
+    """
+    total_contract_count = 0
+    abstract_contract_count = 0
+    for c in contracts:
+        total_contract_count += 1
+        if not c.is_fully_implemented:
+            abstract_contract_count += 1
+    return (abstract_contract_count, total_contract_count)
