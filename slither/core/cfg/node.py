@@ -273,6 +273,13 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
         return list(self._local_vars_read)
 
     @property
+    def storage_local_variables_read(self) -> List[LocalVariable]:
+        """
+        list(LocalVariable): Storage local variables read
+        """
+        return [local for local in self._local_vars_read if local.is_storage]
+
+    @property
     def solidity_variables_read(self) -> List[SolidityVariable]:
         """
         list(SolidityVariable): State variables read
@@ -334,6 +341,13 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
         list(LocalVariable): Local variables written
         """
         return list(self._local_vars_written)
+
+    @property
+    def storage_local_variables_written(self) -> List[LocalVariable]:
+        """
+        list(LocalVariable): Storage local variables written
+        """
+        return [local for local in self._local_vars_written if local.is_storage]
 
     @property
     def ssa_variables_written(self) -> List["SlithIRVariable"]:

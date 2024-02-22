@@ -141,7 +141,7 @@ class AbstractState:
 
         # All the state variables written
         state_vars_written: Dict[Variable, Set[Node]] = defaultdict(
-            set, {v: {node} for v in node.state_variables_written}
+            set, {v: {node} for v in node.state_variables_written + node.storage_local_variables_written}
         )
         slithir_operations = []
         # Add the state variables written in internal calls
@@ -149,9 +149,9 @@ class AbstractState:
             # Filter to Function, as internal_call can be a solidity call
             if isinstance(internal_call, Function):
                 for internal_node in internal_call.all_nodes():
-                    for read in internal_node.state_variables_read:
+                    for read in internal_node.state_variables_read + internal_node.storage_local_variables_read:
                         state_vars_read[read].add(internal_node)
-                    for write in internal_node.state_variables_written:
+                    for write in internal_node.state_variables_written + node.storage_local_variables_written:
                         state_vars_written[write].add(internal_node)
                 slithir_operations += internal_call.all_slithir_operations()
 
