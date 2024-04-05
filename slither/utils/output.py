@@ -68,6 +68,76 @@ def output_to_json(filename: Optional[str], error, results: Dict) -> None:
                 json.dump(json_result, f, indent=2)
 
 
+@dataclass
+class RunLogicalLocation:
+    """
+    Class representing a logical location that is stored in the "logicalLocations" array in the run section of a SARIF file.
+    """
+    name: str
+    kind: str
+    parentIndex: int = None
+
+
+def create_logical_locations(results: List[Dict]) -> List[RunLogicalLocation]:
+    """
+    Create the "logicalLocations" section for the run section of a SARIF file.
+
+    Args:
+        results (List[Dict]): List of result dictionaries.
+
+    Returns:
+        List[RunLogicalLocation]: List of RunLogicalLocation objects representing the logical locations.
+    """
+    logical_locations: List[RunLogicalLocation] = []
+    parent_map: Dict[str, int] = {}
+
+    for result in results:
+        for element in result["elements"]:
+            if "type_specific_fields" in element and "parent" in element["type_specific_fields"]:
+                parent_name = element["type_specific_fields"]["parent"]["name"]
+                parent_type = element["type_specific_fields"]["parent"]["type"]
+
+                if parent_name not in parent_map:
+                    parent_index = len(logical_locations)
+                    parent_map[parent_name] = parent_index
+                    logical_locations.append(RunLogicalLocation(parent_name, parent_type))
+                else:
+                    parent_index = parent_map[parent_name]
+
+                kind = "variable" if parent_type == "contract" else "localVariable"
+                logical_locations.append(RunLogicalLocation(element["name"], kind, parent_index))
+            else:
+                logical_locations.append(RunLogicalLocation(element["name"], element["type"]))
+
+    return logical_locations
+
+def create_result_location_mapping(results: List[Dict], logical_locations: List[RunLogicalLocation]) -> List[Tuple[int, List[int]]]:
+    """
+    Create a mapping between the indices of results and their corresponding logical locations.
+
+    Args:
+        results (List[Dict]): List of result dictionaries.
+        logical_locations (List[RunLogicalLocation]): List of RunLogicalLocation objects.
+
+    Returns:
+        List[Tuple[int, List[int]]]: List of tuples, where each tuple represents a mapping between
+                                     the index of a result and the indices of its corresponding logical locations.
+    """
+    result_location_mapping: List[Tuple[int, List[int]]] = []
+
+    for result_index, result in enumerate(results):
+        location_indices: List[int] = []
+        for element in result["elements"]:
+            kind = "localVariable" if element.get("type") == "variable" and element.get("type_specific_fields", {}).get("parent", {}).get("type") == "function" else element["type"]
+            location_index = next((i for i, loc in enumerate(logical_locations)
+                                   if loc.name == element["name"] and loc.kind == kind), -1)
+            if location_index != -1:
+                location_indices.append(location_index)
+        result_location_mapping.append((result_index, location_indices))
+
+    return result_location_mapping
+
+
 def _output_result_to_sarif(
     detector: Dict, detectors_classes: List["AbstractDetector"], sarif: Dict
 ) -> None:
@@ -170,6 +240,9 @@ def output_to_sarif(
         ],
     }
 
+    logical_locations = create_logical_locations(results)
+    result_location_mapping = create_result_location_mapping(results, logical_locations)
+    import pdb; pdb.set_trace()
     for detector in results.get("detectors", []):
         _output_result_to_sarif(detector, detectors_classes, sarif)
 
