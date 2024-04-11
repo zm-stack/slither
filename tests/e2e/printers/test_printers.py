@@ -2,11 +2,12 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from crytic_compile import CryticCompile
+from crytic_compile import CryticCompile, compile_all
 from crytic_compile.platform.solc_standard_json import SolcStandardJson
 
 from slither import Slither
 from slither.printers.inheritance.inheritance_graph import PrinterInheritanceGraph
+from slither.printers.summary.external_calls import ExternalCallPrinter
 
 
 TEST_DATA_DIR = Path(__file__).resolve().parent / "test_data"
@@ -34,3 +35,14 @@ def test_inheritance_printer(solc_binary_path) -> None:
 
     assert counter["B -> A"] == 2
     assert counter["C -> A"] == 1
+
+
+def test_external_call_printers() -> None:
+    compilation = compile_all((TEST_DATA_DIR / "test_external_calls" / "A.sol").as_posix()).pop()
+    slither = Slither(compilation)
+
+    printer = ExternalCallPrinter(slither, None)
+    output = printer.output("")
+
+    # The test is not great here, but they will soon be moved to a snapshot based system
+    assert output is not None
