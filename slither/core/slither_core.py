@@ -251,7 +251,7 @@ class SlitherCore(Context):
                     self._offset_to_definitions[ref.filename][offset].add(definition)
 
                 self._offset_to_implementations[ref.filename][offset].update(implementations)
-                self._offset_to_references[ref.filename][offset] |= set(references)
+                self._offset_to_references[ref.filename][offset].add(thing.source_mapping)
 
     def _compute_offsets_to_ref_impl_decl(self):  # pylint: disable=too-many-branches
         self._offset_to_references = defaultdict(lambda: defaultdict(lambda: set()))
