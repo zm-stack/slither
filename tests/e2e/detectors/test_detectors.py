@@ -1,5 +1,4 @@
 import os
-import shutil
 from pathlib import Path
 import sys
 from typing import Type, Optional, List
