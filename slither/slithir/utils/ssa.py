@@ -144,13 +144,26 @@ def add_ssa_ir(
 
     add_phi_origins(function.entry_point, init_definition, {})
 
+    track_new_local_phi: Dict[Variable, Node] = {}
     for node in function.nodes:
         for (variable, nodes) in node.phi_origins_local_variables.values():
             if len(nodes) < 2:
                 continue
             if not is_used_later(node, variable):
                 continue
+            if variable in track_new_local_phi:
+                # Check if the node where phi was defined is a dominator of node
+                phi_node = track_new_local_phi[variable]
+                if phi_node in node.dominators:
+                    # Check if the phi node is a post dominator of one of the node in nodes
+                    # in that case replace node with the phi-node because that is the most recent
+                    # definition of the variable
+                    for possible_phi_rvalue in nodes:
+                        if phi_node in possible_phi_rvalue.post_dominators:
+                            nodes.remove(possible_phi_rvalue)
+                            nodes.add(phi_node)
             node.add_ssa_ir(Phi(LocalIRVariable(variable), nodes))
+            track_new_local_phi[variable] = node
         for (variable, nodes) in node.phi_origins_state_variables.values():
             if len(nodes) < 2:
                 continue
@@ -169,7 +182,7 @@ def add_ssa_ir(
                 fake_variable.set_location("reference_to_storage")
                 new_var.refers_to = {fake_variable}
                 init_local_variables_instances[fake_variable.name] = fake_variable
-            init_local_variables_instances[v.name] = new_var
+            # init_local_variables_instances[v.name] = new_var
 
     for v in function.returns:
         if v.name:
@@ -227,7 +240,7 @@ def generate_ssa_irs(
         return
 
     if node.type in [NodeType.ENDIF, NodeType.ENDLOOP] and any(
-        not father in visited for father in node.fathers
+        not father in visited for father in node.fathers if father.type != NodeType.BREAK
     ):
         return
 
@@ -236,14 +249,18 @@ def generate_ssa_irs(
 
     for ir in node.irs_ssa:
         assert isinstance(ir, Phi)
-        update_lvalue(
-            ir,
-            node,
-            local_variables_instances,
-            all_local_variables_instances,
-            state_variables_instances,
-            all_state_variables_instances,
-        )
+        # Lvalue updated for an ENTRYPOINT node only for the state variables not for parameters
+        if len(ir.nodes) != 0 or (
+            node.type == NodeType.ENTRYPOINT and ir.lvalue not in node.function.parameters_ssa
+        ):
+            update_lvalue(
+                ir,
+                node,
+                local_variables_instances,
+                all_local_variables_instances,
+                state_variables_instances,
+                all_state_variables_instances,
+            )
 
     # these variables are lived only during the liveness of the block
     # They dont need phi function
@@ -473,6 +490,7 @@ def initiate_all_local_variables_instances(
                 new_var.index = all_local_variables_instances[new_var.name].index + 1
             local_variables_instances[node.variable_declaration.name] = new_var
             all_local_variables_instances[node.variable_declaration.name] = new_var
+            node.variable_declaration_ssa = new_var
 
 
 # endregion

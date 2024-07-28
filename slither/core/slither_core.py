@@ -18,6 +18,7 @@ from slither.core.compilation_unit import SlitherCompilationUnit
 from slither.core.context.context import Context
 from slither.core.declarations import Contract, FunctionContract
 from slither.core.declarations.top_level import TopLevel
+from slither.core.cfg.node import Node, NodeType
 from slither.core.source_mapping.source_mapping import SourceMapping, Source
 from slither.slithir.variables import Constant
 from slither.utils.colors import red
@@ -201,6 +202,41 @@ class SlitherCore(Context):
         filename: Filename = self.crytic_compile.filename_lookup(filename_str)
         return self._offset_to_objects[filename][offset]
 
+    def forward_slice(self, filename: str, offset: int) -> Optional[Set[Source]]:
+        for obj in self.offset_to_objects(filename, offset):
+            if isinstance(obj, Node):
+                result_source: Set[Source] = set()
+                for node in obj.forward_slice():
+                    if node.type != NodeType.ENTRYPOINT:
+                        result_source.add(node.source_mapping)
+                    else:
+                        # This handles state variables
+                        # we can't distinguish which one is actually used so all of them will be highlighted
+                        for ir in node.irs_ssa:
+                            result_source.add(ir.lvalue.non_ssa_version.source_mapping)
+                return result_source
+
+    def backward_slice(self, filename: str, offset: int) -> Optional[Set[Source]]:
+        for obj in self.offset_to_objects(filename, offset):
+            if isinstance(obj, Node):
+                result_source: Set[Source] = set()
+                for node in obj.backward_slice():
+                    if node.type != NodeType.ENTRYPOINT:
+                        result_source.add(node.source_mapping)
+                    else:
+                        # This handles state variables
+                        # we can't distinguish which one is actually used
+                        # all state variables which appears as lvalue in the phi ir within ENTRY_POINT node
+                        # will be highlighted
+                        for ir in node.irs_ssa:
+                            result_source.add(ir.lvalue.non_ssa_version.source_mapping)
+                return result_source
+
+    def _add_node_object(self, node: Node):
+        source = node.source_mapping
+        for offset in range(source.start, source.end + 1):
+            self._offset_to_objects[source.filename][offset].add(node)
+
     def _compute_offsets_from_thing(self, thing: SourceMapping):
         definition = get_definition(thing, self.crytic_compile)
         references = get_references(thing)
@@ -265,6 +301,9 @@ class SlitherCore(Context):
 
                 for function in contract.functions_declared:
                     self._compute_offsets_from_thing(function)
+                    for node in function.nodes:
+                        if node.expression or node.type == NodeType.VARIABLE:
+                            self._add_node_object(node)
                     for variable in function.local_variables:
                         self._compute_offsets_from_thing(variable)
                 for modifier in contract.modifiers_declared:

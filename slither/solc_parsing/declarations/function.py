@@ -1162,6 +1162,13 @@ class FunctionSolc(CallerContextExpression):
 
         node = self._new_node(NodeType.ENTRYPOINT, cfg["src"], self.underlying_function)
         self._function.entry_point = node.underlying_node
+        for parameter in self._function.parameters:
+            new_node = self._new_node(
+                NodeType.VARIABLE, parameter.source_mapping, self.underlying_function
+            )
+            new_node.underlying_node.add_variable_declaration(parameter)
+            link_underlying_nodes(node, new_node)
+            node = new_node
 
         if self.is_compact_ast:
             statements = cfg["statements"]

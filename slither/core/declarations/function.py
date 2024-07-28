@@ -1422,6 +1422,29 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
 
             f.write("}\n")
 
+    def post_dominator_tree_to_dot(self, filename: str):
+        """
+            Export the post dominator tree of the function to a dot file
+        Args:
+            filename (str)
+        """
+
+        def description(node):
+            desc = f"{node}\n"
+            desc += f"id: {node.node_id}"
+            # if node.dominance_frontier:
+            #    desc += f"\ndominance frontier: {[n.node_id for n in node.dominance_frontier]}"
+            return desc
+
+        with open(filename, "w", encoding="utf8") as f:
+            f.write("digraph{\n")
+            for node in self.nodes:
+                f.write(f'{node.node_id}[label="{description(node)}"];\n')
+                if node.immediate_post_dominator:
+                    f.write(f"{node.immediate_post_dominator.node_id}->{node.node_id};\n")
+
+            f.write("}\n")
+
     def slithir_cfg_to_dot(self, filename: str):
         """
         Export the CFG to a DOT file. The nodes includes the Solidity expressions and the IRs
@@ -1431,6 +1454,29 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
         content = self.slithir_cfg_to_dot_str()
         with open(filename, "w", encoding="utf8") as f:
             f.write(content)
+
+    def pdg_to_dot(self):
+        """
+        Export the PDG to a DOT file.
+        :param filename:
+        :return:
+        """
+        content = ""
+        content += "digraph{\n"
+
+        for node in self.nodes:
+            label = f"Node Type: {node.type.value} {node.node_id}\n"
+            if node.expression:
+                label += f"\nEXPRESSION:\n{node.expression}\n"
+            if node.irs_ssa:
+                label += "\nIRs:\n" + "\n".join([str(ir) for ir in node.irs_ssa])
+            content += f'{node.node_id}[label="{label}"];\n'
+            for control_dep in node.control_dependent:
+                content += f'{node.node_id}->{control_dep.node_id}[label="CD" color="red"];\n'
+            for data_dep in node.data_dependent:
+                content += f'{node.node_id}->{data_dep.node_id}[label="DD" color="blue"];\n'
+        content += "}\n"
+        return content
 
     def slithir_cfg_to_dot_str(self, skip_expressions: bool = False) -> str:
         """

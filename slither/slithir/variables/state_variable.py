@@ -1,3 +1,4 @@
+from typing import Any
 from slither.core.variables.state_variable import StateVariable
 from slither.slithir.variables.variable import SlithIRVariable
 
@@ -44,3 +45,15 @@ class StateIRVariable(
     @property
     def ssa_name(self):
         return f"{self._name}_{self.index}"
+
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, StateIRVariable):
+            return False
+
+        if self.ssa_name == other.ssa_name:
+            return True
+
+        return False
+
+    def __hash__(self) -> int:
+        return hash(self.ssa_name)

@@ -1,4 +1,4 @@
-from typing import Set
+from typing import Set, Any
 from slither.core.variables.local_variable import LocalVariable
 from slither.slithir.variables.temporary import TemporaryVariable
 from slither.slithir.variables.variable import SlithIRVariable
@@ -73,3 +73,15 @@ class LocalIRVariable(
         if self.is_storage:
             return f"{self._name}_{self.index} (-> {[v.name for v in self.refers_to]})"
         return f"{self._name}_{self.index}"
+
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, LocalIRVariable):
+            return False
+
+        if self.ssa_name == other.ssa_name:
+            return True
+
+        return False
+
+    def __hash__(self) -> int:
+        return hash(self.ssa_name)

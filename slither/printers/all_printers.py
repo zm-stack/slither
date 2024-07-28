@@ -23,4 +23,6 @@ from .summary.evm import PrinterEVM
 from .summary.when_not_paused import PrinterWhenNotPaused
 from .summary.declaration import Declaration
 from .functions.dominator import Dominator
+from .functions.post_dominator import PostDominator
+from .functions.pdg import PDG
 from .summary.martin import Martin

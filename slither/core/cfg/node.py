@@ -6,6 +6,7 @@ from typing import Optional, List, Set, Dict, Tuple, Union, TYPE_CHECKING
 
 from slither.all_exceptions import SlitherException
 from slither.core.declarations import Contract, Function, FunctionContract
+from slither.core.dominators.utils import compute_control_dependent, compute_data_dependencies
 from slither.core.declarations.solidity_variables import (
     SolidityVariable,
     SolidityFunction,
@@ -131,10 +132,24 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
         ## Dominators info
         # Dominators nodes
         self._dominators: Set["Node"] = set()
+        self._post_dominators: Set["Node"] = set()
         self._immediate_dominator: Optional["Node"] = None
+        self._immediate_post_dominator: Optional["Node"] = None
         ## Nodes of the dominators tree
         # self._dom_predecessors = set()
-        self._dom_successors: Set["Node"] = set()
+        # self._dom_successors: Set["Node"] = set()
+        self._dom_successors: List["Node"] = []
+        # Nodes of the post dominator tree
+        self._post_dom_successors: Set["Node"] = set()
+        self._post_dom_predecessors: Set["Node"] = set()
+        # Set of node control dependent on this node
+        self._control_dependent: Optional[Set["Node"]] = None
+        # Set of node data dependent on this node
+        self._data_dependent: Optional[Set["Node"]] = None
+        # Set of node on which this node is control dependent
+        self._control_dependent_on: Optional[Set["Node"]] = None
+        # Set of node on which this node is data dependent
+        self._data_dependent_on: Optional[Set["Node"]] = None
         # Dominance frontier
         self._dominance_frontier: Set["Node"] = set()
         # Phi origin
@@ -145,6 +160,7 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
 
         self._expression: Optional[Expression] = None
         self._variable_declaration: Optional[LocalVariable] = None
+        self._variable_declaration_ssa: Optional[LocalIRVariable] = None
         self._node_id: int = node_id
 
         self._vars_written: List[Variable] = []
@@ -202,6 +218,10 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
     # region General's properties
     ###################################################################################
     ###################################################################################
+
+    @property
+    def name(self) -> str:
+        return self.expression
 
     @property
     def compilation_unit(self) -> "SlitherCompilationUnit":
@@ -515,6 +535,18 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
         """
         return self._variable_declaration
 
+    @property
+    def variable_declaration_ssa(self) -> Optional[LocalIRVariable]:
+        """
+        Returns:
+            LocalVariable
+        """
+        return self._variable_declaration_ssa
+
+    @variable_declaration_ssa.setter
+    def variable_declaration_ssa(self, var: LocalIRVariable) -> None:
+        self._variable_declaration_ssa = var
+
     # endregion
     ###################################################################################
     ###################################################################################
@@ -675,6 +707,48 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
             return self._sons[1]
         return None
 
+    def forward_slice(self) -> Set["Node"]:
+        """
+        Return the set of nodes included in the forward slice
+        :param node:
+        :return: set(Node)
+        """
+        nodes = list(self.control_dependent.union(self.data_dependent))
+        visited = set()
+        while nodes:
+            next_node = nodes[0]
+            nodes = nodes[1:]
+            if next_node not in visited:
+                visited.add(next_node)
+                for data_dep in next_node.data_dependent:
+                    if data_dep not in visited:
+                        nodes.append(data_dep)
+                for control_dep in next_node.control_dependent:
+                    if control_dep not in visited:
+                        nodes.append(control_dep)
+        return visited
+
+    def backward_slice(self) -> Set["Node"]:
+        """
+        Return the set of nodes included in the forward slice
+        :param node:
+        :return: set(Node)
+        """
+        nodes = list(self.control_dependent_on.union(self.data_dependent_on))
+        visited = set()
+        while nodes:
+            next_node = nodes[0]
+            nodes = nodes[1:]
+            if next_node not in visited:
+                visited.add(next_node)
+                for data_dep in next_node.data_dependent_on:
+                    if data_dep not in visited:
+                        nodes.append(data_dep)
+                for control_dep in next_node.control_dependent_on:
+                    if control_dep not in visited:
+                        nodes.append(control_dep)
+        return visited
+
     # endregion
     ###################################################################################
     ###################################################################################
@@ -755,6 +829,18 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
         self._dominators = dom
 
     @property
+    def post_dominators(self) -> Set["Node"]:
+        """
+        Returns:
+            set(Node)
+        """
+        return self._post_dominators
+
+    @post_dominators.setter
+    def post_dominators(self, dom: Set["Node"]) -> None:
+        self._post_dominators = dom
+
+    @property
     def immediate_dominator(self) -> Optional["Node"]:
         """
         Returns:
@@ -765,6 +851,18 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
     @immediate_dominator.setter
     def immediate_dominator(self, idom: "Node") -> None:
         self._immediate_dominator = idom
+
+    @property
+    def immediate_post_dominator(self) -> Optional["Node"]:
+        """
+        Returns:
+            Node or None
+        """
+        return self._immediate_post_dominator
+
+    @immediate_post_dominator.setter
+    def immediate_post_dominator(self, idom: "Node") -> None:
+        self._immediate_post_dominator = idom
 
     @property
     def dominance_frontier(self) -> Set["Node"]:
@@ -783,8 +881,44 @@ class Node(SourceMapping):  # pylint: disable=too-many-public-methods
         self._dominance_frontier = doms
 
     @property
-    def dominator_successors(self) -> Set["Node"]:
+    def dominator_successors(self) -> List["Node"]:
         return self._dom_successors
+
+    @property
+    def post_dominator_successors(self) -> Set["Node"]:
+        return self._post_dom_successors
+
+    @property
+    def post_dominator_predecessors(self) -> Set["Node"]:
+        return self._post_dom_predecessors
+
+    @property
+    def control_dependent(self) -> Set["Node"]:
+        if self._control_dependent is None:
+            self._control_dependent = set()
+            compute_control_dependent(self.function.nodes)
+        return self._control_dependent
+
+    @property
+    def control_dependent_on(self) -> Set["Node"]:
+        if self._control_dependent_on is None:
+            self._control_dependent_on = set()
+            compute_control_dependent(self.function.nodes)
+        return self._control_dependent_on
+
+    @property
+    def data_dependent(self) -> Set["Node"]:
+        if self._data_dependent is None:
+            self._data_dependent = set()
+            compute_data_dependencies(self.function.nodes)
+        return self._data_dependent
+
+    @property
+    def data_dependent_on(self) -> Set["Node"]:
+        if self._data_dependent_on is None:
+            self._data_dependent_on = set()
+            compute_data_dependencies(self.function.nodes)
+        return self._data_dependent_on
 
     @property
     def dominance_exploration_ordered(self) -> List["Node"]:
