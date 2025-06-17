@@ -5,7 +5,7 @@ from slither.detectors.abstract_detector import (
     AbstractDetector, 
     DetectorClassification,
     DETECTOR_INFO,)
-from slither.detectors.functions.oracle_data_check import identify_oracle_service_via_import
+from slither.detectors.functions.oracle_data_check import identify_oracle_service
 
 class OracleAccessCheck(AbstractDetector):
     """
@@ -38,7 +38,7 @@ class OracleAccessCheck(AbstractDetector):
     
     def _detect(self) -> List[Output]:
         # identify the oracle service
-        oracle_service = identify_oracle_service_via_import(self)
+        oracle_service = identify_oracle_service(self)
         if oracle_service == "Unknown":
             self.logger.error("No oracle service identified in the detected contract!")
         elif oracle_service == "chainlink_anyApi":
