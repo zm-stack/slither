@@ -107,6 +107,6 @@ from .functions.optimism_deprecation import OptimismDeprecation
 
 from .functions.oracle_data_check import OracleDataCheck
 from .functions.oracle_interface_check import OracleInterfaceCheck
-from .functions.oracle_access_check import OracleAccessCheck
+from .functions.oracle_protect_check import OracleProtectCheck
 from .operations.overflow import OverflowCheck
 # from .statements.unused_import import UnusedImport

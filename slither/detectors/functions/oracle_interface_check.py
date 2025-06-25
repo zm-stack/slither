@@ -30,14 +30,20 @@ class OracleInterfaceCheck(AbstractDetector):
     WIKI_EXPLOIT_SCENARIO = "..."
     WIKI_RECOMMENDATION = "..."
 
-    transfers  =   {"transfer", "transferFrom"}
-    chainlinkSendRequest= {"_sendChainlinkRequest",
-                            "_sendChainlinkRequestTo",
-                            "_sendOperatorRequest",
-                            "_sendOperatorRequestTo"}
-    dataFeedRequest = {"latestRoundData", "getRoundData",
+    CHAINLINK_REQUEST= {"_sendChainlinkRequest",
+                        "_sendChainlinkRequestTo",
+                        "_sendOperatorRequest",
+                        "_sendOperatorRequestTo"}
+    DATAFEED_REQUEST = {"latestRoundData", "getRoundData",
+                     "getPriceUnsafe", "getEmaPriceUnsafe",
                      "getEmaPriceNoOlderThan", "getPriceNoOlderThan", 
-                     "getEmaPriceUnsafe", "getPriceUnsafe"}
+                     "read", "readWithAge", "tryRead", "tryReadWithAge",
+                     "getOracleBytesValueFromTxMsg",
+                     "getOracleBytesValuesFromTxMsg",
+                     "getOracleNumericValueFromTxMsg", 
+                     "getOracleNumericValuesFromTxMsg",
+                     "getOracleNumericValuesAndTimestampFromTxMsg", 
+                     "getOracleNumericValuesWithDuplicatesFromTxMsg"}
 
     def __init__(self, compilation_unit: SlitherCompilationUnit,
                 slither: "Slither", logger: Logger) -> None:
@@ -68,6 +74,10 @@ class OracleInterfaceCheck(AbstractDetector):
                     self._detect_pyth_priceStream()
                 elif service == "pyth_vrf":
                     self._detect_pyth_vrf()
+                elif service == "redStone":
+                    self._detect_redStone()
+                elif service == "chronicle":
+                    self._detect_chronicle()
         return self.results
 
     ###################################################################################
@@ -110,13 +120,19 @@ class OracleInterfaceCheck(AbstractDetector):
         for ir in node.irs:
             if counter > 0:
                 if isinstance(ir, HighLevelCall):
-                    if ir.function_name in self.dataFeedRequest:
+                    if ir.function_name in self.DATAFEED_REQUEST:
                         info: DETECTOR_INFO = ["Oracle request in loop in",
                                                node, "which is not recommended.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                 if isinstance(ir, InternalCall) and ir.function:
-                    self._request_in_loop(ir.function.entry_point, counter, visited)
+                    if ir.function.name in self.DATAFEED_REQUEST:
+                        info: DETECTOR_INFO = ["Oracle request in loop in",
+                                               node, "which is not recommended.\n"]
+                        json = self.generate_result(info)
+                        self.results.append(json)
+                    else:
+                        self._request_in_loop(ir.function.entry_point, counter, visited)
         for son in node.sons:
             self._request_in_loop(son, counter, visited)
 
@@ -138,9 +154,9 @@ class OracleInterfaceCheck(AbstractDetector):
             for func in contract.functions_declared:
                 for interCall in func.internal_calls:
                     if interCall.function:
-                        if interCall.function_name in self.chainlinkSendRequest:
+                        if interCall.function.name in self.CHAINLINK_REQUEST:
                             requestSent = True
-                        if interCall.function_name == "_cancelChainlinkRequest":
+                        if interCall.function.name == "_cancelChainlinkRequest":
                             cancled = True
             if requestSent:
                 withdrawed = self._check_withdraw(contract, False, True)
@@ -154,8 +170,7 @@ class OracleInterfaceCheck(AbstractDetector):
                                            contract," to cancel overtime requests.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
-            else:
-                self.logger.error("No request is sent in contracts.")
+
     ###################################################################################
     ###################################################################################
     # region Chainlink-dataFeed
@@ -186,29 +201,19 @@ class OracleInterfaceCheck(AbstractDetector):
     def _detect_chainlink_dataStream(self) -> None:
         for contract in self.compilation_unit.contracts_derived:
             for func in contract.functions_declared:
-                if func.is_implemented and func.name == "performUpkeep":
-                    verified = False
-                    for _, highCall in func.high_level_calls:
-                        if highCall.function_name == "verify":
-                            verified = True
-                    if not verified:
-                        info: DETECTOR_INFO = ["The calldata in ",func,
-                                               " should be verified.\n"]
-                        json = self.generate_result(info)
-                        self.results.append(json)
-                    self._check_stream_interface(contract, verified)
+                for _, highCall in func.high_level_calls:
+                    if highCall.function_name == "verify":
+                        self._check_stream_interface(contract)
 
-    def _check_stream_interface(self, contract: Contract, verified:bool) -> None:
-        withdrawed = False
-        if verified:
-            withdrawed = self._check_withdraw(contract, False, True)
-            if not withdrawed:
-                info: DETECTOR_INFO = ["Locked tokens in ", contract,
-                                        "Please add withdraw function.\n"]
-                json = self.generate_result(info)
-                self.results.append(json)
+    def _check_stream_interface(self, contract: Contract) -> None:
+        withdrawed = self._check_withdraw(contract, False, True)
+        if not withdrawed:
+            info: DETECTOR_INFO = ["Locked tokens in ", contract,
+                                    "Please add withdraw function.\n"]
+            json = self.generate_result(info)
+            self.results.append(json)
         for func in contract.functions:
-            if func.is_override  and func.name == "checkErrorHandler":
+            if func.is_implemented  and func.name == "checkErrorHandler":
                 errorCodeChecked = False
                 for node in func.nodes:
                     if node.is_conditional(False):
@@ -229,6 +234,9 @@ class OracleInterfaceCheck(AbstractDetector):
         for contract in self.compilation_unit.contracts_derived:
             payInNative, payInLink, withdrawed = False, False, False
             for func in contract.functions_declared:
+                for interCall in func.internal_calls:
+                    if hasattr(interCall, "contract_name"):
+                        print(interCall.contract_name)
                 for libCall in func.library_calls:
                     if libCall.function_name == "_argsToBytes":
                         if "true" in str(libCall.expression):
@@ -256,6 +264,8 @@ class OracleInterfaceCheck(AbstractDetector):
     # region Chronicle
     ###################################################################################
     ###################################################################################
+    def _detect_chronicle(self) -> None:
+        self._check_request_in_loop()
 
     ###################################################################################
     ###################################################################################
@@ -269,7 +279,7 @@ class OracleInterfaceCheck(AbstractDetector):
             for func in contract.functions_declared:
                 for _,highCall in func.high_level_calls:
                     if highCall.function_name in ["updatePriceFeedsIfNecessary",
-                                                  "updatePriceFeeds"]:
+                                                  "updatePriceFeeds", ]:
                         withdrawed = self._check_withdraw(contract, True, False)
                         check_revert_after_payment(self, func)
                         if not withdrawed:
@@ -305,21 +315,20 @@ class OracleInterfaceCheck(AbstractDetector):
 
     def _detect_pyth_vrf(self) -> None:
         for contract in self.compilation_unit.contracts_derived:
-            withdrawed = False
             for func in contract.functions_declared:
                 for _, highCall in func.high_level_calls:
                     if highCall.function_name == "requestWithCallback":
                         withdrawed = self._check_withdraw(contract, True, False)
                         if not withdrawed:
-                            info: DETECTOR_INFO = [
-                                contract,
-                                "Locked tokens. Please add 'withdraw' function to withdraw your balance.\n"
-                            ]
+                            info: DETECTOR_INFO = ["Locked token in ",contract,
+                                                   "Please add withdraw function.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
-
     ###################################################################################
     ###################################################################################
     # region RedStone
     ###################################################################################
     ###################################################################################
+
+    def _detect_redStone(self) -> None:
+        self._check_request_in_loop()
