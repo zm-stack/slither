@@ -11,6 +11,32 @@ from slither.detectors.abstract_detector import (
     DetectorClassification,
     DETECTOR_INFO,)
 
+def is_pausable(func:Function) -> bool:
+    if func.is_constructor:
+        return True
+    for m in func.modifiers:
+        if "whenNotPaused" in m.name:
+            return True
+    for solCall in func.solidity_calls:
+        fname = solCall.function.name
+        if "revert" in fname or "require" in fname:
+            conditional_vars = solCall.node.state_variables_read
+            if len(conditional_vars) == 1 and str(conditional_vars[0].type) == "bool":
+                return True
+    return False
+
+def is_access_controlled(func:Function) -> bool:
+    if func.is_constructor:
+        return True
+    for m in func.modifiers:
+        if "onlyOwner" in m.name:
+            return True
+    conditional_vars = func.all_conditional_solidity_variables_read(include_loop=False)
+    args_vars = func.all_solidity_variables_used_as_args()
+    if SolidityVariableComposed("msg.sender") in conditional_vars + args_vars:
+        return True
+    return False
+
 class OracleProtectCheck(AbstractDetector):
     """
     Documentation
@@ -84,27 +110,22 @@ class OracleProtectCheck(AbstractDetector):
                 isVulnerable = False
                 for libCall in func.library_calls:
                     if libCall.function_name in self.LIBRARY_CALL:
-                        print(libCall.function_name)
                         isVulnerable = True
                 for inCall in func.internal_calls:
                     if inCall.function and inCall.function.name in self.INTERNAL_CALLS:
-                        print(inCall.function.name)
-                        if func.is_protected:
-                            print("protect")
                         isVulnerable = True
                 for _, highCall in func.high_level_calls:
                     if highCall.function_name in self.HIGH_LEVEL_CALLS:
-                        print(highCall.function_name)
                         isVulnerable = True
                 if isVulnerable:
-                    if not self.is_access_controlled(func):
+                    if not is_access_controlled(func):
                         info: DETECTOR_INFO = [
                             "Oracle request in ", func,
                             "lacks of access control.\n"
                         ]
                         json = self.generate_result(info)
                         self.results.append(json)
-                    if not self.is_pausable(func):
+                    if not is_pausable(func):
                         info: DETECTOR_INFO = [
                             "Oracle request in ", func,
                             "is not pausable.\n"
@@ -119,29 +140,3 @@ class OracleProtectCheck(AbstractDetector):
                         json = self.generate_result(info)
                         self.results.append(json)
         return self.results
-
-    def is_pausable(self, func:Function) -> bool:
-        if func.is_constructor:
-            return True
-        for m in func.modifiers:
-            if "whenNotPaused" in m.name:
-                return True
-        for solCall in func.solidity_calls:
-            fname = solCall.function.name
-            if "revert" in fname or "require" in fname:
-                conditional_vars = solCall.node.state_variables_read
-                if len(conditional_vars) == 1 and conditional_vars[0].type == "bool":
-                    return True
-        return False
-
-    def is_access_controlled(self, func:Function) -> bool:
-        if func.is_constructor:
-            return True
-        for m in func.modifiers:
-            if "onlyOwner" in m.name:
-                return True
-        conditional_vars = func.all_conditional_solidity_variables_read(include_loop=False)
-        args_vars = func.all_solidity_variables_used_as_args()
-        if SolidityVariableComposed("msg.sender") in conditional_vars + args_vars:
-            return True
-        return False

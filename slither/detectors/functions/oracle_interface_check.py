@@ -10,6 +10,8 @@ from slither.utils.output import Output
 from slither.detectors.functions.oracle_data_check import (
     check_revert_after_payment,
     identify_oracle_service)
+from slither.detectors.functions.oracle_protect_check import (
+    is_access_controlled)
 from slither.detectors.abstract_detector import (
     AbstractDetector,
     DetectorClassification,
@@ -89,15 +91,24 @@ class OracleInterfaceCheck(AbstractDetector):
     def _check_withdraw(self, contract: Contract, Native: bool, ERC20: bool) -> bool:
         withdrawERC20, withdrawNative = False, False
         for func in contract.functions_declared:
+            withdrawed = False
             for _, highCall in func.high_level_calls:
                 if highCall.function_name == "transfer":
+                    withdrawed = True
                     withdrawERC20 = True
             for libCall in func.library_calls:
                 if libCall.function_name == "safeTransfer":
+                    withdrawed = True
                     withdrawERC20 = True
             for call in func.low_level_calls:
                 if call.function_name == "call" and "value" in str(call.expression):
+                    withdrawed = True
                     withdrawNative = True
+            if withdrawed and not is_access_controlled(func):
+                info: DETECTOR_INFO = ["Withdraw function in ",
+                    func, " is not protrcted.\n"]
+                json = self.generate_result(info)
+                self.results.append(json)
         if ERC20 and Native:
             return withdrawERC20 and withdrawNative
         if ERC20:
