@@ -46,8 +46,7 @@ def check_revert_after_payment(self, func: Function) -> None:
     """
     Check the the use of 'revert' or 'require' after payment
     """
-    solCalls = func.solidity_calls
-    for solCall in solCalls:
+    for solCall in func.solidity_calls:
         fname = solCall.function.name
         if "revert" in fname or "require" in fname:
             info: DETECTOR_INFO = [

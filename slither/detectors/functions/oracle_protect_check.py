@@ -1,6 +1,8 @@
 
 from typing import List
 from logging import Logger
+from slither.core.declarations.function import Function
+from slither.core.declarations.solidity_variables import SolidityVariableComposed
 from slither.slither import Slither
 from slither.core.compilation_unit import SlitherCompilationUnit
 from slither.utils.output import Output
@@ -27,37 +29,46 @@ class OracleProtectCheck(AbstractDetector):
     WIKI_RECOMMENDATION = "..."
 
     LIBRARY_CALL = {
-        "_add", "_addBytes", "_addInt", "_addUint", "_addStringArray", "setBuffer",
-        "encodeCBOR", "initializeRequest", "initializeRequestForInlineJavaScript",
-        "addSecretsReference", "addDONHostedSecrets", "setArgs", "setBytesArgs",
-        "_argsToBytes", "parsePayloadHeader", "parseFeedValueUint64"
+        # chainlink-anyAPI/functions/vrf
+        "_add", "_addBytes", "_addInt", "_addUint", "_addStringArray",
+        "setBuffer", "encodeCBOR", "initializeRequest",
+        "initializeRequestForInlineJavaScript", "addSecretsReference",
+        "addDONHostedSecrets", "setArgs", "setBytesArgs", "_argsToBytes",
+        # pyth-datastream
+        "parsePayloadHeader", "parseFeedValueUint64"
     }
 
     INTERNAL_CALLS = {
-        "_setChainlinkToken", "_setChainlinkOracle",
+        # chainlink-functions/anyAPI
+        "_sendRequest", "_setChainlinkToken", "_setChainlinkOracle",
         "_buildChainlinkRequest", "_buildOperatorRequest",
         "_sendChainlinkRequest", "_sendChainlinkRequestTo",
         "_sendOperatorRequest", "_sendOperatorRequestTo",
         "_addChainlinkExternalRequest", "_cancelChainlinkRequest",
         "_useChainlinkWithENS", "_updateChainlinkOracleWithENS",
-        "_sendRequest", "requestRandomness", "requestRandomnessPayInNative"
+        # chainlink-vrf
+        "requestRandomness", "requestRandomnessPayInNative",
+        # redstone
+        "getOracleBytesValueFromTxMsg", "getOracleBytesValuesFromTxMsg",
+        "getOracleNumericValueFromTxMsg", "getOracleNumericValuesFromTxMsg",
+        "getOracleNumericValuesAndTimestampFromTxMsg", "aggregateByteValues",
+        "getOracleNumericValuesWithDuplicatesFromTxMsg", "aggregateValues"
     }
     HIGH_LEVEL_CALLS = {
-        "getRoundData", "latestRoundData", "verify", "getPriceUnsafe",
-        "getEmaPriceUnsafe", "getPriceNoOlderThan", "getEmaPriceNoOlderThan",
-        "updatePriceFeeds", "updatePriceFeedsIfNecessary",
-        "verifyUpdate", "requestWithCallback"
+        # chainlink-datafeed/datastream
+        "getRoundData", "latestRoundData", "verify",
+        # chronicle
+        "read", "readWithAge", "tryRead", "tryReadWithAge",
+        # pyth-datafeed
+        "getPriceUnsafe", "getEmaPriceUnsafe", "getPriceNoOlderThan",
+        "getEmaPriceNoOlderThan", "updatePriceFeeds",
+        "updatePriceFeedsIfNecessary",
+        # pyth-datastream/vrf
+        "verifyUpdate", "register", "withdraw", "withdrawAsFeeManager",
+        "request", "requestWithCallback", "reveal", "revealWithCallback",
+        "setProviderFee", "setProviderFeeAsFeeManager", "setProviderUri",
+        "setFeeManager"
     }
-
-    chainlink_key_APIs = {"_setChainlinkToken",
-                    "_setChainlinkOracle",
-                    "_buildChainlinkRequest",
-                    "_buildOperatorRequest",
-                    "_sendChainlinkRequest",
-                    "_sendChainlinkRequestTo",
-                    "_sendOperatorRequest",
-                    "_sendOperatorRequestTo",
-                    "cancelChainlinkRequest"}
 
     def __init__(self, compilation_unit: SlitherCompilationUnit,
                 slither: "Slither", logger: Logger) -> None:
@@ -68,27 +79,69 @@ class OracleProtectCheck(AbstractDetector):
         self.results: list[Output] = []
 
     def _detect(self) -> List[Output]:
-        return self.results
-
-
-    def _detect_chainlink_anyAPI_data(self) -> None:
         for contract in self.compilation_unit.contracts_derived:
             for func in contract.functions_declared:
-                for internal_call in func.internal_calls:
-                    if internal_call.function.name in self.chainlink_key_APIs: # type: ignore
-                        # 考虑重写检测权限保护的逻辑
-                        if func.is_protected():
-                            continue
-                        else:
-                            info: DETECTOR_INFO = [
-                                func,
-                                "Any one can invoke this function to operate with the oracle request.\n",
-                            ]
-                            json = self.generate_result(info)
-                            self.results.append(json)
+                isVulnerable = False
+                for libCall in func.library_calls:
+                    if libCall.function_name in self.LIBRARY_CALL:
+                        print(libCall.function_name)
+                        isVulnerable = True
+                for inCall in func.internal_calls:
+                    if inCall.function and inCall.function.name in self.INTERNAL_CALLS:
+                        print(inCall.function.name)
+                        if func.is_protected:
+                            print("protect")
+                        isVulnerable = True
+                for _, highCall in func.high_level_calls:
+                    if highCall.function_name in self.HIGH_LEVEL_CALLS:
+                        print(highCall.function_name)
+                        isVulnerable = True
+                if isVulnerable:
+                    if not self.is_access_controlled(func):
+                        info: DETECTOR_INFO = [
+                            "Oracle request in ", func,
+                            "lacks of access control.\n"
+                        ]
+                        json = self.generate_result(info)
+                        self.results.append(json)
+                    if not self.is_pausable(func):
+                        info: DETECTOR_INFO = [
+                            "Oracle request in ", func,
+                            "is not pausable.\n"
+                        ]
+                        json = self.generate_result(info)
+                        self.results.append(json)
+                    if not contract.is_upgradeable:
+                        info: DETECTOR_INFO = [
+                            "Oracle consumer contract ", contract,
+                            "is not upgradeable.\n"
+                        ]
+                        json = self.generate_result(info)
+                        self.results.append(json)
+        return self.results
 
-        # 这些internal call所在的函数
-        # 确认is_protected的逻辑自己能否接受
+    def is_pausable(self, func:Function) -> bool:
+        if func.is_constructor:
+            return True
+        for m in func.modifiers:
+            if "whenNotPaused" in m.name:
+                return True
+        for solCall in func.solidity_calls:
+            fname = solCall.function.name
+            if "revert" in fname or "require" in fname:
+                conditional_vars = solCall.node.state_variables_read
+                if len(conditional_vars) == 1 and conditional_vars[0].type == "bool":
+                    return True
+        return False
 
-        # 这些internal call的关键变量
-        # 修改这些变量的函数
+    def is_access_controlled(self, func:Function) -> bool:
+        if func.is_constructor:
+            return True
+        for m in func.modifiers:
+            if "onlyOwner" in m.name:
+                return True
+        conditional_vars = func.all_conditional_solidity_variables_read(include_loop=False)
+        args_vars = func.all_solidity_variables_used_as_args()
+        if SolidityVariableComposed("msg.sender") in conditional_vars + args_vars:
+            return True
+        return False
