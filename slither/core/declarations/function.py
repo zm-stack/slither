@@ -218,6 +218,7 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
         self._signature_str: Optional[str] = None
         self._canonical_name: Optional[str] = None
         self._is_protected: Optional[bool] = None
+        self._is_access_controlled: Optional[bool] = None
 
         self.compilation_unit: "SlitherCompilationUnit" = compilation_unit
 
@@ -1557,6 +1558,28 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
                 SolidityVariableComposed("msg.sender") in conditional_vars + args_vars
             )
         return self._is_protected
+
+    def is_access_controlled(self) -> bool:
+        if self._is_access_controlled is None:
+            if self.is_constructor:
+                self._is_access_controlled = True
+                return True
+            for m in self.modifiers:
+                if "onlyOwner" in m.name:
+                    self._is_access_controlled = True
+                    return True
+                if isinstance(m,Function):
+                    self._is_access_controlled = m.access_controlled()
+            if not self._is_access_controlled:
+                self._is_access_controlled = self.access_controlled()
+        return self._is_access_controlled
+
+    def access_controlled(self) -> bool:
+        for node in self.nodes:
+            if node.is_conditional:
+                if "msg.sender" in str(node.expression):
+                    return True
+        return False
 
     @property
     def is_reentrant(self) -> bool:

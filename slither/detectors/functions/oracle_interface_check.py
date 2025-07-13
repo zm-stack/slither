@@ -3,15 +3,15 @@ from typing import List, Optional
 from slither.core.cfg.node import Node, NodeType
 from slither.core.compilation_unit import SlitherCompilationUnit
 from slither.core.declarations.contract import Contract
+from slither.core.declarations.function import Function
 from slither.slither import Slither
 from slither.slithir.operations.high_level_call import HighLevelCall
 from slither.slithir.operations.internal_call import InternalCall
+from slither.slithir.operations.solidity_call import SolidityCall
 from slither.utils.output import Output
 from slither.detectors.functions.oracle_data_check import (
-    check_revert_after_payment,
-    identify_oracle_service)
-from slither.detectors.functions.oracle_protect_check import (
-    is_access_controlled)
+    CHRONICLE_FEED_APIS,
+    get_oracle_services)
 from slither.detectors.abstract_detector import (
     AbstractDetector,
     DetectorClassification,
@@ -57,7 +57,7 @@ class OracleInterfaceCheck(AbstractDetector):
 
     def _detect(self) -> List[Output]:
         # identify the oracle service
-        oracleServices = identify_oracle_service(self)
+        oracleServices = get_oracle_services(self)
         if not oracleServices:
             self.logger.error("No oracle service identified in contracts.")
         else:
@@ -88,6 +88,25 @@ class OracleInterfaceCheck(AbstractDetector):
     ###################################################################################
     ###################################################################################
 
+    def check_revert_after_payment(self, func:Function) -> None:
+        """
+        Check the the use of 'revert' or 'require' after oracle requst payment
+        """
+        for node in func.nodes:
+            for ir in node.irs:
+                if isinstance(ir, SolidityCall):
+                    fname = ir.function.name
+                    if "revert" in fname or "require" in fname:
+                        info: DETECTOR_INFO = [
+                            "CWE-703: costs have been incurred, recommend to log the error "
+                            "and return instead of aborting execution in ", node, "\n", 
+                        ]
+                        json = self.generate_result(info)
+                        self.results.append(json)
+                if isinstance(ir, InternalCall) and ir.function:
+                    if ir.function_name != "recordChainlinkFulfillment":
+                        self.check_revert_after_payment(ir.function)
+
     def _check_withdraw(self, contract: Contract, Native: bool, ERC20: bool) -> bool:
         withdrawERC20, withdrawNative = False, False
         for func in contract.functions_declared:
@@ -104,7 +123,7 @@ class OracleInterfaceCheck(AbstractDetector):
                 if call.function_name == "call" and "value" in str(call.expression):
                     withdrawed = True
                     withdrawNative = True
-            if withdrawed and not is_access_controlled(func):
+            if withdrawed and not func.is_access_controlled():
                 info: DETECTOR_INFO = ["Withdraw function in ",
                     func, " is not protrcted.\n"]
                 json = self.generate_result(info)
@@ -116,6 +135,11 @@ class OracleInterfaceCheck(AbstractDetector):
         if Native:
             return withdrawNative
         return False
+
+    def check_request_in_loop(self) -> None:
+        for func in self.compilation_unit.functions:
+            if func.is_implemented:
+                self._request_in_loop(func.entry_point, 0, set())
 
     def _request_in_loop(self, node: Optional[Node], counter: int,
                          visited:set[Node]) -> None:
@@ -130,28 +154,39 @@ class OracleInterfaceCheck(AbstractDetector):
 
         for ir in node.irs:
             if counter > 0:
+                invoked = False
                 if isinstance(ir, HighLevelCall):
                     if ir.function_name in self.DATAFEED_REQUEST:
-                        info: DETECTOR_INFO = ["Oracle request in loop in",
-                                               node, "which is not recommended.\n"]
-                        json = self.generate_result(info)
-                        self.results.append(json)
+                        invoked = True
                 if isinstance(ir, InternalCall) and ir.function:
                     if ir.function.name in self.DATAFEED_REQUEST:
-                        info: DETECTOR_INFO = ["Oracle request in loop in",
-                                               node, "which is not recommended.\n"]
-                        json = self.generate_result(info)
-                        self.results.append(json)
+                        invoked = True
                     else:
                         self._request_in_loop(ir.function.entry_point, counter, visited)
+                if invoked:
+                    info: DETECTOR_INFO = ["CWE-400: oracle request in loop in ",
+                                           node, " which is not recommended.\n"]
+                    json = self.generate_result(info)
+                    self.results.append(json)
         for son in node.sons:
             self._request_in_loop(son, counter, visited)
 
-    def _check_request_in_loop(self) -> None:
-        for contract in self.compilation_unit.contracts_derived:
-            for func in contract.functions_entry_points:
-                if func.is_implemented:
-                    self._request_in_loop(func.entry_point, 0, set())
+    def check_multi_request(self, apis:list[str]) -> None:
+        for func in self.compilation_unit.functions:
+            self._check_multi_request(func, apis, 0)
+
+    def _check_multi_request(self, func:Function, apis:list[str], counter:int) -> None:
+        for _, hCall in func.high_level_calls:
+            if hCall.function_name in apis:
+                counter += 1
+                if counter > 1:
+                    info: DETECTOR_INFO = ["CWE-400: multiple requests sent in ",
+                                           hCall.node, " which is not recommended.\n"]
+                    json = self.generate_result(info)
+                    self.results.append(json)
+        for iCall in func.internal_calls:
+            if isinstance(iCall.function,Function):
+                self._check_multi_request(iCall.function, apis, counter)
 
     ###################################################################################
     ###################################################################################
@@ -189,7 +224,7 @@ class OracleInterfaceCheck(AbstractDetector):
     ###################################################################################
 
     def _detect_chainlink_dataFeed(self) -> None:
-        self._check_request_in_loop()
+        self.check_request_in_loop()
         for func in self.compilation_unit.functions:
             getRoundCalled = False
             for _, highCall in func.high_level_calls:
@@ -272,27 +307,19 @@ class OracleInterfaceCheck(AbstractDetector):
 
     ###################################################################################
     ###################################################################################
-    # region Chronicle
-    ###################################################################################
-    ###################################################################################
-    def _detect_chronicle(self) -> None:
-        self._check_request_in_loop()
-
-    ###################################################################################
-    ###################################################################################
     # region Pyth-priceFeed
     ###################################################################################
     ###################################################################################
 
     def _detect_pyth_priceFeed(self) -> None:
-        self._check_request_in_loop()
+        self.check_request_in_loop()
         for contract in self.compilation_unit.contracts_derived:
             for func in contract.functions_declared:
                 for _,highCall in func.high_level_calls:
                     if highCall.function_name in ["updatePriceFeedsIfNecessary",
                                                   "updatePriceFeeds", ]:
                         withdrawed = self._check_withdraw(contract, True, False)
-                        check_revert_after_payment(self, func)
+                        self.check_revert_after_payment(func)
                         if not withdrawed:
                             info: DETECTOR_INFO = ["Locked token in ",contract,
                                                    "Please add withdraw function.\n"]
@@ -311,7 +338,7 @@ class OracleInterfaceCheck(AbstractDetector):
                 for _, highCall in func.high_level_calls:
                     if highCall.function_name == "verifyUpdate":
                         withdrawed = self._check_withdraw(contract, True, False)
-                        check_revert_after_payment(self, func)
+                        self.check_revert_after_payment(func)
                         if not withdrawed:
                             info: DETECTOR_INFO = ["Locked token in ",contract,
                                                    "Please add withdraw function.\n"]
@@ -335,6 +362,7 @@ class OracleInterfaceCheck(AbstractDetector):
                                                    "Please add withdraw function.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
+
     ###################################################################################
     ###################################################################################
     # region RedStone
@@ -342,4 +370,14 @@ class OracleInterfaceCheck(AbstractDetector):
     ###################################################################################
 
     def _detect_redStone(self) -> None:
-        self._check_request_in_loop()
+        self.check_request_in_loop()
+
+
+    ###################################################################################
+    ###################################################################################
+    # region Chronicle
+    ###################################################################################
+    ###################################################################################
+    def _detect_chronicle(self) -> None:
+        self.check_request_in_loop()
+        self.check_multi_request(CHRONICLE_FEED_APIS)
