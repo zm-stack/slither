@@ -2,7 +2,6 @@ import re
 from logging import Logger
 from slither.core.declarations.contract import Contract
 from slither.core.declarations.function_contract import FunctionContract
-from slither.detectors.functions.oracle_protection_check import check_state
 from slither.slither import Slither
 from slither.slithir.operations.high_level_call import HighLevelCall
 from slither.slithir.operations.library_call import LibraryCall
@@ -26,7 +25,6 @@ SERVICE_MAP = {
     "ChainlinkClient": "chainlink_any_api",
     "FunctionsClient": "chainlink_functions",
     "AggregatorV3Interface": "chainlink_data_feed",
-    "FeedRegistryInterface": "chainlink_data_feed",
     "AccessControlledOffchainAggregator": "chainlink_data_feed",
     "StreamsLookupCompatibleInterface": "chainlink_data_stream",
     "VRFV2PlusClient": "chainlink_vrf",
@@ -50,10 +48,15 @@ REDSTONE_APIS = {"getOracleBytesValueFromTxMsg",
 PYTH_FEED_APIS = {"getPriceUnsafe", "getEmaPriceUnsafe",
                 "getPriceNoOlderThan", "getEmaPriceNoOlderThan"}
 PYTH_DEPRECATED_APIS = {"getPrice", "getEmaPrice", "getValidTimePeriod"}
-CHAINLINK_DEPRECATED_APIS = {"getAnswer", "getTimestamp",
-                            "latestAnswer", "latestRound", "latestTimestamp"}
 
-
+# chainlink-data-feed
+# 主要分析AggregatorV3和AccessControlledOffchainAggregator，FeedRegistryInterface已弃用
+# 实例化，结果直接返回，highlevel，无需收费
+CH_AGGREV3_APIS = ["getRoundData", "latestRoundData"]
+CH_DEPR_AGGRE_APIS = ["getAnswer", "getTimestamp", "latestAnswer", "latestTimestamp", "latestRound"]
+# chainlink-data-stream
+# 回调式，performUpkeep，highlevel，费用由用户授权并支付，但仍建议添加收款
+CH_STREAM_APIS = ["verify"]
 
 def get_oracle_services(self) -> set[str]:
     """
@@ -137,7 +140,7 @@ class OracleDataCheck(AbstractDetector):
                     json = self.generate_result(info)
                     self.results.append(json)
 
-    def check_resp_value(self, func: Function, resps: set[Variable]) -> None:
+    def check_oracle_response(self, func: Function, resps: set[Variable]) -> None:
         """
         Verify the value check of specified variables in specified function
         :param func(Function):          the scope of the verification
@@ -159,8 +162,6 @@ class OracleDataCheck(AbstractDetector):
                             if resp not in checkedResps and is_dependent(var, resp, func)]
                         if possibleCheckedVars:
                             i = self._get_index(str(var.name), str(ir.node.expression))
-                            print(var.name)
-                            print(ir.node.expression)
                             if self._check_param(ir.function, i):
                                 checkedResps.update(possibleCheckedVars)
         for var in resps:
@@ -202,13 +203,13 @@ class OracleDataCheck(AbstractDetector):
                 for var in node.variables_read:
                     if is_dependent(var, func.parameters[index], func):
                         return True
-        for iCall in func.internal_calls:
+        for call in func.internal_calls + func.library_calls:
             # the parameter may be checked in function invocation
-            if iCall.function:
-                for var in iCall.node.variables_read:
+            if isinstance(call.function, Function):
+                for var in call.node.variables_read:
                     if is_dependent(var, func.parameters[index], func):
-                        i = self._get_index(str(var.name), str(iCall.node.expression))
-                        return self._check_param(iCall.function, i)
+                        i = self._get_index(str(var.name), str(call.node.expression))
+                        return self._check_param(call.function, i)
         return False
 
     def check_tamperred_resp(self, func: FunctionContract, resps: set[Variable]) -> None:
@@ -236,17 +237,21 @@ class OracleDataCheck(AbstractDetector):
                 for resp in resps:
                     if is_dependent(var, resp, contract):
                         respInCalc = True
-                if respInCalc:
+            if respInCalc:
+                for var in ir.node.variables_read:
                     for param in func.parameters:
                         if is_dependent(var, param, func):
                             paramInCalc = True
-                    if paramInCalc and not func.is_access_controlled():
-                        info: DETECTOR_INFO = ["CWE-345: response in ", ir.node,
-                                               " may be tampered by anyone.\n"]
-                        json = self.generate_result(info)
-                        self.results.append(json)
-                    for var in ir.node.state_variables_read:
-                        check_state(self, var)
+                if paramInCalc:
+                    info: DETECTOR_INFO = ["CWE-345: response in ", ir.node,
+                                            " may be tampered by parameters.\n"]
+                    json = self.generate_result(info)
+                    self.results.append(json)
+                if ir.node.state_variables_read:
+                    info: DETECTOR_INFO = ["CWE-345: response in ", ir.node,
+                        " may be tampered by state variables.\n"]
+                    json = self.generate_result(info)
+                    self.results.append(json)
 
     def _is_calc(self, ir:Operation) -> bool:
         if isinstance(ir, Binary):
@@ -255,8 +260,7 @@ class OracleDataCheck(AbstractDetector):
                 BinaryType.MULTIPLICATION, BinaryType.DIVISION, BinaryType.MODULO,
                 BinaryType.AND, BinaryType.ADDITION, BinaryType.SUBTRACTION,
                 BinaryType.LEFT_SHIFT, BinaryType.RIGHT_SHIFT]:
-                if len(ir.node.variables_read) > 1:
-                    return True
+                return True
         return False
 
     ###################################################################################
@@ -297,7 +301,7 @@ class OracleDataCheck(AbstractDetector):
                     json = self.generate_result(info)
                     self.results.append(json)
                 # check_revert_after_payment(self, func)
-                # self.check_resp_value_check(func, set(func.parameters[1:]))
+                # self.check_oracle_response_check(func, set(func.parameters[1:]))
         missingFulfill = [func for func in fulfillFuncs if func not in fulfillFound]
         if missingFulfill:
             self.logger.error(f"Fail to find callback function: {missingFulfill}.")
@@ -367,7 +371,7 @@ class OracleDataCheck(AbstractDetector):
         for func in self.compilation_unit.functions:
             if func.is_implemented and func.name == "fulfillRequest":
                 fulfillFound = True
-                # self.check_resp_value_check(func, set(func.parameters))
+                # self.check_oracle_response_check(func, set(func.parameters))
                 # check_revert_after_payment(self, func)
         if not fulfillFound:
             self.logger.error("Fail to find the fulfill function!")
@@ -379,55 +383,56 @@ class OracleDataCheck(AbstractDetector):
     ###################################################################################
 
     def _detect_chainlink_dataFeed(self) -> None:
-        for func in self.compilation_unit.functions:
-            requestCounteer = 0
-            for _, highCall in func.high_level_calls:
-                if highCall.function_name in CHAINLINK_DEPRECATED_APIS:
-                    info: DETECTOR_INFO = ["Deprecated function invoked in ",
-                                           highCall.node, " Do not use it.\n"]
-                    json = self.generate_result(info)
-                    self.results.append(json)
-                elif highCall.function_name in ["latestRoundData", "getRoundData"]:
-                    requestCounteer += 1
-                    if requestCounteer > 1:
-                        info: DETECTOR_INFO = ["Sending multiple requests ",
-                                               highCall.node, "in a single call.\n"]
+        for contract in self.compilation_unit.contracts_derived:
+            for func in contract.functions_declared:
+                count = 0
+                for _, hCall in func.high_level_calls:
+                    if hCall.function_name in CH_DEPR_AGGRE_APIS:
+                        count += 1
+                        info: DETECTOR_INFO = ["CWE-477: deprecated function invoked in ",
+                            hCall.node, " Do not use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
-                    if highCall.node.variables_written:
-                        self._check_feed_response(highCall.node)
-                    else:
-                        info: DETECTOR_INFO = ["The value in ", highCall.node,
-                                               " not checked.\n"]
+                    if hCall.function_name in CH_AGGREV3_APIS:
+                        count += 1
+                        if hCall.node.variables_written:
+                            self._check_chainlink_round_data(hCall.node)
+                            self.check_tamperred_resp(func, set(hCall.node.variables_written))
+                        else:
+                            info: DETECTOR_INFO = ["CWE-252: the value in ", hCall.node,
+                                " not checked.\n"]
+                            json = self.generate_result(info)
+                            self.results.append(json)
+                    if count > 1:
+                        info: DETECTOR_INFO = ["CWE-400: Sending multiple requests in",
+                            hCall.node , " It is not recommended.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
 
-    def _check_feed_response(self, node:Node) -> None:
+    def _check_chainlink_round_data(self, node:Node) -> None:
         responses = []
-        # Extracting the oracle response in the return value
+        # Extracting the data fields in the round response
         matched = re.match(r"\s*\(([^)]*?)\)\s*=", str(node.expression))
         if not matched:
-            self.logger.error("Fail to extract return value of " +
-                                "latestRoundData or getRoundData.")    
+            self.logger.error("Fail to extract data fields of round request.")
         else:
             responses = [v.strip() for v in matched.group(1).split(",")]
             if len(responses) != 5:
-                self.logger.error("The return format of " +
-                                    "latestRoundData or getRoundData is incorrect.")
+                self.logger.error("The data fields of round response is incorrect.")
         v2, v3, v5 = responses[1], responses[2], responses[4]
-        # The value and timestamp should be checked
+        # The data field of answer and startedAt should be checked
         if v2 == "None" or v3 == "None":
-            info: DETECTOR_INFO = ["value and timestemp of response ",
-                                   node," not vaildated.\n"]
+            info: DETECTOR_INFO = ["CWE-20: answer and startedAt of response in ",
+                node," not vaildated.\n"]
             json = self.generate_result(info)
             self.results.append(json)
         # answeredInRound is deprecated and should be None
         if v5 != "None":
-            info: DETECTOR_INFO = ["answeredInRound is deprecated.",
-                                   node, " Do not use it.\n"]
+            info: DETECTOR_INFO = ["CWE-20: answeredInRound is deprecated but used in ",
+                node, " Do not use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
-        # self.check_resp_value_check(node.function, set(node.variables_written))
+        self.check_oracle_response(node.function, set(node.variables_written))
     ###################################################################################
     ###################################################################################
     # region Chainlink-dataStream
@@ -435,36 +440,42 @@ class OracleDataCheck(AbstractDetector):
     ###################################################################################
 
     def _detect_chainlink_dataStream(self) -> None:
-        for func in self.compilation_unit.functions:
-            if func.is_implemented and func.name == "performUpkeep":
-                vReport = None
-                # Extract the validated oracle response
-                for _, highCall in func.high_level_calls:
-                    if highCall.function_name == "verify":
-                        # check_revert_after_payment(self, func)
-                        if highCall.node.variables_written:
-                            vReport = highCall.node.variables_written[0]
-                if vReport:
-                    decodes = [s for s in func.solidity_calls
-                        if (s.function.name == "abi.decode()" and
-                            is_dependent(s.node.variables_read[0], vReport, func))
-                    ]
-                    for decode in decodes:
-                        if decode.node.variables_written:
-                            self._check_stream_response(
-                                decode.node.variables_written[0],func)
-                        else:
-                            info: DETECTOR_INFO = ["The value of report in ",
-                                                decode.node, " not checked.\n"]
-                            json = self.generate_result(info)
-                            self.results.append(json)
-                else:
-                    info: DETECTOR_INFO = ["The oracle response in ",func,
-                                           " not verified.\n"]
-                    json = self.generate_result(info)
-                    self.results.append(json)
+        for contract in self.compilation_unit.contracts_derived:
+            for func in contract.functions_declared:
+                if func.is_implemented and func.name == "performUpkeep":
+                    vReport = None
+                    # Extract the validated oracle response
+                    for _, highCall in func.high_level_calls:
+                        if highCall.function_name in CH_STREAM_APIS:
+                            if highCall.node.variables_written:
+                                vReport = highCall.node.variables_written[0]
+                            else:
+                                info: DETECTOR_INFO = ["CWE-252: the verified value in ",
+                                    highCall.node, " not checked.\n"]
+                                json = self.generate_result(info)
+                                self.results.append(json)
+                    if vReport:
+                        decodes = [s for s in func.solidity_calls
+                            if (s.function.name == "abi.decode()" and
+                                is_dependent(s.node.variables_read[0], vReport, func))]
+                        for decode in decodes:
+                            if decode.node.variables_written:
+                                self.check_tamperred_resp(func, {decode.node.variables_written[0]})
+                                self._check_chainlink_stream_data(func,
+                                    decode.node.variables_written[0])
+                            else:
+                                self.results.append(json)
+                                info: DETECTOR_INFO = ["CWE-252: the decoded value in ",
+                                    decode.node, " not checked.\n"]
+                                json = self.generate_result(info)
+                                self.results.append(json)
+                    else:
+                        info: DETECTOR_INFO = ["CWE-345: oracle response in ",
+                            func, " not verified.\n"]
+                        json = self.generate_result(info)
+                        self.results.append(json)
 
-    def _check_stream_response(self, finalReport:Variable, func:Function) -> None:
+    def _check_chainlink_stream_data(self, func:Function, finalReport:Variable) -> None:
         valueChecked, timeChecked, marketChecked = False, False, False
         for node in func.nodes:
             # check the validation of returned value
@@ -477,24 +488,20 @@ class OracleDataCheck(AbstractDetector):
                         valueChecked = True
                     if "marketStatus" in expr:
                         marketChecked = True
-            # check use before validation
-            else:
-                for varRead in node.variables_read:
-                    if is_dependent(varRead, finalReport, func):
-                        if not timeChecked:
-                            info: DETECTOR_INFO = ["validFromTimestamp or expiresAt in ",
-                                                   node," not checked.\n"]
-                            json = self.generate_result(info)
-                            self.results.append(json)
-                        if not valueChecked:
-                            info: DETECTOR_INFO = ["price in ", node," not checked.\n"]
-                            json = self.generate_result(info)
-                            self.results.append(json)
-                        if "4" in str(finalReport.type) and not marketChecked:
-                            info: DETECTOR_INFO = ["marketStatus of response in ",
-                                                   node, " not checked.\n"]
-                            json = self.generate_result(info)
-                            self.results.append(json)
+            if not timeChecked:
+                info: DETECTOR_INFO = ["CWE-252: validFromTimestamp or expiresAt in ",
+                    node," not checked.\n"]
+                json = self.generate_result(info)
+                self.results.append(json)
+            if not valueChecked:
+                info: DETECTOR_INFO = ["CWE-252: price in ", node," not checked.\n"]
+                json = self.generate_result(info)
+                self.results.append(json)
+            if "4" in str(finalReport.type) and not marketChecked:
+                info: DETECTOR_INFO = ["CWE-252: marketStatus of response in ",
+                    node, " not checked.\n"]
+                json = self.generate_result(info)
+                self.results.append(json)
 
     ###################################################################################
     ###################################################################################
@@ -608,7 +615,7 @@ class OracleDataCheck(AbstractDetector):
                             channel = val
                     if timestamp and channel:
                         ...
-                        # self.check_resp_value_check(func, {timestamp, channel})
+                        # self.check_oracle_response_check(func, {timestamp, channel})
                     else:
                         info: DETECTOR_INFO = ["timestamp or channel of response in ",
                                                libCall.node, " not checked.\n"]
@@ -618,7 +625,7 @@ class OracleDataCheck(AbstractDetector):
                     if libCall.node.variables_written:
                         vals = {val for val in libCall.node.variables_written
                                 if str(val.type) == "uint64"}
-                        # self.check_resp_value_check(func, vals)
+                        # self.check_oracle_response_check(func, vals)
                     else:
                         info: DETECTOR_INFO = ["The value of oracle response in ",
                                                libCall.node, " not checked.\n"]
@@ -638,7 +645,7 @@ class OracleDataCheck(AbstractDetector):
                 ...
                 # check_revert_after_payment(self, func)
                 # self._check_tainted_vrf(func, {func.parameters[2]})
-                # self.check_resp_value_check(func, {func.parameters[0]})
+                # self.check_oracle_response_check(func, {func.parameters[0]})
 
     ###################################################################################
     ###################################################################################
@@ -666,11 +673,11 @@ class OracleDataCheck(AbstractDetector):
                         responses = ic.node.variables_written
                         if ic.function.name == "getOracleNumericValuesAndTimestampFromTxMsg":
                             ...
-                            # self.check_resp_value_check(func, set(responses))
+                            # self.check_oracle_response_check(func, set(responses))
                         else:
                             ...
                             # time already checked in the request
-                            # self.check_resp_value_check(func, {responses[0]})
+                            # self.check_oracle_response_check(func, {responses[0]})
                     else:
                         info: DETECTOR_INFO = ["CWE-20: oracle response in ",
                                                 ic.node, " not checked.\n"]
@@ -699,7 +706,7 @@ class OracleDataCheck(AbstractDetector):
                             # check whether some values of response are ignored
                             self.check_ignored_resp(hCall)
                             # verify the data check
-                            self.check_resp_value(func, set(hCall.node.variables_written))
+                            self.check_oracle_response(func, set(hCall.node.variables_written))
                             # verify the unprotected tamper
                             self.check_tamperred_resp(func, set(hCall.node.variables_written))
                         else:

@@ -14,14 +14,16 @@ from slither.slithir.operations.type_conversion import TypeConversion
 from slither.detectors.abstract_detector import (
     AbstractDetector,
     DetectorClassification,
-    DETECTOR_INFO,)
+    DETECTOR_INFO)
+from slither.detectors.functions.oracle_data_check import (
+    CH_AGGREV3_APIS,CH_STREAM_APIS)
 
-def check_state(self, protectVar:StateVariable) -> None:
+def check_state_protection(self, stateVar:StateVariable) -> None:
     for func in self.compilation_unit.functions:
-        if protectVar in func.state_variables_written:
+        if stateVar in func.state_variables_written:
             if not func.is_access_controlled():
                 info: DETECTOR_INFO = [
-                    "CWE-284: state variable ", protectVar," in ", func, 
+                    "CWE-284: state variable ", stateVar," in ", func, 
                     " lacks of access control.\n"]
                 json = self.generate_result(info)
                 self.results.append(json)
@@ -69,12 +71,11 @@ class OracleProtectionCheck(AbstractDetector):
         "getOracleNumericValuesAndTimestampFromTxMsg", "aggregateByteValues",
         "getOracleNumericValuesWithDuplicatesFromTxMsg", "aggregateValues"
     }
-    HIGH_LEVEL_CALLS = {
-        # chainlink-datafeed/datastream
-        "getRoundData", "latestRoundData", "verify",
+    HIGH_LEVEL_CALLS_WITHOUT_ACCESS_CONTROL= CH_AGGREV3_APIS + CH_STREAM_APIS
+    HIGH_LEVEL_CALLS = CH_AGGREV3_APIS + CH_STREAM_APIS+[
         # IScribeOptimistic interface already protected
         # Ichronicle interface should be accessed by anyone
-        # "read", "readWithAge", "tryRead", "tryReadWithAge"
+        "read", "readWithAge", "tryRead", "tryReadWithAge"
         # pyth-datafeed
         "getPriceUnsafe", "getEmaPriceUnsafe", "getPriceNoOlderThan",
         "getEmaPriceNoOlderThan", "updatePriceFeeds",
@@ -84,8 +85,7 @@ class OracleProtectionCheck(AbstractDetector):
         # pyth-vrf
         "register", "withdraw", "withdrawAsFeeManager", "setFeeManager",
         "request", "requestWithCallback", "reveal", "revealWithCallback",
-        "setProviderFee", "setProviderFeeAsFeeManager", "setProviderUri",
-    }
+        "setProviderFee", "setProviderFeeAsFeeManager", "setProviderUri"]
 
     def __init__(self, compilation_unit: SlitherCompilationUnit,
                 slither: "Slither", logger: Logger) -> None:
@@ -131,14 +131,14 @@ class OracleProtectionCheck(AbstractDetector):
     def check_call(self, call:Union[LibraryCall, InternalCall, HighLevelCall]) -> bool:
         isVulnerable = False
         fname = ""
-        if call.function:
+        if isinstance(call.function, Function):
             fname = call.function.name
         if (fname in self.LIBRARY_CALL or
-            fname in self.LIBRARY_CALL or
+            fname in self.INTERNAL_CALLS or
             fname in self.HIGH_LEVEL_CALLS):
             isVulnerable = True
             for var in call.node.state_variables_read:
-                check_state(self, var)
+                check_state_protection(self, var)
         return isVulnerable
 
     def check_instance(self, contract:Contract)->None:
@@ -153,7 +153,7 @@ class OracleProtectionCheck(AbstractDetector):
                             json = self.generate_result(info)
                             self.results.append(json)
                         for var in node.state_variables_read:
-                            check_state(self, var)
+                            check_state_protection(self, var)
 
     def is_pausable(self, func:Function) -> bool:
         pausable = False
@@ -169,10 +169,10 @@ class OracleProtectionCheck(AbstractDetector):
         return pausable
 
     def _pausable(self, func :Function) -> bool:
-        for solCall in func.solidity_calls:
-            fname = solCall.function.name
-            if "revert" in fname or "require" in fname:
-                conditional_vars = solCall.node.state_variables_read
+        for node in func.nodes:
+            if node.is_conditional(False):
+                conditional_vars = node.state_variables_read
                 if len(conditional_vars) == 1 and str(conditional_vars[0].type) == "bool":
+                    check_state_protection(self, conditional_vars[0])
                     return True
         return False

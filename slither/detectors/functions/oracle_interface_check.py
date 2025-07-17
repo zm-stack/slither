@@ -10,7 +10,7 @@ from slither.slithir.operations.internal_call import InternalCall
 from slither.slithir.operations.solidity_call import SolidityCall
 from slither.utils.output import Output
 from slither.detectors.functions.oracle_data_check import (
-    CHRONICLE_FEED_APIS,
+    CH_AGGREV3_APIS,CH_DEPR_AGGRE_APIS,CH_STREAM_APIS,
     get_oracle_services)
 from slither.detectors.abstract_detector import (
     AbstractDetector,
@@ -36,16 +36,17 @@ class OracleInterfaceCheck(AbstractDetector):
                         "_sendChainlinkRequestTo",
                         "_sendOperatorRequest",
                         "_sendOperatorRequestTo"}
-    DATAFEED_REQUEST = {"latestRoundData", "getRoundData",
-                     "getPriceUnsafe", "getEmaPriceUnsafe",
-                     "getEmaPriceNoOlderThan", "getPriceNoOlderThan", 
-                     "read", "readWithAge", "tryRead", "tryReadWithAge",
-                     "getOracleBytesValueFromTxMsg",
-                     "getOracleBytesValuesFromTxMsg",
-                     "getOracleNumericValueFromTxMsg", 
-                     "getOracleNumericValuesFromTxMsg",
-                     "getOracleNumericValuesAndTimestampFromTxMsg", 
-                     "getOracleNumericValuesWithDuplicatesFromTxMsg"}
+    DATAFEED_REQUEST = CH_AGGREV3_APIS + CH_DEPR_AGGRE_APIS
+    # {"latestRoundData", "getRoundData",
+    #                  "getPriceUnsafe", "getEmaPriceUnsafe",
+    #                  "getEmaPriceNoOlderThan", "getPriceNoOlderThan",
+    #                  "read", "readWithAge", "tryRead", "tryReadWithAge",
+    #                  "getOracleBytesValueFromTxMsg",
+    #                  "getOracleBytesValuesFromTxMsg",
+    #                  "getOracleNumericValueFromTxMsg",
+    #                  "getOracleNumericValuesFromTxMsg",
+    #                  "getOracleNumericValuesAndTimestampFromTxMsg",
+    #                  "getOracleNumericValuesWithDuplicatesFromTxMsg"}
 
     def __init__(self, compilation_unit: SlitherCompilationUnit,
                 slither: "Slither", logger: Logger) -> None:
@@ -98,8 +99,8 @@ class OracleInterfaceCheck(AbstractDetector):
                     fname = ir.function.name
                     if "revert" in fname or "require" in fname:
                         info: DETECTOR_INFO = [
-                            "CWE-703: costs have been incurred, recommend to log the error "
-                            "and return instead of aborting execution in ", node, "\n", 
+                            "CWE-703: revert in ", node, "costs have been incurred,",
+                            " recommend to log the error instead of aborting execution\n", 
                         ]
                         json = self.generate_result(info)
                         self.results.append(json)
@@ -124,7 +125,7 @@ class OracleInterfaceCheck(AbstractDetector):
                     withdrawed = True
                     withdrawNative = True
             if withdrawed and not func.is_access_controlled():
-                info: DETECTOR_INFO = ["Withdraw function in ",
+                info: DETECTOR_INFO = ["CWE-284: withdraw function in ",
                     func, " is not protrcted.\n"]
                 json = self.generate_result(info)
                 self.results.append(json)
@@ -165,7 +166,7 @@ class OracleInterfaceCheck(AbstractDetector):
                         self._request_in_loop(ir.function.entry_point, counter, visited)
                 if invoked:
                     info: DETECTOR_INFO = ["CWE-400: oracle request in loop in ",
-                                           node, " which is not recommended.\n"]
+                                           node, " It is not recommended.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
         for son in node.sons:
@@ -233,8 +234,8 @@ class OracleInterfaceCheck(AbstractDetector):
             if getRoundCalled:
                 if not func.view:
                     if len(func.state_variables_written) != 0:
-                        info: DETECTOR_INFO = ["State change with getRoundData"
-                        " invocation in ",func," could cause high gas cost.\n"]
+                        info: DETECTOR_INFO = ["CWE-400: State change with getRoundData in ",
+                            func," could cause high gas cost.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
 
@@ -248,28 +249,32 @@ class OracleInterfaceCheck(AbstractDetector):
         for contract in self.compilation_unit.contracts_derived:
             for func in contract.functions_declared:
                 for _, highCall in func.high_level_calls:
-                    if highCall.function_name == "verify":
-                        self._check_stream_interface(contract)
-
-    def _check_stream_interface(self, contract: Contract) -> None:
-        withdrawed = self._check_withdraw(contract, False, True)
-        if not withdrawed:
-            info: DETECTOR_INFO = ["Locked tokens in ", contract,
-                                    "Please add withdraw function.\n"]
-            json = self.generate_result(info)
-            self.results.append(json)
-        for func in contract.functions:
-            if func.is_implemented  and func.name == "checkErrorHandler":
-                errorCodeChecked = False
-                for node in func.nodes:
-                    if node.is_conditional(False):
-                        if func.parameters[0] in node.variables_read:
-                            errorCodeChecked = True
-                if not errorCodeChecked:
-                    info: DETECTOR_INFO = ["The errorCode of checkErrorHandler in ",
-                                           func," should be validated.\n"]
-                    json = self.generate_result(info)
-                    self.results.append(json)
+                    if highCall.function_name in CH_STREAM_APIS:
+                        self.check_revert_after_payment(func)
+                        withdrawable = self._check_withdraw(contract, False, True)
+                        if not withdrawable:
+                            info: DETECTOR_INFO = ["CWE:400: locked tokens in ",
+                                contract, " Please add withdraw function.\n"]
+                            json = self.generate_result(info)
+                            self.results.append(json)
+                    hasCheckErrorHandler = False
+                    for func in contract.functions_declared:
+                        if func.is_implemented  and func.name == "checkErrorHandler":
+                            hasCheckErrorHandler = True
+                            errorCodeChecked = False
+                            for node in func.nodes:
+                                if node.is_conditional(False) and func.parameters[0] in node.variables_read:
+                                    errorCodeChecked = True
+                            if not errorCodeChecked:
+                                info: DETECTOR_INFO = ["CWE-703: errorCode of checkErrorHandler in ",
+                                    func," should be checked.\n"]
+                                json = self.generate_result(info)
+                                self.results.append(json)
+                    if not hasCheckErrorHandler:
+                        info: DETECTOR_INFO = ["CWE-703: no checkErrorHandler found in ",
+                            contract," Error should be checked.\n"]
+                        json = self.generate_result(info)
+                        self.results.append(json)
 
     ###################################################################################
     ###################################################################################
@@ -380,4 +385,4 @@ class OracleInterfaceCheck(AbstractDetector):
     ###################################################################################
     def _detect_chronicle(self) -> None:
         self.check_request_in_loop()
-        self.check_multi_request(CHRONICLE_FEED_APIS)
+        #self.check_multi_request(CHRONICLE_FEED_APIS)
