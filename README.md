@@ -1,4 +1,60 @@
-# [Slither, the smart contract static analyzer](https://crytic.github.io/slither/slither.html)
+# OrAudit
+
+## 介绍
+
+本仓库提供了论文“Towards Secure Oracle Usage: Understanding and Detecting the Vulnerabilities in Oracle Contracts on the Blockchain”的Section.5中OrAudit工具的源代码，
+该工具是一个针对预言机消费合约漏洞的静态分析工具，基于Slither[https://crytic.github.io/slither/slither.html]扩展而来。具体而言，本工具在slither的基础上设计并实现了3个新的检测器，分别是oracle-data-check（路径1），oracle-interface-check（路径2），oracle-protection-check（路径3），这些检测器对应的漏洞如下：
+
+Num | Detector | What it Detects | Impact | Confidence
+--- | --- | --- | --- | ---
+1||||
+2||||
+3||||
+4||||
+5||||
+6||||
+7||||
+8||||
+9||||
+10||||
+11||||
+
+这些漏洞的具体介绍参见（OCCV）[#OCCV]
+
+## Usage
+
+### 适用范围
+
+目前OrAdudit仅支持4加运营商预言机服务的消费合约，支持的预言机服务如下
+
+Num | Provider | Service | Interface
+--- | --- | --- | ---
+1|||
+2|||
+3|||
+4|||
+5|||
+6|||
+7|||
+8|||
+9|||
+10|||
+11|||
+
+### 依赖
+
+Slither requires Python 3.8+ and [solc](https://github.com/ethereum/solidity/), the Solidity compiler; we recommend using [solc-select](https://github.com/crytic/solc-select) to conveniently switch between solc versions.
+
+### 安装
+
+```bash
+git clone https://github.com/crytic/slither.git && cd slither
+python3 -m pip install .
+```
+
+### 使用
+
+[Slither, the smart contract static analyzer](https://crytic.github.io/slither/slither.html)
 
 <img src="https://raw.githubusercontent.com/crytic/slither/master/logo.png" alt="Slither Static Analysis Framework Logo" width="500" />
 

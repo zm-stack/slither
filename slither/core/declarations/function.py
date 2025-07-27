@@ -1577,7 +1577,8 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
     def access_controlled(self) -> bool:
         for node in self.nodes:
             if node.is_conditional:
-                if "msg.sender" in str(node.expression):
+                if ("msg.sender" in str(node.expression) and
+                    "==" in str(node.expression)):         
                     return True
         return False
 
