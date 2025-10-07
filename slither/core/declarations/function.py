@@ -1565,7 +1565,7 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
                 self._is_access_controlled = True
                 return True
             for m in self.modifiers:
-                if "onlyOwner" in m.name:
+                if "owner" in m.name or "role" in m.name:
                     self._is_access_controlled = True
                     return True
                 if isinstance(m,Function):
@@ -1576,9 +1576,8 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
 
     def access_controlled(self) -> bool:
         for node in self.nodes:
-            if node.is_conditional:
-                if ("msg.sender" in str(node.expression) and
-                    "==" in str(node.expression)):         
+            if node.is_conditional(False):
+                if ("msg.sender" in str(node.expression) or "msgsender" in str(node.expression).lower()):         
                     return True
         return False
 

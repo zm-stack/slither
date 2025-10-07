@@ -109,4 +109,8 @@ from .functions.oracle_data_check import OracleDataCheck
 from .functions.oracle_interface_check import OracleInterfaceCheck
 from .functions.oracle_protection_check import OracleProtectionCheck
 from .operations.overflow import OverflowCheck
+from .erc.risky_mutable_proxy import RiskyMutableProxy
+from .erc.ERC721_reentrancy import ERC721Reentrancy
+from .erc.unlimited_minting import UnlimitedMinting
+from .erc.missing_requirements import MissingRequirements
 # from .statements.unused_import import UnusedImport
