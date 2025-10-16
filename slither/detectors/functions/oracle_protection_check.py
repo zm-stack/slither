@@ -20,16 +20,6 @@ from slither.detectors.functions.oracle_data_check import (
     PYTH_FEED_SAFE_APIS, PYTH_FEED_UNSAFE_APIS, PYTH_FEED_UPDATE, PYTH_STREAM_VERIFY,
     PYTH_VRF_BUILD, PYTH_VRF_REQUEST, REDSTONE_FEED_APIS)
 
-def check_state_protection(self, stateVar:StateVariable) -> None:
-    for func in self.compilation_unit.functions:
-        if stateVar in func.state_variables_written:
-            if not func.is_access_controlled():
-                info: DETECTOR_INFO = [
-                    "CWE-284: state variable ", stateVar," in ", func, 
-                    " lacks of access control.\n"]
-                json = self.generate_result(info)
-                self.results.append(json)
-
 class OracleProtectionCheck(AbstractDetector):
     """
     Documentation
@@ -82,14 +72,14 @@ class OracleProtectionCheck(AbstractDetector):
                 if isVulnerable:
                     if not self.is_pausable(func):
                         info: DETECTOR_INFO = [
-                            "CWE-693: oracle operation in ", func,
-                            " is not pausable.\n"]
+                            "OCCV4: ",func," sends oracle request but is not pausable.",
+                            " Please use OpenZeppelin Pausable.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     if not contract.is_upgradeable:
                         info: DETECTOR_INFO = [
-                            "CWE-693: oracle operation in ", contract,
-                            " is not upgradeable.\n"]
+                            "OCCV5: ",func,"  sends oracle request but ",contract,
+                            " is not upgradeable. Please use OpenZeppelin upgradeable.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                 for node in func.nodes:
@@ -98,12 +88,12 @@ class OracleProtectionCheck(AbstractDetector):
                             if str(ir.type) in self.ACCESS_CONTROL_INTERFACE:
                                 if not func.is_access_controlled():
                                     info: DETECTOR_INFO = [
-                                        "CWE-284: Interface instantiation in ",
-                                        ir.node, " lacks of access control.\n"]
+                                        "OCCV3: ",ir.node, " Instantiates a contract but is not protected.",
+                                        " Please add access control.\n"]
                                     json = self.generate_result(info)
                                     self.results.append(json)
                                 for var in ir.node.state_variables_read:
-                                    check_state_protection(self, var)
+                                    self.check_state_protection(var)
         return self.results
 
     def check_call(self, call:Union[LibraryCall, InternalCall, HighLevelCall]) -> bool:
@@ -114,12 +104,12 @@ class OracleProtectionCheck(AbstractDetector):
                 fname in self.HIGH_LEVEL_CALLS):
                 isVulnerable = True
                 for var in call.node.state_variables_read:
-                    check_state_protection(self, var)
+                    self.check_state_protection(var)
             if fname in self.ACCESS_CONTROL_CALL:
                 if not call.node.function.is_access_controlled():
                     info: DETECTOR_INFO = [
-                        "CWE-284: oracle operation ", call.node,
-                        " lacks of access control.\n"]
+                        "OCCV3: ",call.node, " consumes contract/subscription funds but lacks protection.",
+                        " Please add access control.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
         return isVulnerable
@@ -143,6 +133,16 @@ class OracleProtectionCheck(AbstractDetector):
                 conditional_vars = node.state_variables_read
                 if (len(conditional_vars) == 1 and
                     str(conditional_vars[0].type) == "bool"):
-                    check_state_protection(self, conditional_vars[0])
+                    self.check_state_protection(conditional_vars[0])
                     return True
         return False
+
+    def check_state_protection(self, stateVar:StateVariable) -> None:
+        for func in self.compilation_unit.functions:
+            if stateVar in func.state_variables_written:
+                if not func.is_access_controlled():
+                    info: DETECTOR_INFO = [
+                        "OCCV3: ",stateVar," is used in oracle request but is modified in ",func, 
+                        " without protection. Please add access control.\n"]
+                    json = self.generate_result(info)
+                    self.results.append(json)

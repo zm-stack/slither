@@ -209,8 +209,8 @@ class OracleDataCheck(AbstractDetector):
                             self._check_chainlink_round_data(hCall.node)
                             self.check_tamperred_resp(func, set(hCall.node.variables_written))
                         else:
-                            info: DETECTOR_INFO = ["CWE-252: the value in ", hCall.node,
-                                " not checked but returned directly.\n"]
+                            info: DETECTOR_INFO = ["OCCV10: the value in ", hCall.node,
+                                " not checked but returned directly. Please check before use it.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
 
@@ -227,12 +227,12 @@ class OracleDataCheck(AbstractDetector):
         # The data field of answer, startedAt and answeredInRound
         v2, v3, v5 = responses[1], responses[2], responses[4]
         if v2 == "None" or v3 == "None":
-            info: DETECTOR_INFO = ["CWE-252: answer and startedAt of data feed in ",
-                node," not vaildated.\n"]
+            info: DETECTOR_INFO = ["OCCV10: answer and startedAt of data feed in ",
+                node," not vaildated. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
         if v5 != "None":
-            info: DETECTOR_INFO = ["CWE-477: answeredInRound is deprecated but used in ",
+            info: DETECTOR_INFO = ["OCCV8: answeredInRound is deprecated but used in ",
                 node, " Do not use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
@@ -255,8 +255,8 @@ class OracleDataCheck(AbstractDetector):
                             if highCall.node.variables_written:
                                 vReport = highCall.node.variables_written[0]
                             else:
-                                info: DETECTOR_INFO = ["CWE-252: the verified value in ",
-                                    highCall.node, " not checked.\n"]
+                                info: DETECTOR_INFO = ["OCCV10: the verified value in ",
+                                    highCall.node, " not checked. Please check before use it.\n"]
                                 json = self.generate_result(info)
                                 self.results.append(json)
                     if vReport:
@@ -270,13 +270,13 @@ class OracleDataCheck(AbstractDetector):
                                         self.check_tamperred_resp(func, {report})
                                         self._check_chainlink_stream_data(func, report)
                                     else:
-                                        info: DETECTOR_INFO = ["CWE-252: decoded value in ",
-                                            decode.node, " not checked.\n"]
+                                        info: DETECTOR_INFO = ["OCCV10: decoded value in ",
+                                            decode.node, " not checked. Please check before use it.\n"]
                                         json = self.generate_result(info)
                                         self.results.append(json)
                     else:
-                        info: DETECTOR_INFO = ["CWE-345: oracle response in ",
-                            func, " not verified.\n"]
+                        info: DETECTOR_INFO = ["OCCV11: oracle response in ",
+                            func, " not verified. Please verify before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
 
@@ -294,17 +294,18 @@ class OracleDataCheck(AbstractDetector):
                     if "marketStatus" in expr:
                         marketChecked = True
         if not timeChecked:
-            info: DETECTOR_INFO = ["CWE-252: validFromTimestamp or expiresAt in ",
-                finalReport," not checked.\n"]
+            info: DETECTOR_INFO = ["OCCV10: validFromTimestamp or expiresAt in ",
+                finalReport," not checked. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
         if not valueChecked:
-            info: DETECTOR_INFO = ["CWE-252: price in ", finalReport," not checked.\n"]
+            info: DETECTOR_INFO = ["OCCV10: price in ", finalReport,
+                                   " not checked. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
         if "4" in str(finalReport.type) and not marketChecked:
-            info: DETECTOR_INFO = ["CWE-252: marketStatus of response in ",
-                finalReport, " not checked.\n"]
+            info: DETECTOR_INFO = ["OCCV10: marketStatus of response in ",
+                finalReport, " not checked. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
 
@@ -336,14 +337,14 @@ class OracleDataCheck(AbstractDetector):
                                 recorded = True
                     if validated and recorded:
                         info: DETECTOR_INFO = [
-                            "CWE-345: Use either 'validateChainlinkCallback' or " +
+                            "OCCV11: Use either 'validateChainlinkCallback' or " +
                             "'recordChainlinkFulfillment' in ", func," not both.\n", 
                         ]
                         json = self.generate_result(info)
                         self.results.append(json)
                     elif not validated and not recorded:
                         info: DETECTOR_INFO = [
-                            "CWE-345: use either _validateChainlinkCallback or " +
+                            "OCCV11: use either _validateChainlinkCallback or " +
                             "recordChainlinkFulfillment in ", func, " for validation.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
@@ -352,8 +353,8 @@ class OracleDataCheck(AbstractDetector):
                     idChecked = self.check_response_id(func)
                     if not idChecked:
                         info: DETECTOR_INFO = [
-                            "CWE-345: response ID of the fulfill ",
-                             func," not checked.\n"]
+                            "OCCV11: response ID of the fulfill ",
+                             func," not checked. Please check before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
         fulfillnotfound = [func for func in fulfillFuncs if func not in fulfillFound]
@@ -374,7 +375,7 @@ class OracleDataCheck(AbstractDetector):
                     typeCh = True
                     if "this" not in str(interCall.node.expression):
                         info: DETECTOR_INFO = [
-                            "CWE703: _buildChainlinkRequest in ", interCall.node, 
+                            "OCCV1: _buildChainlinkRequest in ", interCall.node, 
                             " sets up other contract as callback, remember to add " +
                             "_addChainlinkExternalRequest in corresponding contract.\n"]
                         json = self.generate_result(info)
@@ -423,8 +424,8 @@ class OracleDataCheck(AbstractDetector):
                     idChecked = self.check_response_id(func)
                     if not idChecked:
                         info: DETECTOR_INFO = [
-                            "CWE-345: response ID of the fulfill ",
-                             func," not checked.\n"]
+                            "OCCV11: response ID of the fulfill ",
+                             func," not checked. Please check before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     self.check_oracle_response(func, set(func.parameters[1:]))
@@ -446,8 +447,8 @@ class OracleDataCheck(AbstractDetector):
                     idChecked = self.check_response_id(func)
                     if not idChecked:
                         info: DETECTOR_INFO = [
-                            "CWE-345: response ID of the fulfill ",
-                             func," not checked.\n"]
+                            "OCCV1: response ID of the fulfill ",
+                             func," not checked. Please check before use it\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     self.check_tamperred_resp(func, {func.parameters[1]})
@@ -475,8 +476,8 @@ class OracleDataCheck(AbstractDetector):
                             self._check_pyth_feed_data(func, resp, timeChecked)
                             self.check_tamperred_resp(func, {resp})
                         else:
-                            info: DETECTOR_INFO = ["CWE-252: the value in ", hCall.node,
-                                " not checked but returned directly.\n"]
+                            info: DETECTOR_INFO = ["OCCV10: the value in ", hCall.node,
+                                " not checked but returned directly. Please check before use it.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
 
@@ -493,13 +494,13 @@ class OracleDataCheck(AbstractDetector):
                         if ".publishTime" in str(node.expression):
                             timeChecked = True
         if not valueChecked:
-            info: DETECTOR_INFO = ["CWE-252: price of oracle response in ",
-                resp, " not checked.\n"]
+            info: DETECTOR_INFO = ["OCCV10: price of oracle response in ",
+                resp, " not checked. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
         if not timeChecked:
-            info: DETECTOR_INFO = ["CWE-252: publishTime of oracle response in ",
-                resp, " not checked.\n"]
+            info: DETECTOR_INFO = ["OCCV10: publishTime of oracle response in ",
+                resp, " not checked. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
 
@@ -519,8 +520,8 @@ class OracleDataCheck(AbstractDetector):
                             if highCall.function_name == "verifyUpdate":
                                 verified = True
                         if not verified:
-                            info: DETECTOR_INFO = ["CWE-345: oracle response in ",
-                                func, " not verified.\n"]
+                            info: DETECTOR_INFO = ["OCCV11: oracle response in ",
+                                func, " not verified. Please verify before use it\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
                         timestamp, channel = None, None
@@ -532,8 +533,8 @@ class OracleDataCheck(AbstractDetector):
                         if timestamp and channel:
                             self.check_oracle_response(func, {timestamp, channel})
                         else:
-                            info: DETECTOR_INFO = ["CWE-252: timestamp or channel in ",
-                                libCall.node, " not checked.\n"]
+                            info: DETECTOR_INFO = ["OCCV10: timestamp or channel in ",
+                                libCall.node, " not checked. Please check before use it.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
                     elif libCall.function_name == "parseFeedValueUint64":
@@ -543,8 +544,8 @@ class OracleDataCheck(AbstractDetector):
                             self.check_oracle_response(func, vals)
                             self.check_tamperred_resp(func, vals)
                         else:
-                            info: DETECTOR_INFO = ["CWE-252: the value in ", libCall.node,
-                                " not checked but returned directly.\n"]
+                            info: DETECTOR_INFO = ["OCCV10: the value in ", libCall.node,
+                                " not checked but returned directly. Please check before use it.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
 
@@ -563,8 +564,8 @@ class OracleDataCheck(AbstractDetector):
                     idChecked = self.check_response_id(func)
                     if not idChecked:
                         info: DETECTOR_INFO = [
-                            "CWE-345: response ID of the fulfill ",
-                             func," not checked.\n"]
+                            "OCCV11: response ID of the fulfill ",
+                             func," not checked. Please check before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     self.check_tamperred_resp(func, {func.parameters[2]})
@@ -590,8 +591,8 @@ class OracleDataCheck(AbstractDetector):
                             # verify the unprotected tamper
                             self.check_tamperred_resp(func, set(hCall.node.variables_written))
                         else:
-                            info: DETECTOR_INFO = ["CWE-252: the value in ", hCall.node,
-                                " not checked but returned directly.\n"]
+                            info: DETECTOR_INFO = ["OCCV10: the value in ", hCall.node,
+                                " not checked but returned directly. Please check before use it.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
 
@@ -612,8 +613,8 @@ class OracleDataCheck(AbstractDetector):
                             self.check_oracle_response(func, set(ic.node.variables_written))
                             self.check_tamperred_resp(func, set(ic.node.variables_written))
                         else:
-                            info: DETECTOR_INFO = ["CWE-252: the value in ", ic.node,
-                                " not checked but returned directly.\n"]
+                            info: DETECTOR_INFO = ["OCCV10: the value in ", ic.node,
+                                " not checked but returned directly. Please check before use it.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
 
@@ -649,7 +650,8 @@ class OracleDataCheck(AbstractDetector):
                                 checkedResps.update(possibleCheckedResps)
         for var in resps:
             if var not in checkedResps:
-                info: DETECTOR_INFO = ["CWE-252: oracle response ", var, " not checked.\n"]
+                info: DETECTOR_INFO = ["OCCV10: oracle response ", var,
+                                       " not checked. Please check before use it.\n"]
                 json = self.generate_result(info)
                 self.results.append(json)
 
@@ -737,13 +739,15 @@ class OracleDataCheck(AbstractDetector):
                 for var in ir.node.variables_read:
                     for param in func.parameters:
                         if is_dependent(var, param, func) and var != respInCalc:
-                            info: DETECTOR_INFO = ["CWE-345: response in ", ir.node,
-                                                   " may be tampered by parameters.\n"]
+                            info: DETECTOR_INFO = ["OCCV12: response in ", ir.node,
+                                " may be tampered by parameters. The oracle data should not be ",
+                                "influenced or modified by any user.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
                 if ir.node.state_variables_read:
-                    info: DETECTOR_INFO = ["CWE-345: response in ", ir.node,
-                        " may be tampered by state variables.\n"]
+                    info: DETECTOR_INFO = ["OCCV12: response in ", ir.node,
+                        " may be tampered by state variables. The oracle data should not be ",
+                                "influenced or modified by any user.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
 
@@ -775,13 +779,13 @@ class OracleDataCheck(AbstractDetector):
     def check_ignored_resp(self, hCall:HighLevelCall) -> None:
         if hCall.function_name in ["tryRead", "readWithAge"]:
             if len(hCall.node.variables_written) != 2:
-                info: DETECTOR_INFO = ["CWE-252: some values of the response in ",
-                                        hCall.node, " should not been ignored.\n"]
+                info: DETECTOR_INFO = ["OCCV10: some values of the response in ",hCall.node,
+                                        " should not been ignored. Please check before use it.\n"]
                 json = self.generate_result(info)
                 self.results.append(json)
         elif hCall.function_name == "tryReadWithAge":
             if len(hCall.node.variables_written) != 3:
-                info: DETECTOR_INFO = ["CWE-252: some values of the response in ",
-                                        hCall.node, " should not been ignored.\n"]
+                info: DETECTOR_INFO = ["OCCV10: some values of the response in ",hCall.node,
+                                       " should not been ignored. Please check before use it.\n"]
                 json = self.generate_result(info)
                 self.results.append(json)

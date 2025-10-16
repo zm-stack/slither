@@ -1565,7 +1565,7 @@ class Function(SourceMapping, metaclass=ABCMeta):  # pylint: disable=too-many-pu
                 self._is_access_controlled = True
                 return True
             for m in self.modifiers:
-                if "owner" in m.name or "role" in m.name:
+                if "only" in m.name.lower() or "own" in m.name.lower() or "role" in m.name.lower() or "admin" in m.name.lower():
                     self._is_access_controlled = True
                     return True
                 if isinstance(m,Function):

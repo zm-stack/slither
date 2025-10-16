@@ -97,7 +97,7 @@ class OracleInterfaceCheck(AbstractDetector):
                     getRoundCalled = True
             if getRoundCalled:
                 if not func.view and not func.pure:
-                    info: DETECTOR_INFO = ["CWE-400: the function invokes getRoundData"
+                    info: DETECTOR_INFO = ["OCCV9: the function invokes getRoundData"
                         " shoulud be view or pure. Since state change with getRoundData in ",
                         func, " could cause high gas cost.\n"]
                     json = self.generate_result(info)
@@ -119,8 +119,8 @@ class OracleInterfaceCheck(AbstractDetector):
                             func.parameters[0] in node.variables_read):
                             errorCodeChecked = True
                     if not errorCodeChecked:
-                        info: DETECTOR_INFO = ["CWE-703: errorCode of"
-                        " checkErrorHandler ", func," should be checked.\n"]
+                        info: DETECTOR_INFO = ["OCCV6: errorCode of checkErrorHandler in ", func,
+                            " not checked. Please check it and handle possiable error.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
 
@@ -143,13 +143,14 @@ class OracleInterfaceCheck(AbstractDetector):
             if requestSent:
                 withdrawed = self.check_withdraw(contract, False, True)
                 if not withdrawed:
-                    info: DETECTOR_INFO = ["CWE-400: locked tokens in ", contract,
-                                           " Please add withdraw function.\n"]
+                    info: DETECTOR_INFO = ["OCCV2: locked tokens in ", contract,
+                                           " Please add withdrawal interface.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
                 if not cancled:
-                    info: DETECTOR_INFO = ["CWE-703: add _cancelChainlinkRequest in",
-                                           contract," to cancel overtime requests.\n"]
+                    info: DETECTOR_INFO = ["OCCV1: ",contract,
+                        " sends chainlink oracle request but lack cancellation interface.",
+                        " Add _cancelChainlinkRequest to cancel overtime requests.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
 
@@ -166,7 +167,7 @@ class OracleInterfaceCheck(AbstractDetector):
             for inCall in func.internal_calls:
                 f = inCall.function
                 if f and f.name == CH_FUNCTIONS_FULFILL and func.name != "handleOracleFulfillment":
-                    info: DETECTOR_INFO = ["CWE-703: only oracle service can invoke fulfillRequest",
+                    info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRequest",
                         inCall.node ," please remove this call.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
@@ -188,7 +189,7 @@ class OracleInterfaceCheck(AbstractDetector):
                         continue
                     fname = inCall.function.name
                     if fname == CH_VRF_FULFILL and func.name != "rawFulfillRandomWords":
-                        info: DETECTOR_INFO = ["CWE-703: only oracle can invoke fulfillRequest",
+                        info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRequest",
                             inCall.node ," please remove this call.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
@@ -199,8 +200,8 @@ class OracleInterfaceCheck(AbstractDetector):
                     if payInLink or payInNative:
                         withdrawed = self.check_withdraw(contract, payInNative, payInLink)
                         if not withdrawed:
-                            info: DETECTOR_INFO = ["CWE-400: locked tokens in ", contract,
-                                                " Please add withdraw function.\n"]
+                            info: DETECTOR_INFO = ["OCCV2: locked tokens in ", contract,
+                                           " Please add withdrawal interface.\n"]
                             json = self.generate_result(info)
                             self.results.append(json)
 
@@ -213,7 +214,7 @@ class OracleInterfaceCheck(AbstractDetector):
                     continue
                 fname = inCall.function.name
                 if fname == CH_VRF_FULFILL and func.name != "rawFulfillRandomWords":
-                    info: DETECTOR_INFO = ["CWE-703: only oracle can invoke fulfillRequest",
+                    info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRequest",
                         inCall.node ," please remove this call.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
@@ -244,7 +245,7 @@ class OracleInterfaceCheck(AbstractDetector):
                     continue
                 fname = inCall.function.name
                 if fname == PYTH_VRF_FULFILL and func.name != "_entropyCallback":
-                    info: DETECTOR_INFO = ["CWE-703: only oracle can invoke entropyCallback ",
+                    info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke entropyCallback ",
                         inCall.node ," please remove this call.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
@@ -293,8 +294,8 @@ class OracleInterfaceCheck(AbstractDetector):
             if hCall.function_name in self.FEED_APIS:
                 counter += 1
                 if counter > 1:
-                    info: DETECTOR_INFO = ["CWE-400: multiple requests sent in ",
-                        hCall.node, " which is not recommended.\n"]
+                    info: DETECTOR_INFO = ["OCCV9: multiple requests sent in ",
+                        hCall.node, " Each call should handle only one request at a time.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
         for iCall in func.internal_calls:
@@ -302,8 +303,8 @@ class OracleInterfaceCheck(AbstractDetector):
                 if iCall.function.name in self.FEED_APIS:
                     counter += 1
                     if counter > 1:
-                        info: DETECTOR_INFO = ["CWE-400: multiple requests sent in ",
-                            iCall.node, " which is not recommended.\n"]
+                        info: DETECTOR_INFO = ["OCCV9: multiple requests sent in ",
+                            iCall.node, " Each call should handle only one request at a time.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                 else:
@@ -316,7 +317,7 @@ class OracleInterfaceCheck(AbstractDetector):
         for func in self.compilation_unit.functions:
             for _, highCall in func.high_level_calls:
                 if highCall.function_name in CH_DEPR_AGGRE_APIS+PYTH_DEPRECATED_APIS:
-                    info: DETECTOR_INFO = ["Deprecated function invoked in ",
+                    info: DETECTOR_INFO = ["OCCV8: deprecated function invoked in ",
                                            highCall.node," Do not use this function.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)
@@ -344,14 +345,14 @@ class OracleInterfaceCheck(AbstractDetector):
             if counter > 0:
                 if isinstance(ir, HighLevelCall):
                     if ir.function_name in self.FEED_APIS:
-                        info: DETECTOR_INFO = ["CWE-400: oracle request in loop in ",
-                            node, " which is not recommended.\n"]
+                        info: DETECTOR_INFO = ["OCCV9: oracle request in loop in ",
+                            node, " Each call should handle only one request at a time.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                 if isinstance(ir, InternalCall) and ir.function:
                     if ir.function.name in self.FEED_APIS:
-                        info: DETECTOR_INFO = ["CWE-400: oracle request in loop in ",
-                            node, " which is not recommended.\n"]
+                        info: DETECTOR_INFO = ["OCCV9: oracle request in loop in ",
+                            node, " Each call should handle only one request at a time.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     else:
@@ -376,8 +377,8 @@ class OracleInterfaceCheck(AbstractDetector):
                     withdrawed = True
                     withdrawNative = True
             if withdrawed and not func.is_access_controlled():
-                info: DETECTOR_INFO = ["CWE-284: withdraw function in ",
-                    func, " is not protrcted.\n"]
+                info: DETECTOR_INFO = ["OCCV3: ",func, " withdraw token but is not protrcted.",
+                    " Please add access control.\n"]
                 json = self.generate_result(info)
                 self.results.append(json)
         if ERC20 and Native:
@@ -403,7 +404,7 @@ class OracleInterfaceCheck(AbstractDetector):
                     fname = ir.function.name
                     if "revert" in fname or "require" in fname:
                         info: DETECTOR_INFO = [
-                            "CWE-703: revert in ", node, " Costs have been incurred,",
+                            "OCCV7: revert in ", node, " Costs have been incurred,",
                             " recommend to log the error instead of aborting execution\n", 
                         ]
                         json = self.generate_result(info)
