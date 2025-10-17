@@ -228,7 +228,7 @@ class OracleDataCheck(AbstractDetector):
         v2, v3, v5 = responses[1], responses[2], responses[4]
         if v2 == "None" or v3 == "None":
             info: DETECTOR_INFO = ["OCCV10: answer and startedAt of data feed in ",
-                node," not vaildated. Please check before use it.\n"]
+                node," not checked. Please check before use it.\n"]
             json = self.generate_result(info)
             self.results.append(json)
         if v5 != "None":
@@ -354,7 +354,7 @@ class OracleDataCheck(AbstractDetector):
                     if not idChecked:
                         info: DETECTOR_INFO = [
                             "OCCV11: response ID of the fulfill ",
-                             func," not checked. Please check before use it.\n"]
+                             func," not verified. Please verify before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
         fulfillnotfound = [func for func in fulfillFuncs if func not in fulfillFound]
@@ -425,7 +425,7 @@ class OracleDataCheck(AbstractDetector):
                     if not idChecked:
                         info: DETECTOR_INFO = [
                             "OCCV11: response ID of the fulfill ",
-                             func," not checked. Please check before use it.\n"]
+                             func," not verified. Please verify before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     self.check_oracle_response(func, set(func.parameters[1:]))
@@ -440,14 +440,14 @@ class OracleDataCheck(AbstractDetector):
     ###################################################################################
     def _detect_chainlink_vrf(self) -> None:
         fulfillFound = False
-        for contract in self.compilation_unit.contracts_derived:
-            for func in contract.functions_declared:
+        for contract in self.compilation_unit.contracts:
+            for func in contract.functions:
                 if func.is_implemented and func.name == CH_VRF_FULFILL:
                     fulfillFound = True
                     idChecked = self.check_response_id(func)
                     if not idChecked:
                         info: DETECTOR_INFO = [
-                            "OCCV1: response ID of the fulfill ",
+                            "OCCV11: response ID of the fulfill ",
                              func," not checked. Please check before use it\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
@@ -565,7 +565,7 @@ class OracleDataCheck(AbstractDetector):
                     if not idChecked:
                         info: DETECTOR_INFO = [
                             "OCCV11: response ID of the fulfill ",
-                             func," not checked. Please check before use it.\n"]
+                             func," not verified. Please verify before use it.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
                     self.check_tamperred_resp(func, {func.parameters[2]})
@@ -579,21 +579,22 @@ class OracleDataCheck(AbstractDetector):
     ###################################################################################
 
     def _detect_chronicle(self) -> None:
-        for func in self.compilation_unit.functions:
-            for _, hCall in func.high_level_calls:
-                if hCall.function_name in CHRONICLE_FEED_APIS:
-                    if hCall.node.variables_written:
-                        # check whether some values of response are ignored
-                        self.check_ignored_resp(hCall)
-                        # verify the data check
-                        self.check_oracle_response(func, set(hCall.node.variables_written))
-                        # verify the unprotected tamper
-                        self.check_tamperred_resp(func, set(hCall.node.variables_written))
-                    else:
-                        info: DETECTOR_INFO = ["OCCV10: the value in ", hCall.node,
-                            " not checked but returned directly. Please check before use it.\n"]
-                        json = self.generate_result(info)
-                        self.results.append(json)
+        for contract in self.compilation_unit.contracts:
+            for func in contract.functions:
+                for _, hCall in func.high_level_calls:
+                    if hCall.function_name in CHRONICLE_FEED_APIS:
+                        if hCall.node.variables_written:
+                            # check whether some values of response are ignored
+                            self.check_ignored_resp(hCall)
+                            # verify the data check
+                            self.check_oracle_response(func, set(hCall.node.variables_written))
+                            # verify the unprotected tamper
+                            self.check_tamperred_resp(func, set(hCall.node.variables_written))
+                        else:
+                            info: DETECTOR_INFO = ["OCCV10: the value in ", hCall.node,
+                                " not checked but returned directly. Please check before use it.\n"]
+                            json = self.generate_result(info)
+                            self.results.append(json)
 
     ###################################################################################
     ###################################################################################

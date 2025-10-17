@@ -1,0 +1,849 @@
+--- 分析结果 1 / 31 - 合约地址：0x1323788c3e6046bec22b2652be9d4d5e6d200f3d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x1323788c3e6046bec22b2652be9d4d5e6d200f3d-OpenNFT' running
+INFO:Detectors:
+OCCV3: OpenNFT.withdrawNative(uint256) (contracts/OpenNFT.sol#101-104) withdraw token but is not protrcted. Please add access control.
+OCCV3: OpenNFT.withdrawERC20(IERC20,uint256) (contracts/OpenNFT.sol#106-108) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,request not found) (contracts/OpenNFT.sol#302) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV5: OpenNFT.requestRandomWords(uint32,uint32) (contracts/OpenNFT.sol#260-296)  sends oracle request but OpenNFT (contracts/OpenNFT.sol#26-321) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x1323788c3e6046bec22b2652be9d4d5e6d200f3d analyzed (33 contracts with 3 detectors), 4 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 2 / 31 - 合约地址：0x46d3d02589621a820d610ae665daef106fdad136 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x46d3d02589621a820d610ae665daef106fdad136-Boxed' running
+INFO:Detectors:
+OCCV2: locked tokens in Boxed (contracts/Boxed.sol#20-308) Please add withdrawal interface.
+Reference: ...
+INFO:Detectors:
+OCCV1: response ID of the fulfill Boxed.fulfillRandomWords(uint256,uint256[]) (contracts/Boxed.sol#259-281) not checked. Please check before use it
+Reference: ...
+INFO:Detectors:
+OCCV3: requestId = requestRandomWords(_quantity) (contracts/Boxed.sol#148) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: Boxed.box(uint256,bool) (contracts/Boxed.sol#105-159) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: Boxed.box(uint256,bool) (contracts/Boxed.sol#105-159)  sends oracle request but Boxed (contracts/Boxed.sol#20-308) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (requestId,None) = requestRandomnessPayInNative(callbackGasLimit,REQUEST_CONFIRMATIONS,NUM_WORDS,extraArgs) (contracts/Boxed.sol#249-254) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: Boxed.requestRandomWords(uint256) (contracts/Boxed.sol#242-257) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: Boxed.requestRandomWords(uint256) (contracts/Boxed.sol#242-257)  sends oracle request but Boxed (contracts/Boxed.sol#20-308) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x46d3d02589621a820d610ae665daef106fdad136 analyzed (32 contracts with 3 detectors), 8 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 3 / 31 - 合约地址：0x79b7dc37e70e78a19de055b78193059e7b371b33 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol
+
+
+
+INFO:Detectors:
+OCCV3: LotteryERC721A.pickWinner(uint256) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1954-1967) withdraw token but is not protrcted. Please add access control.
+OCCV3: LotteryERC721A.withdrawFeePool() (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1972-1977) withdraw token but is not protrcted. Please add access control.
+OCCV2: locked tokens in LotteryERC721A (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1807-2018) Please add withdrawal interface.
+OCCV7: revert in require(bool,string)(drawingRequested,Randomness not requested) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1917) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! winnerSelected,Winner already selected) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1918) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(_requestId == vrfRequestId,Invalid requestId) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1919) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! winnerSelected,Winner already selected) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1955) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(_exists(_winnerId),Invalid tokenId) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1956) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert OwnerQueryForNonexistentToken()() (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#745) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(sent,Failed to send reward) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1966) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV12: response in winnerId = (randomNumber % ticketSupply) + 1 (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1926) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in _startTokenId() <= tokenId && tokenId < _currentIndex && _packedOwnerships[tokenId] & BITMASK_BURNED == 0 (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#920-923) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in packed = _packedOwnerships[-- curr] (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#739) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: LotteryERC721A.callbackGasLimit (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1832) is used in oracle request but is modified in LotteryERC721A.updateVRFConfig(address,address,bool,uint32,uint16,uint32) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1992-2006) without protection. Please add access control.
+OCCV3: LotteryERC721A.requestConfirmations (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1833) is used in oracle request but is modified in LotteryERC721A.updateVRFConfig(address,address,bool,uint32,uint16,uint32) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1992-2006) without protection. Please add access control.
+OCCV3: LotteryERC721A.numWords (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1834) is used in oracle request but is modified in LotteryERC721A.updateVRFConfig(address,address,bool,uint32,uint16,uint32) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1992-2006) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgsBytes) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1902-1907) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgsBytes) (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1895-1900) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: LotteryERC721A.drawingRequested (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1820) is used in oracle request but is modified in LotteryERC721A.requestRandomnessFromChainlink() (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1882-1911) without protection. Please add access control.
+OCCV5: LotteryERC721A.requestRandomnessFromChainlink() (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1882-1911)  sends oracle request but LotteryERC721A (crytic-export/etherscan-contracts/0x79b7dc37e70e78a19de055b78193059e7b371b33-LotteryERC721A.sol#1807-2018) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x79b7dc37e70e78a19de055b78193059e7b371b33 analyzed (12 contracts with 3 detectors), 20 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 4 / 31 - 合约地址：0xb6f6f0dbe5099c28c98239b2d1991eec8fdf53fa ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb6f6f0dbe5099c28c98239b2d1991eec8fdf53fa-EthereumSNGLRChainFunctions' running
+INFO:Detectors:
+OCCV7: revert in revert NoSuchVRFRequest()() (src/chainfunctions/ChainlinkChainFunctions.sol#95) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+ERROR:Detectors:Fail to find the fulfill function.
+ERROR:Detectors:Fail to find the fulfill function.
+INFO:Slither:0xb6f6f0dbe5099c28c98239b2d1991eec8fdf53fa analyzed (21 contracts with 3 detectors), 1 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 5 / 31 - 合约地址：0xa4b48a6b42d3d3c46479754268b5384bc1f7c9f4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa4b48a6b42d3d3c46479754268b5384bc1f7c9f4-EthereumSNGLRChainFunctions' running
+INFO:Detectors:
+OCCV7: revert in revert NoSuchVRFRequest()() (src/chainfunctions/ChainlinkChainFunctions.sol#100) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+ERROR:Detectors:Fail to find the fulfill function.
+ERROR:Detectors:Fail to find the fulfill function.
+INFO:Slither:0xa4b48a6b42d3d3c46479754268b5384bc1f7c9f4 analyzed (21 contracts with 3 detectors), 1 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 6 / 31 - 合约地址：0x7b146c0bf08f79fe5e840b0c3bf23e03cb616764 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7b146c0bf08f79fe5e840b0c3bf23e03cb616764-EthereumSNGLRChainFunctions' running
+INFO:Detectors:
+OCCV7: revert in revert NoSuchVRFRequest()() (src/chainfunctions/ChainlinkChainFunctions.sol#109) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+ERROR:Detectors:Fail to find the fulfill function.
+ERROR:Detectors:Fail to find the fulfill function.
+INFO:Slither:0x7b146c0bf08f79fe5e840b0c3bf23e03cb616764 analyzed (21 contracts with 3 detectors), 1 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 7 / 31 - 合约地址：0x96b8da9abe37f04119374793d3bd344e9c4f37c4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x96b8da9abe37f04119374793d3bd344e9c4f37c4-VRFV2PlusWrapperConsumerExample' running
+INFO:Detectors:
+OCCV3: VRFV2PlusWrapperConsumerExample.withdrawLink(uint256) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#69-71) withdraw token but is not protrcted. Please add access control.
+OCCV3: VRFV2PlusWrapperConsumerExample.withdrawNative(uint256) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#75-79) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,request not found) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#52) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: (requestId,paid) = requestRandomness(_callbackGasLimit,_requestConfirmations,_numWords,extraArgs) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#30) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: VRFV2PlusWrapperConsumerExample.makeRequest(uint32,uint16,uint32) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#23-34) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VRFV2PlusWrapperConsumerExample.makeRequest(uint32,uint16,uint32) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#23-34)  sends oracle request but VRFV2PlusWrapperConsumerExample (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#8-80) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (requestId,paid) = requestRandomnessPayInNative(_callbackGasLimit,_requestConfirmations,_numWords,extraArgs) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#43) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: VRFV2PlusWrapperConsumerExample.makeRequestNative(uint32,uint16,uint32) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#36-47) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VRFV2PlusWrapperConsumerExample.makeRequestNative(uint32,uint16,uint32) (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#36-47)  sends oracle request but VRFV2PlusWrapperConsumerExample (src/v0.8/vrf/dev/testhelpers/VRFV2PlusWrapperConsumerExample.sol#8-80) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x96b8da9abe37f04119374793d3bd344e9c4f37c4 analyzed (8 contracts with 3 detectors), 9 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 8 / 31 - 合约地址：0x2a4b3391e588e7132aecc0260333c28875511e47 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x2a4b3391e588e7132aecc0260333c28875511e47-VistaArcadeRewardsPool' running
+INFO:Detectors:
+OCCV3: VistaArcadeRewardsPool.execute(address,uint256,bytes) (VistaArcade.sol#420-424) withdraw token but is not protrcted. Please add access control.
+Reference: ...
+INFO:Detectors:
+OCCV1: response ID of the fulfill VistaArcadeRewardsPool.fulfillRandomWords(uint256,uint256[]) (VistaArcade.sol#311-320) not checked. Please check before use it
+OCCV12: response in vrfResults.push(RequestStatus({requestId:requestId,randomWords:randomWords})) (VistaArcade.sol#315-318) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in vrfResults.push(RequestStatus({requestId:requestId,randomWords:randomWords})) (VistaArcade.sol#315-318) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in index = uint256(keccak256(bytes)(abi.encodePacked(block.prevrandao,block.timestamp))) % vrfResults.length (VistaArcade.sol#364) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in d100Result = uint256(keccak256(bytes)(abi.encodePacked(block.timestamp,block.prevrandao,blockhash(uint256)(block.number - ((pairBalance / 1e18) % 3333333)),pairBalance,address(this).balance,vrfResults[index].requestId,vrfResults[index].randomWords))) % 100 (VistaArcade.sol#365-379) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in d100Result = uint256(keccak256(bytes)(abi.encodePacked(block.timestamp,block.prevrandao,blockhash(uint256)(block.number - ((pairBalance / 1e18) % 3333333)),pairBalance,address(this).balance,vrfResults[index].requestId,vrfResults[index].randomWords))) % 100 (VistaArcade.sol#365-379) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: VistaArcadeRewardsPool.callbackGasLimit (VistaArcade.sol#261) is used in oracle request but is modified in VistaArcadeRewardsPool.setCallbackGasLimit(uint32) (VistaArcade.sol#307-309) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (VistaArcade.sol#286-291) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VistaArcadeRewardsPool.lock (VistaArcade.sol#267) is used in oracle request but is modified in VistaArcadeRewardsPool._rollDice(bool) (VistaArcade.sol#278-293) without protection. Please add access control.
+OCCV3: VistaArcadeRewardsPool.lock (VistaArcade.sol#267) is used in oracle request but is modified in VistaArcadeRewardsPool.fulfillRandomWords(uint256,uint256[]) (VistaArcade.sol#311-320) without protection. Please add access control.
+OCCV5: VistaArcadeRewardsPool._rollDice(bool) (VistaArcade.sol#278-293)  sends oracle request but VistaArcadeRewardsPool (VistaArcade.sol#255-425) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x2a4b3391e588e7132aecc0260333c28875511e47 analyzed (13 contracts with 3 detectors), 12 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 9 / 31 - 合约地址：0x0f44a67c7c61130994a22606d11991fb06e29b42 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0f44a67c7c61130994a22606d11991fb06e29b42-VistaArcadeRewardsPool' running
+INFO:Detectors:
+OCCV3: VistaArcadeRewardsPool.execute(address,uint256,bytes) (VistaArcade.sol#426-430) withdraw token but is not protrcted. Please add access control.
+Reference: ...
+INFO:Detectors:
+OCCV1: response ID of the fulfill VistaArcadeRewardsPool.fulfillRandomWords(uint256,uint256[]) (VistaArcade.sol#311-320) not checked. Please check before use it
+OCCV12: response in vrfResults.push(RequestStatus({requestId:requestId,randomWords:randomWords})) (VistaArcade.sol#315-318) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in vrfResults.push(RequestStatus({requestId:requestId,randomWords:randomWords})) (VistaArcade.sol#315-318) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in index = uint256(keccak256(bytes)(abi.encodePacked(block.prevrandao,block.timestamp))) % vrfResults.length (VistaArcade.sol#370) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in d100Result = uint256(keccak256(bytes)(abi.encodePacked(block.timestamp,block.prevrandao,blockhash(uint256)(block.number - ((pairBalance / 1e18) % 3333333)),pairBalance,address(this).balance,vrfResults[index].requestId,vrfResults[index].randomWords))) % 100 (VistaArcade.sol#371-385) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in d100Result = uint256(keccak256(bytes)(abi.encodePacked(block.timestamp,block.prevrandao,blockhash(uint256)(block.number - ((pairBalance / 1e18) % 3333333)),pairBalance,address(this).balance,vrfResults[index].requestId,vrfResults[index].randomWords))) % 100 (VistaArcade.sol#371-385) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: VistaArcadeRewardsPool.callbackGasLimit (VistaArcade.sol#261) is used in oracle request but is modified in VistaArcadeRewardsPool.setCallbackGasLimit(uint32) (VistaArcade.sol#307-309) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (VistaArcade.sol#286-291) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VistaArcadeRewardsPool.lock (VistaArcade.sol#267) is used in oracle request but is modified in VistaArcadeRewardsPool._rollDice(bool) (VistaArcade.sol#278-293) without protection. Please add access control.
+OCCV3: VistaArcadeRewardsPool.lock (VistaArcade.sol#267) is used in oracle request but is modified in VistaArcadeRewardsPool.fulfillRandomWords(uint256,uint256[]) (VistaArcade.sol#311-320) without protection. Please add access control.
+OCCV5: VistaArcadeRewardsPool._rollDice(bool) (VistaArcade.sol#278-293)  sends oracle request but VistaArcadeRewardsPool (VistaArcade.sol#255-431) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x0f44a67c7c61130994a22606d11991fb06e29b42 analyzed (13 contracts with 3 detectors), 12 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 10 / 31 - 合约地址：0xc4d7b17c379467939ae7255f8d44ebcf33ce5c9b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xc4d7b17c379467939ae7255f8d44ebcf33ce5c9b-MetaheroArena' running
+Warning: Warning: This declaration has the same name as another declaration.
+   --> src/MetaheroArena.sol:162:48:
+    |
+162 |     function requestRandomness(uint16 tokenId, uint16 wagerAgainst, address address1, address address2) internal returns (uint256 requestId) {
+    |                                                ^^^^^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+  --> src/MetaheroArena.sol:85:5:
+   |
+85 |     function wagerAgainst(uint16 tokenId, uint16 against) external payable whenNotPaused {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: This declaration has the same name as another declaration.
+   --> src/MetaheroArena.sol:198:9:
+    |
+198 |         uint16 wagerAgainst = s_requests[_requestId].wagerAgainst;
+    |         ^^^^^^^^^^^^^^^^^^^
+Note: The other declaration is here:
+  --> src/MetaheroArena.sol:85:5:
+   |
+85 |     function wagerAgainst(uint16 tokenId, uint16 against) external payable whenNotPaused {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV3: MetaheroArena.requestRandomness(uint16,uint16,address,address) (src/MetaheroArena.sol#162-185) withdraw token but is not protrcted. Please add access control.
+OCCV3: MetaheroArena.sweepERC20(IERC20,uint256) (src/MetaheroArena.sol#228-230) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].exists,request not found) (src/MetaheroArena.sol#191) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,request fulfilled) (src/MetaheroArena.sol#192) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV5: MetaheroArena.wagerAgainst(uint16,uint16) (src/MetaheroArena.sol#85-101)  sends oracle request but MetaheroArena (src/MetaheroArena.sol#18-252) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(CALLBACK_GAS_LIMIT,REQUEST_CONFIRMATIONS,NUM_WORDS,VRFV2PlusClient._argsToBytes(VRFV2PlusClient.ExtraArgsV1({nativePayment:true}))) (src/MetaheroArena.sol#164-173) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: MetaheroArena.requestRandomness(uint16,uint16,address,address) (src/MetaheroArena.sol#162-185) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MetaheroArena.requestRandomness(uint16,uint16,address,address) (src/MetaheroArena.sol#162-185)  sends oracle request but MetaheroArena (src/MetaheroArena.sol#18-252) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xc4d7b17c379467939ae7255f8d44ebcf33ce5c9b analyzed (13 contracts with 3 detectors), 8 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 11 / 31 - 合约地址：0x5dc9382549d82c4d306d4ff59042098d781e627b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5dc9382549d82c4d306d4ff59042098d781e627b-CoinFlip' running
+INFO:Detectors:
+OCCV3: CoinFlip._transferFunds(address,uint256,address) (src/CoinFlip.sol#786-800) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(gameId != 0,Invalid VRF request) (src/CoinFlip.sol#746) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! vrfRequest.fulfilled,Request already fulfilled) (src/CoinFlip.sol#747) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(game.creator != address(0),Game does not exist) (src/CoinFlip.sol#750) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(game.state == GameState.WaitingForVRF,Game not waiting for VRF) (src/CoinFlip.sol#751-754) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert ReentrancyGuardReentrantCall()() (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#67) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = AggregatorV3Interface(ETH_USD_PRICE_FEED).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 12 / 31 - 合约地址：0x73da12d0797127c67c180306d4955d8e5101a8b7 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x73da12d0797127c67c180306d4955d8e5101a8b7-CoinFlip' running
+INFO:Detectors:
+OCCV3: CoinFlip._transferFunds(address,uint256,address) (src/CoinFlip.sol#711-725) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(gameId != 0,Invalid VRF request) (src/CoinFlip.sol#674) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! vrfRequest.fulfilled,Request already fulfilled) (src/CoinFlip.sol#675) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(game.creator != address(0),Game does not exist) (src/CoinFlip.sol#677) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(game.state == GameState.WaitingForVRF,Game not waiting for VRF) (src/CoinFlip.sol#678-681) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert ReentrancyGuardReentrantCall()() (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#67) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = AggregatorV3Interface(ETH_USD_PRICE_FEED).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 13 / 31 - 合约地址：0x7e37b319cf5ea611102acef1b988491744518fcc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7e37b319cf5ea611102acef1b988491744518fcc-VRFLottery' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> lib/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol
+
+
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> lib/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol
+
+
+Warning: Warning: Unused local variable.
+    --> src/VRFLottery.sol:1301:9:
+     |
+1301 |         uint256 oldFee = entryFeeBone;
+     |         ^^^^^^^^^^^^^^
+
+
+
+INFO:Detectors:
+OCCV3: VRFLottery.withdraw() (src/VRFLottery.sol#779-787) withdraw token but is not protrcted. Please add access control.
+OCCV3: VRFLottery.buyAndBurnTOAD(uint256) (src/VRFLottery.sol#790-811) withdraw token but is not protrcted. Please add access control.
+Reference: ...
+ERROR:Detectors:The data fields of (answer,updatedAt) = ethUsdPriceFeed.latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 14 / 31 - 合约地址：0x0482a1e0d4e4f2628d27ec60112bd86b773de80a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0482a1e0d4e4f2628d27ec60112bd86b773de80a-CoinFlipV2' running
+INFO:Detectors:
+OCCV3: CoinFlipV2._transferFunds(address,uint256,address) (src/CoinFlipV2.sol#696-710) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(gameId != 0,Invalid VRF request) (src/CoinFlipV2.sol#659) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! vrfRequest.fulfilled,Request already fulfilled) (src/CoinFlipV2.sol#660) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(game.creator != address(0),Game does not exist) (src/CoinFlipV2.sol#662) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(game.state == GameState.WaitingForVRF,Game not waiting for VRF) (src/CoinFlipV2.sol#663-666) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert ReentrancyGuardReentrantCall()() (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#67) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = AggregatorV3Interface(ETH_USD_PRICE_FEED).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 15 / 31 - 合约地址：0x067de043a165dc83b344ed7ac7778a92f04edc6d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x067de043a165dc83b344ed7ac7778a92f04edc6d-BettingManager' running
+INFO:Detectors:
+OCCV3: BettingManager.withdrawNative(uint256) (src/BettingManager.sol#218-221) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[requestId].paid > 0,request not found) (src/BettingManager.sol#149) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV4: BettingManager.requestVRF(uint256,address,address) (src/BettingManager.sol#84-140) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: BettingManager.requestVRF(uint256,address,address) (src/BettingManager.sol#84-140)  sends oracle request but BettingManager (src/BettingManager.sol#10-243) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x067de043a165dc83b344ed7ac7778a92f04edc6d analyzed (9 contracts with 3 detectors), 4 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 16 / 31 - 合约地址：0x02aae1a04f9828517b3007f83f6181900cad910c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x02aae1a04f9828517b3007f83f6181900cad910c-VRFV2PlusWrapper' running
+INFO:Detectors:
+OCCV7: revert in require(bool,string)(callbackAddress != address(0),request not found) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#624) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert(uint256,uint256)(0,0) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#686) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert(uint256,uint256)(0,0) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#692) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in revert(uint256,uint256)(0,0) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#696) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV10: answer and startedAt of data feed in (None,weiPerUnitLink,None,timestamp,None) = i_link_native_feed.latestRoundData() (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#646) not vaildated. Please check before use it.
+OCCV12: response in (1e18 * (wrapperCostWei + coordinatorCostWithPremiumAndFlatFeeWei)) / uint256(_weiPerUnitLink) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#461) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in success = call(uint256,uint256,uint256,uint256,uint256,uint256,uint256)(gasAmount,target,0,data + 0x20,mload(uint256)(data),0,0) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#700) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: VRFV2PlusWrapper.s_configured (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#70) is used in oracle request but is modified in VRFV2PlusWrapper.setConfig(uint32,uint32,uint32,uint16,uint8,uint8,bytes32,uint8,uint32,int256,uint32,uint32) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#235-289) without protection. Please add access control.
+OCCV5: VRFV2PlusWrapper.onTokenTransfer(address,uint256,bytes) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#477-512)  sends oracle request but VRFV2PlusWrapper (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#19-716) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: requestId = s_vrfCoordinator.requestRandomWords(req) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#560) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV5: VRFV2PlusWrapper.requestRandomWordsInNative(uint32,uint16,uint32,bytes) (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#538-568)  sends oracle request but VRFV2PlusWrapper (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#19-716) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: VRFV2PlusWrapper._getFeedData() (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#643-655) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VRFV2PlusWrapper._getFeedData() (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#643-655)  sends oracle request but VRFV2PlusWrapper (src/v0.8/vrf/dev/VRFV2PlusWrapper.sol#19-716) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x02aae1a04f9828517b3007f83f6181900cad910c analyzed (20 contracts with 3 detectors), 13 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 17 / 31 - 合约地址：0x849c663f4c87e045048065b17b67099a4e0b3969 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x849c663f4c87e045048065b17b67099a4e0b3969-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets() (src/VerticalAIRaffleContract.sol#666-687) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#839-854) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#861-880) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#886-899) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#542-545) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#546-549) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#568) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#191) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#224-257) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#191) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#921-942) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#194) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#224-257) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#194) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#921-942) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#197) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#480-528) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#502-507) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#509-514) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#130) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#272-322) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#130) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#538-595) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0x849c663f4c87e045048065b17b67099a4e0b3969 analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 18 / 31 - 合约地址：0x1cf83db2414794a4aa5b02ec43cf4d2ea72cdd9c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x1cf83db2414794a4aa5b02ec43cf4d2ea72cdd9c-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets(uint256) (src/VerticalAIRaffleContract.sol#697-788) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#956-971) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#978-997) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#1003-1016) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#541-544) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#545-548) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#571) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1038-1059) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#195) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#480-528) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1038-1059) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#502-507) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#509-514) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#270-320) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#537-602) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0x1cf83db2414794a4aa5b02ec43cf4d2ea72cdd9c analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 19 / 31 - 合约地址：0xda47264de4b704e231abdc706a890725a2df5ee5 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xda47264de4b704e231abdc706a890725a2df5ee5-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets(uint256) (src/VerticalAIRaffleContract.sol#709-800) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#968-983) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#990-1009) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#1015-1028) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#542-545) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#546-549) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#572) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1050-1071) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1050-1071) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#195) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#480-528) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#502-507) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#509-514) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#270-320) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#538-614) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0xda47264de4b704e231abdc706a890725a2df5ee5 analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 20 / 31 - 合约地址：0xc0a011a871e10ddcb59e9e598161dbfacc2cd056 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xc0a011a871e10ddcb59e9e598161dbfacc2cd056-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets(uint256) (src/VerticalAIRaffleContract.sol#709-797) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#965-980) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#987-1006) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#1012-1025) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#542-545) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#546-549) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#572) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#195) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#480-528) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1047-1068) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1047-1068) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#509-514) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#502-507) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#270-320) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#538-614) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0xc0a011a871e10ddcb59e9e598161dbfacc2cd056 analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 21 / 31 - 合约地址：0x557b52f5ede832267c9699f69b3f0917510ec4a0 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x557b52f5ede832267c9699f69b3f0917510ec4a0-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets(uint256) (src/VerticalAIRaffleContract.sol#717-805) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#982-997) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#1004-1023) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#1029-1042) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#550-553) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#554-557) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#580) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#195) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#488-536) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1064-1085) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1064-1085) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#510-515) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#517-522) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#270-320) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#546-622) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0x557b52f5ede832267c9699f69b3f0917510ec4a0 analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 22 / 31 - 合约地址：0xe6304144fb9184437797d7bc195189e0687a2f9f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe6304144fb9184437797d7bc195189e0687a2f9f-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets(uint256) (src/VerticalAIRaffleContract.sol#717-805) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#996-1011) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#1018-1037) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#1043-1056) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#550-553) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#554-557) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#580) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#189) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1078-1099) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#222-255) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#192) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1078-1099) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#195) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#488-536) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#510-515) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#517-522) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#270-320) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#128) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#546-622) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0xe6304144fb9184437797d7bc195189e0687a2f9f analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 23 / 31 - 合约地址：0xeee982bcfe7125c6ef4e0c76079cb12e25901ffb ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xeee982bcfe7125c6ef4e0c76079cb12e25901ffb-VerticalAIRaffle' running
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.unstakeTickets(uint256) (src/VerticalAIRaffleContract.sol#726-775) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.withdrawUnclaimedFunds() (src/VerticalAIRaffleContract.sol#1023-1038) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdraw(address,uint256) (src/VerticalAIRaffleContract.sol#1045-1064) withdraw token but is not protrcted. Please add access control.
+OCCV3: VerticalAIRaffle.emergencyWithdrawETH(uint256) (src/VerticalAIRaffleContract.sol#1070-1083) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(s_requests[_requestId].paid > 0,VerticalAIRaffle: Request not found) (src/VerticalAIRaffleContract.sol#557-560) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(! s_requests[_requestId].fulfilled,VerticalAIRaffle: Request already fulfilled) (src/VerticalAIRaffleContract.sol#561-564) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(totalWeight > 0,VerticalAIRaffle: Total weight is zero) (src/VerticalAIRaffleContract.sol#587) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#196) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#229-262) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.callbackGasLimit (src/VerticalAIRaffleContract.sol#196) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1105-1126) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#199) is used in oracle request but is modified in VerticalAIRaffle.initialize(address,address,address) (src/VerticalAIRaffleContract.sol#229-262) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.requestConfirmations (src/VerticalAIRaffleContract.sol#199) is used in oracle request but is modified in VerticalAIRaffle.setVRFSettings(uint32,uint16) (src/VerticalAIRaffleContract.sol#1105-1126) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.numWords (src/VerticalAIRaffleContract.sol#202) is used in oracle request but is modified in VerticalAIRaffle.distributePrizes(bool) (src/VerticalAIRaffleContract.sol#495-543) without protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#517-522) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: (requestId,reqPrice) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/VerticalAIRaffleContract.sol#524-529) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#135) is used in oracle request but is modified in VerticalAIRaffle.startNewRaffle(uint256,uint256,uint256[]) (src/VerticalAIRaffleContract.sol#277-327) without protection. Please add access control.
+OCCV3: VerticalAIRaffle.prizesDistributed (src/VerticalAIRaffleContract.sol#135) is used in oracle request but is modified in VerticalAIRaffle.fulfillRandomWords(uint256,uint256[]) (src/VerticalAIRaffleContract.sol#553-629) without protection. Please add access control.
+Reference: ...
+INFO:Slither:0xeee982bcfe7125c6ef4e0c76079cb12e25901ffb analyzed (15 contracts with 3 detectors), 16 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 24 / 31 - 合约地址：0xd15d65d64ba5a43ec5036107eb4b823acc093906 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xd15d65d64ba5a43ec5036107eb4b823acc093906-DirectFundingConsumer' running
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.withdrawNative(uint256) (src/DirectFundingConsumer.sol#164-168) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in revert RequestNotFound()() (src/DirectFundingConsumer.sol#137) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.callbackGasLimit (src/DirectFundingConsumer.sol#43) is used in oracle request but is modified in DirectFundingConsumer.setCallbackGasLimit(uint32) (src/DirectFundingConsumer.sol#175-177) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.requestConfirmations (src/DirectFundingConsumer.sol#45) is used in oracle request but is modified in DirectFundingConsumer.setRequestConfirmations(uint16) (src/DirectFundingConsumer.sol#179-181) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.numWords (src/DirectFundingConsumer.sol#48) is used in oracle request but is modified in DirectFundingConsumer.setNumWords(uint32) (src/DirectFundingConsumer.sol#183-185) without protection. Please add access control.
+OCCV3: (requestId,None) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/DirectFundingConsumer.sol#90-95) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#88-105) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#88-105)  sends oracle request but DirectFundingConsumer (src/DirectFundingConsumer.sol#15-206) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xd15d65d64ba5a43ec5036107eb4b823acc093906 analyzed (9 contracts with 3 detectors), 8 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 25 / 31 - 合约地址：0x3d99dd67428473e151e7f3dfe3f7429b1e32769a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3d99dd67428473e151e7f3dfe3f7429b1e32769a-UDUartFactory' running
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.withdrawNative(uint256) (src/DirectFundingConsumer.sol#164-168) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in revert RequestNotFound()() (src/DirectFundingConsumer.sol#137) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.requestConfirmations (src/DirectFundingConsumer.sol#45) is used in oracle request but is modified in DirectFundingConsumer.setRequestConfirmations(uint16) (src/DirectFundingConsumer.sol#179-181) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.numWords (src/DirectFundingConsumer.sol#48) is used in oracle request but is modified in DirectFundingConsumer.setNumWords(uint32) (src/DirectFundingConsumer.sol#183-185) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.callbackGasLimit (src/DirectFundingConsumer.sol#43) is used in oracle request but is modified in DirectFundingConsumer.setCallbackGasLimit(uint32) (src/DirectFundingConsumer.sol#175-177) without protection. Please add access control.
+OCCV3: (requestId,None) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/DirectFundingConsumer.sol#90-95) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#88-105) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#88-105)  sends oracle request but DirectFundingConsumer (src/DirectFundingConsumer.sol#15-206) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: UDUart.directFundingConsumer (src/UDUart.sol#58) is used in oracle request but is modified in UDUart.setDirectFundingConsumer(address) (src/UDUart.sol#448-451) without protection. Please add access control.
+OCCV5: UDUart.initializeCollection() (src/UDUart.sol#112-126)  sends oracle request but UDUart (src/UDUart.sol#15-454) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x3d99dd67428473e151e7f3dfe3f7429b1e32769a analyzed (31 contracts with 3 detectors), 10 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 26 / 31 - 合约地址：0xdbaf651447d8e2a48a015be85d35b1569f49811f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xdbaf651447d8e2a48a015be85d35b1569f49811f-DirectFundingConsumer' running
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.withdrawNative(uint256) (src/DirectFundingConsumer.sol#137-141) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in revert ReentrancyGuardReentrantCall()() (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#67) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.numWords (src/DirectFundingConsumer.sol#50) is used in oracle request but is modified in DirectFundingConsumer.setNumWords(uint32) (src/DirectFundingConsumer.sol#156-158) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.callbackGasLimit (src/DirectFundingConsumer.sol#45) is used in oracle request but is modified in DirectFundingConsumer.setCallbackGasLimit(uint32) (src/DirectFundingConsumer.sol#148-150) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.requestConfirmations (src/DirectFundingConsumer.sol#47) is used in oracle request but is modified in DirectFundingConsumer.setRequestConfirmations(uint16) (src/DirectFundingConsumer.sol#152-154) without protection. Please add access control.
+OCCV3: (requestId,None) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/DirectFundingConsumer.sol#92-97) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#90-104) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#90-104)  sends oracle request but DirectFundingConsumer (src/DirectFundingConsumer.sol#17-179) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xdbaf651447d8e2a48a015be85d35b1569f49811f analyzed (10 contracts with 3 detectors), 8 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 27 / 31 - 合约地址：0x7a2b15467b4537a889ad8913a6714a68599bc74d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7a2b15467b4537a889ad8913a6714a68599bc74d-UDUartFactory' running
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.withdrawNative(uint256) (src/DirectFundingConsumer.sol#137-141) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in revert ReentrancyGuardReentrantCall()() (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#67) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.callbackGasLimit (src/DirectFundingConsumer.sol#45) is used in oracle request but is modified in DirectFundingConsumer.setCallbackGasLimit(uint32) (src/DirectFundingConsumer.sol#148-150) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.requestConfirmations (src/DirectFundingConsumer.sol#47) is used in oracle request but is modified in DirectFundingConsumer.setRequestConfirmations(uint16) (src/DirectFundingConsumer.sol#152-154) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.numWords (src/DirectFundingConsumer.sol#50) is used in oracle request but is modified in DirectFundingConsumer.setNumWords(uint32) (src/DirectFundingConsumer.sol#156-158) without protection. Please add access control.
+OCCV3: (requestId,None) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/DirectFundingConsumer.sol#92-97) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#90-104) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#90-104)  sends oracle request but DirectFundingConsumer (src/DirectFundingConsumer.sol#17-179) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: UDUart.directFundingConsumer (src/UDUart.sol#58) is used in oracle request but is modified in UDUart.setDirectFundingConsumer(address) (src/UDUart.sol#448-451) without protection. Please add access control.
+OCCV5: UDUart.initializeCollection() (src/UDUart.sol#112-126)  sends oracle request but UDUart (src/UDUart.sol#15-454) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x7a2b15467b4537a889ad8913a6714a68599bc74d analyzed (31 contracts with 3 detectors), 10 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 28 / 31 - 合约地址：0x8a5083f1610a2b848dd5c737c98866795aaf3e8b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x8a5083f1610a2b848dd5c737c98866795aaf3e8b-UDUart' running
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.withdrawNative(uint256) (src/DirectFundingConsumer.sol#137-141) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in revert ReentrancyGuardReentrantCall()() (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#67) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV3: DirectFundingConsumer.requestConfirmations (src/DirectFundingConsumer.sol#47) is used in oracle request but is modified in DirectFundingConsumer.setRequestConfirmations(uint16) (src/DirectFundingConsumer.sol#152-154) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.numWords (src/DirectFundingConsumer.sol#50) is used in oracle request but is modified in DirectFundingConsumer.setNumWords(uint32) (src/DirectFundingConsumer.sol#156-158) without protection. Please add access control.
+OCCV3: DirectFundingConsumer.callbackGasLimit (src/DirectFundingConsumer.sol#45) is used in oracle request but is modified in DirectFundingConsumer.setCallbackGasLimit(uint32) (src/DirectFundingConsumer.sol#148-150) without protection. Please add access control.
+OCCV3: (requestId,None) = requestRandomness(callbackGasLimit,requestConfirmations,numWords,extraArgs) (src/DirectFundingConsumer.sol#92-97) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#90-104) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: DirectFundingConsumer.requestRandomWords(address) (src/DirectFundingConsumer.sol#90-104)  sends oracle request but DirectFundingConsumer (src/DirectFundingConsumer.sol#17-179) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: UDUart.directFundingConsumer (src/UDUart.sol#58) is used in oracle request but is modified in UDUart.setDirectFundingConsumer(address) (src/UDUart.sol#448-451) without protection. Please add access control.
+OCCV5: UDUart.initializeCollection() (src/UDUart.sol#112-126)  sends oracle request but UDUart (src/UDUart.sol#15-454) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x8a5083f1610a2b848dd5c737c98866795aaf3e8b analyzed (29 contracts with 3 detectors), 10 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 29 / 31 - 合约地址：0x9379aac87d37c2dc09662c433db08ca114b59d41 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9379aac87d37c2dc09662c433db08ca114b59d41-VRFConsumer' running
+INFO:Detectors:
+OCCV7: revert in require(bool,string)(packToRequestId[packTokenId] == requestId,VRF request not found) (src/VRFConsumer.sol#131) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(availableCards.length > 0,No cards available for rarity) (src/VRFConsumer.sol#279) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV3: VRFConsumer._requestPackRandomness(uint256,address) (src/VRFConsumer.sol#174-207) withdraw token but is not protrcted. Please add access control.
+Reference: ...
+INFO:Detectors:
+OCCV12: response in isSecondRare = cardIndex == PackGameTypes.CARDS_PER_PACK - 2 && secondRareRoll < secondRareChance (src/VRFConsumer.sol#259) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: (requestId,requestPrice) = requestRandomnessPayInNative(PackGameTypes.CALLBACK_GAS_LIMIT,PackGameTypes.REQUEST_CONFIRMATIONS,PackGameTypes.RANDOM_WORDS_PER_PACK,extraArgs) (src/VRFConsumer.sol#184-189) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: VRFConsumer._requestPackRandomness(uint256,address) (src/VRFConsumer.sol#174-207) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VRFConsumer._requestPackRandomness(uint256,address) (src/VRFConsumer.sol#174-207)  sends oracle request but VRFConsumer (src/VRFConsumer.sol#18-312) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x9379aac87d37c2dc09662c433db08ca114b59d41 analyzed (17 contracts with 3 detectors), 7 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 30 / 31 - 合约地址：0x4b9bb2a4f153e9f9133e0a0fb76816d3aa4ef053 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4b9bb2a4f153e9f9133e0a0fb76816d3aa4ef053-NutgamesLottery' running
+INFO:Detectors:
+OCCV3: NutgamesLottery.drawFinalNumberAndMakeLotteryClaimable(address,uint256) (contracts/NutgamesLotteryETH.sol#1129-1213) withdraw token but is not protrcted. Please add access control.
+OCCV3: NutgamesLottery._sendOperatorProtocolFee(bool) (contracts/NutgamesLotteryETH.sol#1633-1650) withdraw token but is not protrcted. Please add access control.
+OCCV7: revert in require(bool,string)(request.paid > 0,request not found) (contracts/NutgamesLotteryETH.sol#945) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV1: response ID of the fulfill NutgamesLottery.fulfillRandomWords(uint256,uint256[]) (contracts/NutgamesLotteryETH.sol#943-952) not checked. Please check before use it
+OCCV12: response in lowerBound = uint32(10) ** request.bracketCalculatorActiveLength (contracts/NutgamesLotteryETH.sol#948) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in lowerBound = uint32(10) ** request.bracketCalculatorActiveLength (contracts/NutgamesLotteryETH.sol#948) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in request.randomResult = uint32(lowerBound + (_randomWords[0] % lowerBound)) (contracts/NutgamesLotteryETH.sol#950) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in request.randomResult = uint32(lowerBound + (_randomWords[0] % lowerBound)) (contracts/NutgamesLotteryETH.sol#950) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: (requestId,reqPrice) = requestRandomnessPayInNative(config.vrfCallbackGasLimit,config.vrfResquestConfirmations,VRF_NUM_WORDS,extraArgs) (contracts/NutgamesLotteryETH.sol#925-930) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: NutgamesLottery._requestRandomWord(address,uint256) (contracts/NutgamesLotteryETH.sol#916-941) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: NutgamesLottery._requestRandomWord(address,uint256) (contracts/NutgamesLotteryETH.sol#916-941)  sends oracle request but NutgamesLottery (contracts/NutgamesLotteryETH.sol#741-1651) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x4b9bb2a4f153e9f9133e0a0fb76816d3aa4ef053 analyzed (9 contracts with 3 detectors), 11 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 31 / 31 - 合约地址：0x89466fe99edf79b6b3f1836f0ecb3789a77a221a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest' running
+INFO:Detectors:
+OCCV7: revert in require(bool,string)(requestIdToRound[_requestId] == roundNumber,The requestId is not for the current round) (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1231) Costs have been incurred, recommend to log the error instead of aborting execution
+OCCV7: revert in require(bool,string)(roundInfos[roundNumber].state == RoundState.ROLLING,The current round state is not ROLLING) (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1232) Costs have been incurred, recommend to log the error instead of aborting execution
+Reference: ...
+INFO:Detectors:
+OCCV12: response in roundInfos[roundNumber].jackpotNumber = _randomWords[0] % (TICKET_NUMBER_RANGE + 1) (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1237) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV3: requestId = s_vrfCoordinator.requestRandomWords(VRFV2PlusClient.RandomWordsRequest({keyHash:keyHash,subId:subscriptionId,requestConfirmations:requestConfirmations,callbackGasLimit:callbackGasLimit,numWords:1,extraArgs:VRFV2PlusClient._argsToBytes(VRFV2PlusClient.ExtraArgsV1({nativePayment:false}))})) (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1208-1219) consumes contract/subscription funds but lacks protection. Please add access control.
+OCCV4: RefundableLottery.rollTheDice() (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1202-1227) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RefundableLottery.rollTheDice() (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1202-1227)  sends oracle request but RefundableLottery (crytic-export/etherscan-contracts/0x89466fe99edf79b6b3f1836f0ecb3789a77a221a-RefundableLottery.sol#1055-1399) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x89466fe99edf79b6b3f1836f0ecb3789a77a221a analyzed (16 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+

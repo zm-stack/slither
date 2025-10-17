@@ -1,0 +1,1483 @@
+--- 分析结果 1 / 8 - 合约地址：0x96bb60aaaec09a0fceb4527b81bbf3cc0c171393 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x96bb60aaaec09a0fceb4527b81bbf3cc0c171393-AutomationForwarderLogic' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/AutomationConsumerBenchmark.sol
+
+
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/StreamsLookupUpkeep.sol
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:513:5:
+    |
+513 |     uint256[] memory delays = delays[upkeepId];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:518:5:
+    |
+518 |     uint256[] memory delays = bucketedDelays[upkeepId][bucket];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:37:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:36:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:47:7:
+   |
+47 |       uint256 blockNum = abi.decode(t2, (uint256));
+   |       ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol:795:5:
+    |
+795 |     UpkeepTransmitInfo memory transmitInfo
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/2_1/mocks/MockKeeperRegistry2_1.sol:12:23:
+   |
+12 |   function getBalance(uint256 id) external view override returns (uint96) {
+   |                       ^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/2_1/mocks/MockKeeperRegistry2_1.sol:16:26:
+   |
+16 |   function getMinBalance(uint256 id) external view override returns (uint96) {
+   |                          ^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:64:32:
+   |
+64 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                ^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:64:51:
+   |
+64 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:19:7:
+   |
+19 |       uint256 interval,
+   |       ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:22:7:
+   |
+22 |       uint256 performBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:43:7:
+   |
+43 |       uint256 checkBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+   --> src/v0.8/tests/StreamsLookupUpkeep.sol:127:5:
+    |
+127 |     bytes memory v1 = "";
+    |     ^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:186:5:
+    |
+186 |     bytes32 topic1,
+    |     ^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:79:6:
+   |
+79 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:80:48:
+   |
+80 |     (uint256 upkeepId, uint256 logBlockNumber, address addr) = abi.decode(extraData, (uint256, uint256, address));
+   |                                                ^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:83:5:
+   |
+83 |     uint256 previousPerformBlock = previousPerformBlocks[upkeepId];
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol:50:6:
+   |
+50 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/2_1/UpkeepTranscoder4_0.sol:80:3:
+   |
+80 |   function transcodeUpkeeps(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/tests/DummyProtocol.sol:39:3:
+   |
+39 |   function getBasicLogTriggerConfig(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/tests/DummyProtocol.sol:69:3:
+   |
+69 |   function getAdvancedLogTriggerConfig(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+  --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:61:3:
+   |
+61 |   function checkLog(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:102:3:
+    |
+102 |   function checkCallback(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:162:3:
+    |
+162 |   function getLogTriggerConfig(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:3:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:3:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_linkNativeFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#543) Each call should handle only one request at a time.
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_fastGasFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#535) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV11: oracle response in UpkeepCounter.performUpkeep(bytes) (src/v0.8/dev/automation/2_1/mocks/UpkeepCounter.sol#33-42) not verified. Please verify before use it.
+OCCV11: oracle response in AutomationConsumerBenchmark.performUpkeep(bytes) (src/v0.8/tests/AutomationConsumerBenchmark.sol#38-62) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadLogTriggerUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol#77-110) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadStreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol#48-76) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadUpkeep.sol#25-51) not verified. Please verify before use it.
+Reference: ...
+INFO:Detectors:
+OCCV5: LogTriggeredStreamsLookup.performUpkeep(bytes) (src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol#82-100)  sends oracle request but LogTriggeredStreamsLookup (src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol#18-118) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: VERIFIER = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol#30) Instantiates a contract but is not protected. Please add access control.
+OCCV3: IVerifierProxy(i_verifierProxyAddr).setVerifier(feedVerifierState.latestConfigDigest,configDigest,recipientAddressesAndWeights) (src/v0.8/llo-feeds/Verifier.sol#423-427) Instantiates a contract but is not protected. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._updateEpoch(bytes32[3],Verifier.VerifierState) (src/v0.8/llo-feeds/Verifier.sol#268-274) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._setConfig(bytes32,uint256,address,address[],bytes32[],uint8,bytes,uint64,bytes,Common.AddressAndWeight[]) (src/v0.8/llo-feeds/Verifier.sol#374-445) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#494-501) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#504-514) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#517-523) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#526-532) without protection. Please add access control.
+OCCV4: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160)  sends oracle request but VerifierProxy (src/v0.8/llo-feeds/VerifierProxy.sol#18-223) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV5: StreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/StreamsLookupUpkeep.sol#112-136)  sends oracle request but StreamsLookupUpkeep (src/v0.8/tests/StreamsLookupUpkeep.sol#17-151) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: PRODUCTION_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (src/v0.8/tests/StreamsLookupUpkeep.sol#22-23) Instantiates a contract but is not protected. Please add access control.
+OCCV3: STAGING_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x60448B880c9f3B501af3f343DA9284148BD7D77C) (src/v0.8/tests/StreamsLookupUpkeep.sol#24-25) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x96bb60aaaec09a0fceb4527b81bbf3cc0c171393 analyzed (76 contracts with 3 detectors), 21 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 2 / 8 - 合约地址：0x333974c43e32f453f5ea1d930444b77b2b391ced ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x333974c43e32f453f5ea1d930444b77b2b391ced-KeeperRegistryLogicB2_1' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/AutomationConsumerBenchmark.sol
+
+
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/StreamsLookupUpkeep.sol
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:513:5:
+    |
+513 |     uint256[] memory delays = delays[upkeepId];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:518:5:
+    |
+518 |     uint256[] memory delays = bucketedDelays[upkeepId][bucket];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:37:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:36:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:47:7:
+   |
+47 |       uint256 blockNum = abi.decode(t2, (uint256));
+   |       ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol:795:5:
+    |
+795 |     UpkeepTransmitInfo memory transmitInfo
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/2_1/mocks/MockKeeperRegistry2_1.sol:12:23:
+   |
+12 |   function getBalance(uint256 id) external view override returns (uint96) {
+   |                       ^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/2_1/mocks/MockKeeperRegistry2_1.sol:16:26:
+   |
+16 |   function getMinBalance(uint256 id) external view override returns (uint96) {
+   |                          ^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:64:32:
+   |
+64 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                ^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:64:51:
+   |
+64 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:19:7:
+   |
+19 |       uint256 interval,
+   |       ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:22:7:
+   |
+22 |       uint256 performBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:43:7:
+   |
+43 |       uint256 checkBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+   --> src/v0.8/tests/StreamsLookupUpkeep.sol:127:5:
+    |
+127 |     bytes memory v1 = "";
+    |     ^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:186:5:
+    |
+186 |     bytes32 topic1,
+    |     ^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:79:6:
+   |
+79 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:80:48:
+   |
+80 |     (uint256 upkeepId, uint256 logBlockNumber, address addr) = abi.decode(extraData, (uint256, uint256, address));
+   |                                                ^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:83:5:
+   |
+83 |     uint256 previousPerformBlock = previousPerformBlocks[upkeepId];
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol:50:6:
+   |
+50 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/2_1/UpkeepTranscoder4_0.sol:80:3:
+   |
+80 |   function transcodeUpkeeps(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/tests/DummyProtocol.sol:39:3:
+   |
+39 |   function getBasicLogTriggerConfig(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/tests/DummyProtocol.sol:69:3:
+   |
+69 |   function getAdvancedLogTriggerConfig(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+  --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:61:3:
+   |
+61 |   function checkLog(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol:102:3:
+    |
+102 |   function checkCallback(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:162:3:
+    |
+162 |   function getLogTriggerConfig(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:3:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:3:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_fastGasFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#535) Each call should handle only one request at a time.
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_linkNativeFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#543) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV11: oracle response in UpkeepCounter.performUpkeep(bytes) (src/v0.8/dev/automation/2_1/mocks/UpkeepCounter.sol#33-42) not verified. Please verify before use it.
+OCCV11: oracle response in AutomationConsumerBenchmark.performUpkeep(bytes) (src/v0.8/tests/AutomationConsumerBenchmark.sol#38-62) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadLogTriggerUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol#77-110) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadStreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol#48-76) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadUpkeep.sol#25-51) not verified. Please verify before use it.
+Reference: ...
+INFO:Detectors:
+OCCV5: LogTriggeredStreamsLookup.performUpkeep(bytes) (src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol#82-100)  sends oracle request but LogTriggeredStreamsLookup (src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol#18-118) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: VERIFIER = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (src/v0.8/dev/automation/tests/LogTriggeredStreamsLookup.sol#30) Instantiates a contract but is not protected. Please add access control.
+OCCV3: IVerifierProxy(i_verifierProxyAddr).setVerifier(feedVerifierState.latestConfigDigest,configDigest,recipientAddressesAndWeights) (src/v0.8/llo-feeds/Verifier.sol#423-427) Instantiates a contract but is not protected. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#504-514) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#517-523) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#526-532) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._updateEpoch(bytes32[3],Verifier.VerifierState) (src/v0.8/llo-feeds/Verifier.sol#268-274) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._setConfig(bytes32,uint256,address,address[],bytes32[],uint8,bytes,uint64,bytes,Common.AddressAndWeight[]) (src/v0.8/llo-feeds/Verifier.sol#374-445) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#494-501) without protection. Please add access control.
+OCCV4: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160)  sends oracle request but VerifierProxy (src/v0.8/llo-feeds/VerifierProxy.sol#18-223) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV5: StreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/StreamsLookupUpkeep.sol#112-136)  sends oracle request but StreamsLookupUpkeep (src/v0.8/tests/StreamsLookupUpkeep.sol#17-151) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: PRODUCTION_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (src/v0.8/tests/StreamsLookupUpkeep.sol#22-23) Instantiates a contract but is not protected. Please add access control.
+OCCV3: STAGING_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x60448B880c9f3B501af3f343DA9284148BD7D77C) (src/v0.8/tests/StreamsLookupUpkeep.sol#24-25) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x333974c43e32f453f5ea1d930444b77b2b391ced analyzed (76 contracts with 3 detectors), 21 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 3 / 8 - 合约地址：0x93fcfbad0e12c985bbfc8b7aec4160003fc7aa18 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x93fcfbad0e12c985bbfc8b7aec4160003fc7aa18-UpkeepTranscoder4_0' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/AutomationConsumerBenchmark.sol
+
+
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/StreamsLookupUpkeep.sol
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:513:5:
+    |
+513 |     uint256[] memory delays = delays[upkeepId];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:518:5:
+    |
+518 |     uint256[] memory delays = bucketedDelays[upkeepId][bucket];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:37:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:36:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:47:7:
+   |
+47 |       uint256 blockNum = abi.decode(t2, (uint256));
+   |       ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/automation/mocks/MockKeeperRegistry2_1.sol:12:23:
+   |
+12 |   function getBalance(uint256 id) external view override returns (uint96) {
+   |                       ^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/automation/mocks/MockKeeperRegistry2_1.sol:16:26:
+   |
+16 |   function getMinBalance(uint256 id) external view override returns (uint96) {
+   |                          ^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:64:32:
+   |
+64 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                ^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:64:51:
+   |
+64 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/automation/v2_1/KeeperRegistryBase2_1.sol:795:5:
+    |
+795 |     UpkeepTransmitInfo memory transmitInfo
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:19:7:
+   |
+19 |       uint256 interval,
+   |       ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:22:7:
+   |
+22 |       uint256 performBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:43:7:
+   |
+43 |       uint256 checkBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+   --> src/v0.8/tests/StreamsLookupUpkeep.sol:127:5:
+    |
+127 |     bytes memory v1 = "";
+    |     ^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:186:5:
+    |
+186 |     bytes32 topic1,
+    |     ^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:79:6:
+   |
+79 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:80:48:
+   |
+80 |     (uint256 upkeepId, uint256 logBlockNumber, address addr) = abi.decode(extraData, (uint256, uint256, address));
+   |                                                ^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:83:5:
+   |
+83 |     uint256 previousPerformBlock = previousPerformBlocks[upkeepId];
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol:50:6:
+   |
+50 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/automation/testhelpers/DummyProtocol.sol:39:3:
+   |
+39 |   function getBasicLogTriggerConfig(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/automation/testhelpers/DummyProtocol.sol:69:3:
+   |
+69 |   function getAdvancedLogTriggerConfig(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+  --> src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:61:3:
+   |
+61 |   function checkLog(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:102:3:
+    |
+102 |   function checkCallback(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/automation/v2_1/UpkeepTranscoder4_0.sol:80:3:
+   |
+80 |   function transcodeUpkeeps(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:162:3:
+    |
+162 |   function getLogTriggerConfig(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:3:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:3:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_linkNativeFeed.latestRoundData() (src/v0.8/automation/v2_1/KeeperRegistryBase2_1.sol#543) Each call should handle only one request at a time.
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_fastGasFeed.latestRoundData() (src/v0.8/automation/v2_1/KeeperRegistryBase2_1.sol#535) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV11: oracle response in UpkeepCounter.performUpkeep(bytes) (src/v0.8/automation/testhelpers/UpkeepCounter.sol#33-42) not verified. Please verify before use it.
+OCCV11: oracle response in AutomationConsumerBenchmark.performUpkeep(bytes) (src/v0.8/tests/AutomationConsumerBenchmark.sol#38-62) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadLogTriggerUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol#77-110) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadStreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol#48-76) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadUpkeep.sol#25-51) not verified. Please verify before use it.
+Reference: ...
+INFO:Detectors:
+OCCV5: LogTriggeredStreamsLookup.performUpkeep(bytes) (src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#82-100)  sends oracle request but LogTriggeredStreamsLookup (src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#18-118) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: VERIFIER = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#30) Instantiates a contract but is not protected. Please add access control.
+OCCV3: IVerifierProxy(i_verifierProxyAddr).setVerifier(feedVerifierState.latestConfigDigest,configDigest,recipientAddressesAndWeights) (src/v0.8/llo-feeds/Verifier.sol#429-433) Instantiates a contract but is not protected. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._updateEpoch(bytes32[3],Verifier.VerifierState) (src/v0.8/llo-feeds/Verifier.sol#268-274) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._setConfig(bytes32,uint256,address,uint32,address[],bytes32[],uint8,bytes,uint64,bytes,Common.AddressAndWeight[]) (src/v0.8/llo-feeds/Verifier.sol#378-451) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#500-507) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#523-529) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#532-538) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#510-520) without protection. Please add access control.
+OCCV4: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160)  sends oracle request but VerifierProxy (src/v0.8/llo-feeds/VerifierProxy.sol#18-223) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV5: StreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/StreamsLookupUpkeep.sol#112-136)  sends oracle request but StreamsLookupUpkeep (src/v0.8/tests/StreamsLookupUpkeep.sol#17-151) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: PRODUCTION_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (src/v0.8/tests/StreamsLookupUpkeep.sol#22-23) Instantiates a contract but is not protected. Please add access control.
+OCCV3: STAGING_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x60448B880c9f3B501af3f343DA9284148BD7D77C) (src/v0.8/tests/StreamsLookupUpkeep.sol#24-25) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x93fcfbad0e12c985bbfc8b7aec4160003fc7aa18 analyzed (76 contracts with 3 detectors), 21 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 4 / 8 - 合约地址：0x6f3239bbb26e98961e1115aba83f8a282e5508c8 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6f3239bbb26e98961e1115aba83f8a282e5508c8-KeeperRegistryLogicA2_1' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/AutomationConsumerBenchmark.sol
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:513:5:
+    |
+513 |     uint256[] memory delays = delays[upkeepId];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:518:5:
+    |
+518 |     uint256[] memory delays = bucketedDelays[upkeepId][bucket];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:37:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:36:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:47:7:
+   |
+47 |       uint256 blockNum = abi.decode(t2, (uint256));
+   |       ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol:795:5:
+    |
+795 |     UpkeepTransmitInfo memory transmitInfo
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:19:7:
+   |
+19 |       uint256 interval,
+   |       ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:22:7:
+   |
+22 |       uint256 performBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:43:7:
+   |
+43 |       uint256 checkBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:186:5:
+    |
+186 |     bytes32 topic1,
+    |     ^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:71:6:
+   |
+71 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:72:48:
+   |
+72 |     (uint256 upkeepId, uint256 logBlockNumber, address addr) = abi.decode(extraData, (uint256, uint256, address));
+   |                                                ^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:75:5:
+   |
+75 |     uint256 previousPerformBlock = previousPerformBlocks[upkeepId];
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol:42:6:
+   |
+42 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/2_1/UpkeepTranscoder4_0.sol:80:3:
+   |
+80 |   function transcodeUpkeeps(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:162:3:
+    |
+162 |   function getLogTriggerConfig(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:3:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:3:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_fastGasFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#535) Each call should handle only one request at a time.
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_linkNativeFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#543) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV11: oracle response in AutomationConsumerBenchmark.performUpkeep(bytes) (src/v0.8/tests/AutomationConsumerBenchmark.sol#38-62) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadLogTriggerUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol#69-102) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadStreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol#40-68) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadUpkeep.sol#25-51) not verified. Please verify before use it.
+Reference: ...
+INFO:Detectors:
+OCCV3: IVerifierProxy(i_verifierProxyAddr).setVerifier(feedVerifierState.latestConfigDigest,configDigest,recipientAddressesAndWeights) (src/v0.8/llo-feeds/Verifier.sol#423-427) Instantiates a contract but is not protected. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._updateEpoch(bytes32[3],Verifier.VerifierState) (src/v0.8/llo-feeds/Verifier.sol#268-274) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._setConfig(bytes32,uint256,address,address[],bytes32[],uint8,bytes,uint64,bytes,Common.AddressAndWeight[]) (src/v0.8/llo-feeds/Verifier.sol#374-445) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#494-501) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#504-514) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#517-523) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#526-532) without protection. Please add access control.
+OCCV4: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160)  sends oracle request but VerifierProxy (src/v0.8/llo-feeds/VerifierProxy.sol#18-223) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6f3239bbb26e98961e1115aba83f8a282e5508c8 analyzed (64 contracts with 3 detectors), 15 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 5 / 8 - 合约地址：0x6593c7de001fc8542bb1703532ee1e5aa0d458fd ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6593c7de001fc8542bb1703532ee1e5aa0d458fd-KeeperRegistry2_1' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/AutomationConsumerBenchmark.sol
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:513:5:
+    |
+513 |     uint256[] memory delays = delays[upkeepId];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:518:5:
+    |
+518 |     uint256[] memory delays = bucketedDelays[upkeepId][bucket];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:37:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:36:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:47:7:
+   |
+47 |       uint256 blockNum = abi.decode(t2, (uint256));
+   |       ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol:795:5:
+    |
+795 |     UpkeepTransmitInfo memory transmitInfo
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:19:7:
+   |
+19 |       uint256 interval,
+   |       ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:22:7:
+   |
+22 |       uint256 performBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:43:7:
+   |
+43 |       uint256 checkBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:186:5:
+    |
+186 |     bytes32 topic1,
+    |     ^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:71:6:
+   |
+71 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:72:48:
+   |
+72 |     (uint256 upkeepId, uint256 logBlockNumber, address addr) = abi.decode(extraData, (uint256, uint256, address));
+   |                                                ^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:75:5:
+   |
+75 |     uint256 previousPerformBlock = previousPerformBlocks[upkeepId];
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol:42:6:
+   |
+42 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/2_1/UpkeepTranscoder4_0.sol:80:3:
+   |
+80 |   function transcodeUpkeeps(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:162:3:
+    |
+162 |   function getLogTriggerConfig(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:3:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:3:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_linkNativeFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#543) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV11: oracle response in AutomationConsumerBenchmark.performUpkeep(bytes) (src/v0.8/tests/AutomationConsumerBenchmark.sol#38-62) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadLogTriggerUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol#69-102) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadStreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol#40-68) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadUpkeep.sol#25-51) not verified. Please verify before use it.
+Reference: ...
+INFO:Detectors:
+OCCV3: IVerifierProxy(i_verifierProxyAddr).setVerifier(feedVerifierState.latestConfigDigest,configDigest,recipientAddressesAndWeights) (src/v0.8/llo-feeds/Verifier.sol#423-427) Instantiates a contract but is not protected. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._updateEpoch(bytes32[3],Verifier.VerifierState) (src/v0.8/llo-feeds/Verifier.sol#268-274) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._setConfig(bytes32,uint256,address,address[],bytes32[],uint8,bytes,uint64,bytes,Common.AddressAndWeight[]) (src/v0.8/llo-feeds/Verifier.sol#374-445) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#494-501) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#504-514) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#517-523) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#526-532) without protection. Please add access control.
+OCCV4: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160)  sends oracle request but VerifierProxy (src/v0.8/llo-feeds/VerifierProxy.sol#18-223) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6593c7de001fc8542bb1703532ee1e5aa0d458fd analyzed (64 contracts with 3 detectors), 14 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 6 / 8 - 合约地址：0x6b0b234fb2f380309d47a7e9391e29e9a179395a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6b0b234fb2f380309d47a7e9391e29e9a179395a-AutomationRegistrar2_1' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> src/v0.8/tests/AutomationConsumerBenchmark.sol
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:513:5:
+    |
+513 |     uint256[] memory delays = delays[upkeepId];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:518:5:
+    |
+518 |     uint256[] memory delays = bucketedDelays[upkeepId][bucket];
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:37:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:36:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadBase.sol:33:3:
+   |
+33 |   mapping(uint256 => uint256[]) public delays; // how to query for delays for a certain past period: calendar day and/or past 24 hours
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: This declaration shadows an existing declaration.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:47:7:
+   |
+47 |       uint256 blockNum = abi.decode(t2, (uint256));
+   |       ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol:795:5:
+    |
+795 |     UpkeepTransmitInfo memory transmitInfo
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:19:7:
+   |
+19 |       uint256 interval,
+   |       ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:22:7:
+   |
+22 |       uint256 performBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/AutomationConsumerBenchmark.sol:43:7:
+   |
+43 |       uint256 checkBurnAmount,
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> src/v0.8/tests/VerifiableLoadBase.sol:186:5:
+    |
+186 |     bytes32 topic1,
+    |     ^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:32:5:
+   |
+32 |     uint256 blockNum = getBlockNumber();
+   |     ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:71:6:
+   |
+71 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:72:48:
+   |
+72 |     (uint256 upkeepId, uint256 logBlockNumber, address addr) = abi.decode(extraData, (uint256, uint256, address));
+   |                                                ^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol:75:5:
+   |
+75 |     uint256 previousPerformBlock = previousPerformBlocks[upkeepId];
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+  --> src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol:42:6:
+   |
+42 |     (bytes[] memory values, bytes memory extraData) = abi.decode(performData, (bytes[], bytes));
+   |      ^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> src/v0.8/dev/automation/2_1/UpkeepTranscoder4_0.sol:80:3:
+   |
+80 |   function transcodeUpkeeps(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:162:3:
+    |
+162 |   function getLogTriggerConfig(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:522:3:
+    |
+522 |   function getSumDelayLastNPerforms(uint256[] memory delays, uint256 n) internal view returns (uint256, uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> src/v0.8/tests/VerifiableLoadBase.sol:538:3:
+    |
+538 |   function getPxDelayLastNPerforms(uint256[] memory delays, uint256 p, uint256 n) internal view returns (uint256) {
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: multiple requests sent in (None,feedValue,None,timestamp,None) = i_linkNativeFeed.latestRoundData() (src/v0.8/dev/automation/2_1/KeeperRegistryBase2_1.sol#543) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV11: oracle response in AutomationConsumerBenchmark.performUpkeep(bytes) (src/v0.8/tests/AutomationConsumerBenchmark.sol#38-62) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadLogTriggerUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadLogTriggerUpkeep.sol#69-102) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadStreamsLookupUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadStreamsLookupUpkeep.sol#40-68) not verified. Please verify before use it.
+OCCV11: oracle response in VerifiableLoadUpkeep.performUpkeep(bytes) (src/v0.8/tests/VerifiableLoadUpkeep.sol#25-51) not verified. Please verify before use it.
+Reference: ...
+INFO:Detectors:
+OCCV3: IVerifierProxy(i_verifierProxyAddr).setVerifier(feedVerifierState.latestConfigDigest,configDigest,recipientAddressesAndWeights) (src/v0.8/llo-feeds/Verifier.sol#423-427) Instantiates a contract but is not protected. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._updateEpoch(bytes32[3],Verifier.VerifierState) (src/v0.8/llo-feeds/Verifier.sol#268-274) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier._setConfig(bytes32,uint256,address,address[],bytes32[],uint8,bytes,uint64,bytes,Common.AddressAndWeight[]) (src/v0.8/llo-feeds/Verifier.sol#374-445) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#494-501) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateConfig(bytes32,bytes32) (src/v0.8/llo-feeds/Verifier.sol#504-514) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.activateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#517-523) without protection. Please add access control.
+OCCV3: Verifier.s_feedVerifierStates (src/v0.8/llo-feeds/Verifier.sol#176) is used in oracle request but is modified in Verifier.deactivateFeed(bytes32) (src/v0.8/llo-feeds/Verifier.sol#526-532) without protection. Please add access control.
+OCCV4: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: VerifierProxy._verify(bytes) (src/v0.8/llo-feeds/VerifierProxy.sol#153-160)  sends oracle request but VerifierProxy (src/v0.8/llo-feeds/VerifierProxy.sol#18-223) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6b0b234fb2f380309d47a7e9391e29e9a179395a analyzed (64 contracts with 3 detectors), 14 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 7 / 8 - 合约地址：0x0f7841150b0d305515bbdbf63ff39c92449d32cc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0f7841150b0d305515bbdbf63ff39c92449d32cc-LogTriggeredStreamsLookup' running
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:75:32:
+   |
+75 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                ^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:75:51:
+   |
+75 |   ) external override returns (bool upkeepNeeded, bytes memory performData) {
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+   --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:105:57:
+    |
+105 |     (uint256 orderId, uint256 amount, address exchange, bytes32 logTopic0) = abi.decode(
+    |                                                         ^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:138:5:
+    |
+138 |     uint256 errCode,
+    |     ^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:139:5:
+    |
+139 |     bytes memory extraData
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to view
+  --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:72:3:
+   |
+72 |   function checkLog(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol:128:3:
+    |
+128 |   function checkCallback(
+    |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV6: errorCode of checkErrorHandler in LogTriggeredStreamsLookup.checkErrorHandler(uint256,bytes) (contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#137-143) not checked. Please check it and handle possiable error.
+Reference: ...
+INFO:Detectors:
+OCCV5: LogTriggeredStreamsLookup.performUpkeep(bytes) (contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#99-126)  sends oracle request but LogTriggeredStreamsLookup (contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#18-152) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: VERIFIER = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (contracts/src/v0.8/automation/testhelpers/LogTriggeredStreamsLookup.sol#32) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x0f7841150b0d305515bbdbf63ff39c92449d32cc analyzed (5 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 8 / 8 - 合约地址：0xbdff0c3fe596fc8b0267bc98658bfa7d6eddcb5d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xbdff0c3fe596fc8b0267bc98658bfa7d6eddcb5d-StreamsLookupUpkeep' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol:90:5:
+   |
+90 |     uint256 errCode,
+   |     ^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol:91:5:
+   |
+91 |     bytes memory extraData
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused local variable.
+   --> contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol:133:5:
+    |
+133 |     bytes memory v1 = "";
+    |     ^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+  --> contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol:89:3:
+   |
+89 |   function checkErrorHandler(
+   |   ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV6: errorCode of checkErrorHandler in StreamsLookupUpkeep.checkErrorHandler(uint256,bytes) (contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol#89-95) not checked. Please check it and handle possiable error.
+Reference: ...
+INFO:Detectors:
+OCCV5: StreamsLookupUpkeep.performUpkeep(bytes) (contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol#118-142)  sends oracle request but StreamsLookupUpkeep (contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol#17-157) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: PRODUCTION_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x09DFf56A4fF44e0f4436260A04F5CFa65636A481) (contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol#22-23) Instantiates a contract but is not protected. Please add access control.
+OCCV3: STAGING_TESTNET_VERIFIER_PROXY = IVerifierProxy(0x60448B880c9f3B501af3f343DA9284148BD7D77C) (contracts/src/v0.8/automation/testhelpers/StreamsLookupUpkeep.sol#24-25) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0xbdff0c3fe596fc8b0267bc98658bfa7d6eddcb5d analyzed (5 contracts with 3 detectors), 4 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
