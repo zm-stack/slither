@@ -1,0 +1,728 @@
+--- 分析结果 1 / 79 - 合约地址：0x956c9b887cb8779140eed942fa91f51b13bd1b86 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x956c9b887cb8779140eed942fa91f51b13bd1b86-ChronicleOracle' running
+INFO:Detectors:
+OCCV4: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70)  sends oracle request but ChronicleOracle (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#14-71) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (price,age) = IChronicle(feed).readWithAge() (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#65) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x956c9b887cb8779140eed942fa91f51b13bd1b86 analyzed (8 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 2 / 79 - 合约地址：0x6245cd4e6fef97ccc0508242135fdf2577006cfc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6245cd4e6fef97ccc0508242135fdf2577006cfc-ChronicleOracle' running
+INFO:Detectors:
+OCCV4: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70)  sends oracle request but ChronicleOracle (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#14-71) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (price,age) = IChronicle(feed).readWithAge() (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#65) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x6245cd4e6fef97ccc0508242135fdf2577006cfc analyzed (8 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 3 / 79 - 合约地址：0xdc8af46adf7143e58047beeca27210d6dc760721 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xdc8af46adf7143e58047beeca27210d6dc760721-ChronicleOracle' running
+INFO:Detectors:
+OCCV4: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70)  sends oracle request but ChronicleOracle (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#14-71) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (price,age) = IChronicle(feed).readWithAge() (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#65) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0xdc8af46adf7143e58047beeca27210d6dc760721 analyzed (8 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 4 / 79 - 合约地址：0xa770582353b573cbfdcc948751750eeb3ccf23cf ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa770582353b573cbfdcc948751750eeb3ccf23cf-Chronicle_WSTETH_USD_3' running
+INFO:Slither:0xa770582353b573cbfdcc948751750eeb3ccf23cf analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 5 / 79 - 合约地址：0x08669c836f41aead03e3ef81a59f3b8e72ec417a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x08669c836f41aead03e3ef81a59f3b8e72ec417a-Chronicle_LIDO_LST_2DAYS_1' running
+INFO:Slither:0x08669c836f41aead03e3ef81a59f3b8e72ec417a analyzed (17 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 6 / 79 - 合约地址：0x02238bb0085395ae52cd4755456891fc2fd5934d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x02238bb0085395ae52cd4755456891fc2fd5934d-Chronicle_STETH_BTC_1' running
+INFO:Slither:0x02238bb0085395ae52cd4755456891fc2fd5934d analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 7 / 79 - 合约地址：0x496c851b2a9567dfeee0acbf04365f3ba00eb8dc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x496c851b2a9567dfeee0acbf04365f3ba00eb8dc-Chronicle_PEPE_USD_1' running
+INFO:Slither:0x496c851b2a9567dfeee0acbf04365f3ba00eb8dc analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 8 / 79 - 合约地址：0xfe7f9ece94500d6381ba1bb0afd77577d6834c0c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xfe7f9ece94500d6381ba1bb0afd77577d6834c0c-Chronicle_MOG_USD_1' running
+INFO:Slither:0xfe7f9ece94500d6381ba1bb0afd77577d6834c0c analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 9 / 79 - 合约地址：0x13118422f890cb3a8ee4f0aac8ad4c4be913cb51 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x13118422f890cb3a8ee4f0aac8ad4c4be913cb51-Chronicle_STONE_USD_1' running
+INFO:Slither:0x13118422f890cb3a8ee4f0aac8ad4c4be913cb51 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 10 / 79 - 合约地址：0x057f30e63a69175c69a4af5656b8c9ee647de3d0 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x057f30e63a69175c69a4af5656b8c9ee647de3d0-Chronicle_STONE_ETH_1' running
+INFO:Slither:0x057f30e63a69175c69a4af5656b8c9ee647de3d0 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 11 / 79 - 合约地址：0x3131e6a68bfb42976ef574af042f67d322098747 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3131e6a68bfb42976ef574af042f67d322098747-Chronicle_CBBTC_USDC_1' running
+INFO:Slither:0x3131e6a68bfb42976ef574af042f67d322098747 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 12 / 79 - 合约地址：0xb82345cd7be6db5069c7bc73ce7de44745ce9f21 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb82345cd7be6db5069c7bc73ce7de44745ce9f21-Chronicle_CBBTC_WBTC_1' running
+INFO:Slither:0xb82345cd7be6db5069c7bc73ce7de44745ce9f21 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 13 / 79 - 合约地址：0x5769e5353da4bafcbd19f20b1daab8860c2ee5f0 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5769e5353da4bafcbd19f20b1daab8860c2ee5f0-Chronicle_CBBTC_WETH_1' running
+INFO:Slither:0x5769e5353da4bafcbd19f20b1daab8860c2ee5f0 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 14 / 79 - 合约地址：0x74661a9ea74fd04975c6ebc6b155abf8f885636c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x74661a9ea74fd04975c6ebc6b155abf8f885636c-Chronicle_USDS_USD_1' running
+INFO:Slither:0x74661a9ea74fd04975c6ebc6b155abf8f885636c analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 15 / 79 - 合约地址：0x496470f4835186bf118545bd76889f123d608e84 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x496470f4835186bf118545bd76889f123d608e84-Chronicle_SUSDS_USD_1' running
+INFO:Slither:0x496470f4835186bf118545bd76889f123d608e84 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 16 / 79 - 合约地址：0x9f7ce792d0ee09a6ce89ec2b9b236a44b0acf73e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9f7ce792d0ee09a6ce89ec2b9b236a44b0acf73e-Chronicle_SKY_USD_1' running
+INFO:Slither:0x9f7ce792d0ee09a6ce89ec2b9b236a44b0acf73e analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 17 / 79 - 合约地址：0x101adfaf85890a000dedea24d01aa4a10e3709ad ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x101adfaf85890a000dedea24d01aa4a10e3709ad-Chronicle_FBTC_USD_1' running
+INFO:Slither:0x101adfaf85890a000dedea24d01aa4a10e3709ad analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 18 / 79 - 合约地址：0xb5130cc30be369afeac34b61d60ddfdef84b7b63 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb5130cc30be369afeac34b61d60ddfdef84b7b63-Chronicle_EBTC_ETH_1' running
+INFO:Slither:0xb5130cc30be369afeac34b61d60ddfdef84b7b63 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 19 / 79 - 合约地址：0xd02d70dd1e495f1d9245d97bfd93259fe8c81ff4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xd02d70dd1e495f1d9245d97bfd93259fe8c81ff4-Chronicle_USR_USD_1' running
+INFO:Slither:0xd02d70dd1e495f1d9245d97bfd93259fe8c81ff4 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 20 / 79 - 合约地址：0x1384c3e8bf8bd98a93768f77685569994cad7f4b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x1384c3e8bf8bd98a93768f77685569994cad7f4b-Chronicle_EBTCetherfi_ETH_1' running
+INFO:Slither:0x1384c3e8bf8bd98a93768f77685569994cad7f4b analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 21 / 79 - 合约地址：0xeb656424e16a8092592a74e6cd93cfd212204495 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xeb656424e16a8092592a74e6cd93cfd212204495-Chronicle_EBTCbadger_ETH_1' running
+INFO:Slither:0xeb656424e16a8092592a74e6cd93cfd212204495 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 22 / 79 - 合约地址：0xce701340261a3dc3541c5f8a6d2be689381c8fcc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xce701340261a3dc3541c5f8a6d2be689381c8fcc-Chronicle_USDC_USD_1' running
+INFO:Slither:0xce701340261a3dc3541c5f8a6d2be689381c8fcc analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 23 / 79 - 合约地址：0x7084a627a22b2de99e18733dc5aaf40993fa405c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7084a627a22b2de99e18733dc5aaf40993fa405c-Chronicle_USDT_USD_1' running
+INFO:Slither:0x7084a627a22b2de99e18733dc5aaf40993fa405c analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 24 / 79 - 合约地址：0xe7a6e74d1654b98e9d3ddb003b645e0d7c82c935 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe7a6e74d1654b98e9d3ddb003b645e0d7c82c935-Chronicle_RUSD_USD_1' running
+INFO:Slither:0xe7a6e74d1654b98e9d3ddb003b645e0d7c82c935 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 25 / 79 - 合约地址：0x286204401e0c1e63043e95a8de93236b735d4bf2 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x286204401e0c1e63043e95a8de93236b735d4bf2-Chronicle_WBTC_USD_1' running
+INFO:Slither:0x286204401e0c1e63043e95a8de93236b735d4bf2 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 26 / 79 - 合约地址：0xb074eee1f1e66650da49a4d96e255c8337a272a9 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb074eee1f1e66650da49a4d96e255c8337a272a9-Chronicle_WETH_USD_1' running
+INFO:Slither:0xb074eee1f1e66650da49a4d96e255c8337a272a9 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 27 / 79 - 合约地址：0x6a906372ca06523ba7feaedab18ab8b665caed71 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6a906372ca06523ba7feaedab18ab8b665caed71-Chronicle_WEETH_USD_1' running
+INFO:Slither:0x6a906372ca06523ba7feaedab18ab8b665caed71 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 28 / 79 - 合约地址：0x74a31431054cfa5ee82576df8d374916c169190b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x74a31431054cfa5ee82576df8d374916c169190b-Chronicle_PXETH_USD_1' running
+INFO:Slither:0x74a31431054cfa5ee82576df8d374916c169190b analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 29 / 79 - 合约地址：0x7525acfe2df5ba9cb06002e837db02aaec49b675 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7525acfe2df5ba9cb06002e837db02aaec49b675-Chronicle_USD0PLUSPLUS_USD_1' running
+INFO:Slither:0x7525acfe2df5ba9cb06002e837db02aaec49b675 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 30 / 79 - 合约地址：0x3bf2436a3771b7c0b3674ffb9e7e605006deccd4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3bf2436a3771b7c0b3674ffb9e7e605006deccd4-Chronicle_SKY_USD_2' running
+INFO:Slither:0x3bf2436a3771b7c0b3674ffb9e7e605006deccd4 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 31 / 79 - 合约地址：0x4ac943b192ce76ead66d1dc86557228338e6a6c0 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4ac943b192ce76ead66d1dc86557228338e6a6c0-Chronicle_WSRUSD_USD_1' running
+INFO:Slither:0x4ac943b192ce76ead66d1dc86557228338e6a6c0 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 32 / 79 - 合约地址：0x277f78f39b9dc73df3723bacd40f8658f8a1a633 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x277f78f39b9dc73df3723bacd40f8658f8a1a633-Chronicle_SRUSD_USD_1' running
+INFO:Slither:0x277f78f39b9dc73df3723bacd40f8658f8a1a633 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 33 / 79 - 合约地址：0x576211f0585aedbd21b7b5d4babe57e112f9b4b3 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x576211f0585aedbd21b7b5d4babe57e112f9b4b3-Chronicle_TEST_TEST_2' running
+INFO:Slither:0x576211f0585aedbd21b7b5d4babe57e112f9b4b3 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 34 / 79 - 合约地址：0x552116e747a5b386b2e7eed4371002359cf2a574 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x552116e747a5b386b2e7eed4371002359cf2a574-Chronicle_SPK_USD_1' running
+INFO:Slither:0x552116e747a5b386b2e7eed4371002359cf2a574 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 35 / 79 - 合约地址：0x762bd3343eff34e660da724751177cb94a2a7990 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x762bd3343eff34e660da724751177cb94a2a7990-Chronicle_CRO_USD_1' running
+INFO:Slither:0x762bd3343eff34e660da724751177cb94a2a7990 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 36 / 79 - 合约地址：0x27c0d69b99e4ea0bf99ebdc07dacbe0b3f068917 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x27c0d69b99e4ea0bf99ebdc07dacbe0b3f068917-Chronicle_WSTRBTC_USD_1' running
+INFO:Slither:0x27c0d69b99e4ea0bf99ebdc07dacbe0b3f068917 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 37 / 79 - 合约地址：0x7ba120dd96ac58b76508fa3b4777f76214881dc0 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7ba120dd96ac58b76508fa3b4777f76214881dc0-Chronicle_ALUSD_USD_1' running
+INFO:Slither:0x7ba120dd96ac58b76508fa3b4777f76214881dc0 analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 38 / 79 - 合约地址：0xde753a0a9af0169deca6b69ed1b5cd86b31fdaf9 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xde753a0a9af0169deca6b69ed1b5cd86b31fdaf9-Chronicle_WSTETH_USD_gas1' running
+INFO:Slither:0xde753a0a9af0169deca6b69ed1b5cd86b31fdaf9 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 39 / 79 - 合约地址：0x013c5c46db9914a19a58e57ad539ed5b125afa15 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x013c5c46db9914a19a58e57ad539ed5b125afa15-Chronicle_WSTETH_USD_1' running
+INFO:Slither:0x013c5c46db9914a19a58e57ad539ed5b125afa15 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 40 / 79 - 合约地址：0x608d9cd5ac613ebac4549e6b8a73954ea64c3660 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x608d9cd5ac613ebac4549e6b8a73954ea64c3660-Chronicle_RETH_USD_1' running
+INFO:Slither:0x608d9cd5ac613ebac4549e6b8a73954ea64c3660 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 41 / 79 - 合约地址：0xb400027b7c31d67982199fa48b8228f128691fcb ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb400027b7c31d67982199fa48b8228f128691fcb-Chronicle_MKR_USD_1' running
+INFO:Slither:0xb400027b7c31d67982199fa48b8228f128691fcb analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 42 / 79 - 合约地址：0x5e16ca75000fb2b9d7b1184fa24ff5d938a345ef ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5e16ca75000fb2b9d7b1184fa24ff5d938a345ef-Chronicle_ETH_USD_1' running
+INFO:Slither:0x5e16ca75000fb2b9d7b1184fa24ff5d938a345ef analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 43 / 79 - 合约地址：0x898d1ab819a24880f636416df7d1493c94143262 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x898d1ab819a24880f636416df7d1493c94143262-Chronicle_BTC_USD_1' running
+INFO:Slither:0x898d1ab819a24880f636416df7d1493c94143262 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 44 / 79 - 合约地址：0x1174948681bb05748e3682398d9b7a6836b07554 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x1174948681bb05748e3682398d9b7a6836b07554-Chronicle_ETH_USD_2' running
+INFO:Slither:0x1174948681bb05748e3682398d9b7a6836b07554 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 45 / 79 - 合约地址：0x84a48f89d5844385c515f43797147d6af61ce2ae ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x84a48f89d5844385c515f43797147d6af61ce2ae-Chronicle_WSTETH_ETH_2' running
+INFO:Slither:0x84a48f89d5844385c515f43797147d6af61ce2ae analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 46 / 79 - 合约地址：0x3fcc752dc6fb8acc80e3e0843c16ea080240b57f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3fcc752dc6fb8acc80e3e0843c16ea080240b57f-Chronicle_RETH_USD_2' running
+INFO:Slither:0x3fcc752dc6fb8acc80e3e0843c16ea080240b57f analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 47 / 79 - 合约地址：0x0b4d1660d9f28203a23c33808112ff44ca7bce41 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0b4d1660d9f28203a23c33808112ff44ca7bce41-Chronicle_GNO_USD_2' running
+INFO:Slither:0x0b4d1660d9f28203a23c33808112ff44ca7bce41 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 48 / 79 - 合约地址：0xf2dc732221e2b374ebbfd0023ef794c4432e66d8 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf2dc732221e2b374ebbfd0023ef794c4432e66d8-Chronicle_DAI_USD_2' running
+INFO:Slither:0xf2dc732221e2b374ebbfd0023ef794c4432e66d8 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 49 / 79 - 合约地址：0x209186cd917dfabd9529935dd7202c755a59f06f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x209186cd917dfabd9529935dd7202c755a59f06f-Chronicle_USDC_USD_2' running
+INFO:Slither:0x209186cd917dfabd9529935dd7202c755a59f06f analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 50 / 79 - 合约地址：0xe53e78006d2c3e905d73cbdb31b8e43ec06f27a9 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe53e78006d2c3e905d73cbdb31b8e43ec06f27a9-Chronicle_SDAI_USD_2' running
+INFO:Slither:0xe53e78006d2c3e905d73cbdb31b8e43ec06f27a9 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 51 / 79 - 合约地址：0x9af8fe1d0c9ed3f176dd3559b6f4b6fef3aab83b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9af8fe1d0c9ed3f176dd3559b6f4b6fef3aab83b-Chronicle_BTC_USD_2' running
+INFO:Slither:0x9af8fe1d0c9ed3f176dd3559b6f4b6fef3aab83b analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 52 / 79 - 合约地址：0xc4962e0c282b52d00f995f5c70d4695e4ac14f57 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xc4962e0c282b52d00f995f5c70d4695e4ac14f57-Chronicle_MKR_USD_2' running
+INFO:Slither:0xc4962e0c282b52d00f995f5c70d4695e4ac14f57 analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 53 / 79 - 合约地址：0x12a8ad45db5085e17ababb3016bba67cc6bac5db ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x12a8ad45db5085e17ababb3016bba67cc6bac5db-Chronicle_WSTETH_USD_2' running
+INFO:Slither:0x12a8ad45db5085e17ababb3016bba67cc6bac5db analyzed (15 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 54 / 79 - 合约地址：0x7c16774cc8989a2ac08345b233df1b76265a041c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7c16774cc8989a2ac08345b233df1b76265a041c-Chronicle_STETH_BTC_1' running
+INFO:Slither:0x7c16774cc8989a2ac08345b233df1b76265a041c analyzed (10 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 55 / 79 - 合约地址：0xe55c2cdb2f15206423250c53191ff39779bd7961 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe55c2cdb2f15206423250c53191ff39779bd7961-BTC_Oracle_Aggregated_Chronicle_Chainlink_Redstone' running
+INFO:Detectors:
+OCCV3: IChronicle(0x24C392CDbF32Cf911B258981a66d5541d85269ce) (contracts/BTC_Oracle_Aggregated_Chronicle_Chainlink_Redstone.sol#28) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) (contracts/BTC_Oracle_Aggregated_Chronicle_Chainlink_Redstone.sol#33) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0xAB7f623fb2F6fea6601D4350FA0E2290663C28Fc) (contracts/BTC_Oracle_Aggregated_Chronicle_Chainlink_Redstone.sol#38) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0xe55c2cdb2f15206423250c53191ff39779bd7961 analyzed (6 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 56 / 79 - 合约地址：0x1bb272e03d27e855e9b4c5843b90d903d16fd613 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x1bb272e03d27e855e9b4c5843b90d903d16fd613-ETH_Oracle_Aggregated_Chronicle_Chainlink_Redstone' running
+INFO:Detectors:
+OCCV3: IChronicle(0x46ef0071b1E2fF6B42d36e5A177EA43Ae5917f4E) (contracts/ETH_Oracle_Aggregated_Chronicle_Chainlink_Redstone.sol#28) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419) (contracts/ETH_Oracle_Aggregated_Chronicle_Chainlink_Redstone.sol#33) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0x67F6838e58859d612E4ddF04dA396d6DABB66Dc4) (contracts/ETH_Oracle_Aggregated_Chronicle_Chainlink_Redstone.sol#38) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x1bb272e03d27e855e9b4c5843b90d903d16fd613 analyzed (6 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 57 / 79 - 合约地址：0x4219aa1a99f3fe90c2acb97fcbc1204f6485b537 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4219aa1a99f3fe90c2acb97fcbc1204f6485b537-Chronicle_Aggor_BTC_USD' running
+INFO:Detectors:
+OCCV3: IChronicle(0x24C392CDbF32Cf911B258981a66d5541d85269ce) (contracts/Chronicle_Aggor_BTC_USD.sol#28) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) (contracts/Chronicle_Aggor_BTC_USD.sol#33) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0xAB7f623fb2F6fea6601D4350FA0E2290663C28Fc) (contracts/Chronicle_Aggor_BTC_USD.sol#38) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x4219aa1a99f3fe90c2acb97fcbc1204f6485b537 analyzed (6 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 58 / 79 - 合约地址：0x2750e4cb635af1fccfb10c0ea54b5b5bfc2759b6 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x2750e4cb635af1fccfb10c0ea54b5b5bfc2759b6-Chronicle_Aggor_ETH_USD' running
+INFO:Detectors:
+OCCV3: IChronicle(0x46ef0071b1E2fF6B42d36e5A177EA43Ae5917f4E) (contracts/Chronicle_Aggor_ETH_USD.sol#28) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419) (contracts/Chronicle_Aggor_ETH_USD.sol#33) Instantiates a contract but is not protected. Please add access control.
+OCCV3: AggregatorV3Interface(0x67F6838e58859d612E4ddF04dA396d6DABB66Dc4) (contracts/Chronicle_Aggor_ETH_USD.sol#38) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x2750e4cb635af1fccfb10c0ea54b5b5bfc2759b6 analyzed (6 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 59 / 79 - 合约地址：0xc2ffbbdccf1466eb8968a846179191cb881ecdff ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xc2ffbbdccf1466eb8968a846179191cb881ecdff-Chronicle_SKY_USD_2' running
+INFO:Slither:0xc2ffbbdccf1466eb8968a846179191cb881ecdff analyzed (10 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 60 / 79 - 合约地址：0x9e34e639fd8659880ecbbb6873a665680a074c16 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9e34e639fd8659880ecbbb6873a665680a074c16-ChronicleAdapter' running
+Warning: Warning: Function state mutability can be restricted to view
+  --> contracts/ChronicleAdapter.sol:25:5:
+   |
+25 |     function fetchPrice() external returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV10: oracle response ChronicleAdapter.fetchPrice().price (contracts/ChronicleAdapter.sol#26) not checked. Please check before use it.
+OCCV12: response in (price * ADAPTER_PRECISION) / FEED_PRECISION (contracts/ChronicleAdapter.sol#30) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV4: ChronicleAdapter.fetchPrice() (contracts/ChronicleAdapter.sol#25-31) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ChronicleAdapter.fetchPrice() (contracts/ChronicleAdapter.sol#25-31)  sends oracle request but ChronicleAdapter (contracts/ChronicleAdapter.sol#9-32) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (price,age) = IChronicle(BTC_STETH_FEED).readWithAge() (contracts/ChronicleAdapter.sol#26) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x9e34e639fd8659880ecbbb6873a665680a074c16 analyzed (5 contracts with 3 detectors), 5 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 61 / 79 - 合约地址：0x24c392cdbf32cf911b258981a66d5541d85269ce ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x24c392cdbf32cf911b258981a66d5541d85269ce-Chronicle_BTC_USD_3' running
+INFO:Slither:0x24c392cdbf32cf911b258981a66d5541d85269ce analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 62 / 79 - 合约地址：0x46ef0071b1e2ff6b42d36e5a177ea43ae5917f4e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x46ef0071b1e2ff6b42d36e5a177ea43ae5917f4e-Chronicle_ETH_USD_3' running
+INFO:Slither:0x46ef0071b1e2ff6b42d36e5a177ea43ae5917f4e analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 63 / 79 - 合约地址：0xa69e234a1f55072201127209a18230e89d9e71ac ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa69e234a1f55072201127209a18230e89d9e71ac-Chronicle_MKR_USD_3' running
+INFO:Slither:0xa69e234a1f55072201127209a18230e89d9e71ac analyzed (13 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 64 / 79 - 合约地址：0x28e36ea7481934a651da81483358c67a51583b85 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x28e36ea7481934a651da81483358c67a51583b85-ChronicleOracle' running
+INFO:Detectors:
+OCCV4: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ChronicleOracle._getQuote(uint256,address,address) (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#61-70)  sends oracle request but ChronicleOracle (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#14-71) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: (price,age) = IChronicle(feed).readWithAge() (lib/euler-price-oracle/src/adapter/chronicle/ChronicleOracle.sol#65) Instantiates a contract but is not protected. Please add access control.
+Reference: ...
+INFO:Slither:0x28e36ea7481934a651da81483358c67a51583b85 analyzed (8 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 65 / 79 - 合约地址：0xf64e941926745c3a0b25eb80119d6c6300de9926 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf64e941926745c3a0b25eb80119d6c6300de9926-ScribeReader_1' running
+INFO:Detectors:
+OCCV9: oracle request in loop in (isValid,val,age) = scribe.tryReadWithAge() (src/ScribeReader.sol#35) Each call should handle only one request at a time.
+Reference: ...
+INFO:Slither:0xf64e941926745c3a0b25eb80119d6c6300de9926 analyzed (4 contracts with 3 detectors), 1 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 66 / 79 - 合约地址：0xe7fb468e1514267b2c92074852fde750c6e97668 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe7fb468e1514267b2c92074852fde750c6e97668-Fig' running
+INFO:Detectors:
+OCCV10: the value in int256(IMakerMedianizer(medianizer).read()) (src/Fig.sol#37) not checked but returned directly. Please check before use it.
+OCCV10: oracle response Fig.latestRoundData().answer (src/Fig.sol#49) not checked. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: Fig.latestAnswer() (src/Fig.sol#36-38) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: Fig.latestAnswer() (src/Fig.sol#36-38)  sends oracle request but Fig (src/Fig.sol#23-64) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: Fig.latestRoundData() (src/Fig.sol#43-58) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: Fig.latestRoundData() (src/Fig.sol#43-58)  sends oracle request but Fig (src/Fig.sol#23-64) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xe7fb468e1514267b2c92074852fde750c6e97668 analyzed (8 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 67 / 79 - 合约地址：0x4a7ad931cb40b564a1c453545059131b126bc828 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4a7ad931cb40b564a1c453545059131b126bc828-Fig' running
+INFO:Detectors:
+OCCV10: the value in int256(IMakerMedianizer(medianizer).read() / 10 ** 10) (src/Fig.sol#37) not checked but returned directly. Please check before use it.
+OCCV10: oracle response Fig.latestRoundData().answer (src/Fig.sol#49) not checked. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: Fig.latestAnswer() (src/Fig.sol#36-38) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: Fig.latestAnswer() (src/Fig.sol#36-38)  sends oracle request but Fig (src/Fig.sol#23-64) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: Fig.latestRoundData() (src/Fig.sol#43-58) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: Fig.latestRoundData() (src/Fig.sol#43-58)  sends oracle request but Fig (src/Fig.sol#23-64) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x4a7ad931cb40b564a1c453545059131b126bc828 analyzed (8 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 68 / 79 - 合约地址：0xa6cbcb5536a4efc96087567b3aaceae73238653e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa6cbcb5536a4efc96087567b3aaceae73238653e-Aggor_ETH_USD_1' running
+INFO:Slither:0xa6cbcb5536a4efc96087567b3aaceae73238653e analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 69 / 79 - 合约地址：0x69115a2826eb47fe9dfd1d5ca8d8642697c8b68a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x69115a2826eb47fe9dfd1d5ca8d8642697c8b68a-Aggor_ETH_USD_3' running
+INFO:Slither:0x69115a2826eb47fe9dfd1d5ca8d8642697c8b68a analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 70 / 79 - 合约地址：0xb20a1374efcafa32f701ab14316fa2e5b3400ed5 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb20a1374efcafa32f701ab14316fa2e5b3400ed5-Aggor_ETH_USD_4' running
+INFO:Slither:0xb20a1374efcafa32f701ab14316fa2e5b3400ed5 analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 71 / 79 - 合约地址：0x00480cd3ed33de45555410ba71b2f932a14b1cf2 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x00480cd3ed33de45555410ba71b2f932a14b1cf2-Aggor_ETH_USD_2' running
+INFO:Slither:0x00480cd3ed33de45555410ba71b2f932a14b1cf2 analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 72 / 79 - 合约地址：0xd7825f22d61e09fffdf49213051044e57e1d0b8d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xd7825f22d61e09fffdf49213051044e57e1d0b8d-ValidatorRegistry_2' running
+INFO:Slither:0xd7825f22d61e09fffdf49213051044e57e1d0b8d analyzed (8 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 73 / 79 - 合约地址：0x965f7e50bffa4883e38ae4f227db0977d6737532 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x965f7e50bffa4883e38ae4f227db0977d6737532-Rescuer' running
+INFO:Slither:0x965f7e50bffa4883e38ae4f227db0977d6737532 analyzed (7 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 74 / 79 - 合约地址：0xb9ed698c9569c5abea716d1e64c089610a3768b6 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb9ed698c9569c5abea716d1e64c089610a3768b6-ChronicleScribeAdapter_BTC_USD_1' running
+ERROR:Detectors:No oracle service identified in contracts.
+ERROR:Detectors:No oracle service identified. Oracle services of Chainlink, Chronicle, Pyth and RedStone are supported.
+INFO:Slither:0xb9ed698c9569c5abea716d1e64c089610a3768b6 analyzed (7 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 75 / 79 - 合约地址：0xc58dc33564ddefe200570c06f1742de9fdfe1348 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xc58dc33564ddefe200570c06f1742de9fdfe1348-ScribeChainlinkLike_SUSDS_USD_1' running
+ERROR:Detectors:No oracle service identified in contracts.
+ERROR:Detectors:No oracle service identified. Oracle services of Chainlink, Chronicle, Pyth and RedStone are supported.
+INFO:Slither:0xc58dc33564ddefe200570c06f1742de9fdfe1348 analyzed (7 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 76 / 79 - 合约地址：0x5033c28b249933d15bcb011d69ffa58d70eee56d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5033c28b249933d15bcb011d69ffa58d70eee56d-ScribeChainlinkLike_USDS_USD_1' running
+ERROR:Detectors:No oracle service identified in contracts.
+ERROR:Detectors:No oracle service identified. Oracle services of Chainlink, Chronicle, Pyth and RedStone are supported.
+INFO:Slither:0x5033c28b249933d15bcb011d69ffa58d70eee56d analyzed (7 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 77 / 79 - 合约地址：0xf7e75dc4fc0cdf31ae4107de5316edf030211845 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf7e75dc4fc0cdf31ae4107de5316edf030211845-ScribeChainlinkLike_SUSDS_USD_1' running
+ERROR:Detectors:No oracle service identified in contracts.
+ERROR:Detectors:No oracle service identified. Oracle services of Chainlink, Chronicle, Pyth and RedStone are supported.
+INFO:Slither:0xf7e75dc4fc0cdf31ae4107de5316edf030211845 analyzed (7 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 78 / 79 - 合约地址：0xbadb0a87b57d0113997a216ac2cf2bbb367f7d8c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xbadb0a87b57d0113997a216ac2cf2bbb367f7d8c-ScribeChainlinkLike_SKY_USD_1' running
+ERROR:Detectors:No oracle service identified in contracts.
+ERROR:Detectors:No oracle service identified. Oracle services of Chainlink, Chronicle, Pyth and RedStone are supported.
+INFO:Slither:0xbadb0a87b57d0113997a216ac2cf2bbb367f7d8c analyzed (7 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 79 / 79 - 合约地址：0x7cbaefa03db00b4aa4d88f566d704c2cdf238d56 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7cbaefa03db00b4aa4d88f566d704c2cdf238d56-ChronicleOracle' running
+ERROR:Detectors:No oracle service identified in contracts.
+ERROR:Detectors:No oracle service identified. Oracle services of Chainlink, Chronicle, Pyth and RedStone are supported.
+INFO:Detectors:
+OCCV3: ChronicleOracle.chronicle (src/oracles/chronicle/ChronicleOracle.sol#35) is used in oracle request but is modified in ChronicleOracle.initialize(address,address,address,uint256) (src/oracles/chronicle/ChronicleOracle.sol#65-86) without protection. Please add access control.
+OCCV4: ChronicleOracle.peek(bytes) (src/oracles/chronicle/ChronicleOracle.sol#134-153) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+Reference: ...
+INFO:Slither:0x7cbaefa03db00b4aa4d88f566d704c2cdf238d56 analyzed (10 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+

@@ -189,7 +189,7 @@ class OracleInterfaceCheck(AbstractDetector):
                         continue
                     fname = inCall.function.name
                     if fname == CH_VRF_FULFILL and func.name != "rawFulfillRandomWords":
-                        info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRequest",
+                        info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRandomWords",
                             inCall.node ," please remove this call.\n"]
                         json = self.generate_result(info)
                         self.results.append(json)
@@ -214,7 +214,7 @@ class OracleInterfaceCheck(AbstractDetector):
                     continue
                 fname = inCall.function.name
                 if fname == CH_VRF_FULFILL and func.name != "rawFulfillRandomWords":
-                    info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRequest",
+                    info: DETECTOR_INFO = ["OCCV8: only oracle service can invoke fulfillRandomWords",
                         inCall.node ," please remove this call.\n"]
                     json = self.generate_result(info)
                     self.results.append(json)

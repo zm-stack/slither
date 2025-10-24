@@ -1,0 +1,46 @@
+--- 分析结果 1 / 2 - 合约地址：0x48b17a2c46007471b3eb72d16268eaecdd1502b7 ---
+Remapping constants/=../../constants/src is potentially unsafe, skipping
+Remapping delegate/=../../delegate is potentially unsafe, skipping
+Remapping erc/=../../erc is potentially unsafe, skipping
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x48b17a2c46007471b3eb72d16268eaecdd1502b7-EvolvingPixels' running
+Warning: Warning: Contract code size is 29729 bytes and exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on Mainnet. Consider enabling the optimizer (with a low "runs" value!), turning off revert strings, or using libraries.
+   --> home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/artblocks-contracts_fa1dc466/contracts/GenArt721CoreV3_Engine_Flex_PROOF.sol:103:1:
+    |
+103 | contract GenArt721CoreV3_Engine_Flex_PROOF is
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context EntropyOracle home/dave/proof/proof-seller/contracts/entropy/EntropyOracle.sol#25-142 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context BaseSellable home/dave/proof/proof-seller/contracts/sellers/src/sellable/BaseSellable.sol#11-70 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context SettablePrimaryRevenueForwarder src/PrimaryRevenueForwarder.sol#38-45 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context BaseTokenURI home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/erc721/BaseTokenURI.sol#12-53 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context AccessControlPausable home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/utils/AccessControlPausable.sol#10-20 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context EntropyOracleV2 home/dave/proof/proof-seller/contracts/entropy/EntropyOracleV2.sol#11-216 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context ERC721ACommon home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/erc721/ERC721ACommon.sol#16-90 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context OperatorFilterOS home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/erc721/OperatorFilterOS.sol#12-78 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context SellableERC721ACommon home/dave/proof/proof-seller/contracts/sellers/src/sellable/SellableERC721ACommon.sol#11-28 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context ERC721ACommonBaseTokenURI home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/erc721/BaseTokenURI.sol#58-86 (1 - 2))
+ERROR:ContractSolcParsing:Missing function Variable not found: DEFAULT_STEERING_ROLE (context EvolvingPixels src/EvolvingPixels.sol#30-333 (1 - 2))
+ERROR:Detectors:Fail to find the fulfill function.
+INFO:Detectors:
+OCCV4: PRNG.readBool(PRNG.Source) (home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/random/PRNG.sol#110-112) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PRNG.readBool(PRNG.Source) (home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/random/PRNG.sol#110-112)  sends oracle request but PRNG (home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/random/PRNG.sol#5-218) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: PRNG.readLessThan(PRNG.Source,uint256,uint16) (home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/random/PRNG.sol#155-165) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PRNG.readLessThan(PRNG.Source,uint256,uint16) (home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/random/PRNG.sol#155-165)  sends oracle request but PRNG (home/dave/.cache/bazel/_bazel_dave/b9a57168317213f9241a484d2ee2d038/external/ethier_0-55-0/contracts/random/PRNG.sol#5-218) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x48b17a2c46007471b3eb72d16268eaecdd1502b7 analyzed (76 contracts with 3 detectors), 4 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 2 / 2 - 合约地址：0xa5b783f07a30fe4b9e3f7129d91afb9434f5d226 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa5b783f07a30fe4b9e3f7129d91afb9434f5d226-EntropyOracleV2' running
+ERROR:Detectors:Fail to find the fulfill function.
+INFO:Slither:0xa5b783f07a30fe4b9e3f7129d91afb9434f5d226 analyzed (20 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+

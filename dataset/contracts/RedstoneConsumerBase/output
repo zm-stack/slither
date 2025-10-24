@@ -1,0 +1,1698 @@
+--- 分析结果 1 / 125 - 合约地址：0x2d622cadd828ee072255287a941c0b65c5e2714b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x2d622cadd828ee072255287a941c0b65c5e2714b-PriceFeedCompressor' running
+INFO:Detectors:
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (lib/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#74) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#277-279) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV10: publishTime of oracle response in PythPriceFeed.latestRoundData().priceData (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#111) not checked. Please check before use it.
+OCCV12: response in uint256(priceData.conf) * PERCENTAGE_FACTOR > uint256(int256(priceData.price)) * maxConfToPriceRatio (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#113) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in price = price * DECIMALS / pythDecimals (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#161) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV4: PriceFeedCompressor._getPriceFeedTreeNode(address) (contracts/compressors/PriceFeedCompressor.sol#247-280) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PriceFeedCompressor._getPriceFeedTreeNode(address) (contracts/compressors/PriceFeedCompressor.sol#247-280)  sends oracle request but PriceFeedCompressor (contracts/compressors/PriceFeedCompressor.sol#42-281) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: PythPriceFeed.latestRoundData() (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#110-122) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PythPriceFeed.latestRoundData() (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#110-122)  sends oracle request but PythPriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#26-181) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: priceData = IPyth(pyth).getPriceUnsafe(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#111) Instantiates a contract but is not protected. Please add access control.
+OCCV4: PythPriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#128-150) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PythPriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#128-150)  sends oracle request but PythPriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#26-181) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: lastPublishTimestamp = IPyth(pyth).latestPriceInfoPublishTime(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#131) Instantiates a contract but is not protected. Please add access control.
+OCCV3: fee = IPyth(pyth).getUpdateFee(updateData) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#140) Instantiates a contract but is not protected. Please add access control.
+OCCV3: IPyth(pyth).updatePriceFeeds{value: fee}(updateData) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#141) Instantiates a contract but is not protected. Please add access control.
+OCCV3: priceData = IPyth(pyth).getPriceUnsafe(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#143) Instantiates a contract but is not protected. Please add access control.
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195)  sends oracle request but RedstonePriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#24-243) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x2d622cadd828ee072255287a941c0b65c5e2714b analyzed (58 contracts with 3 detectors), 18 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 2 / 125 - 合约地址：0x05cf6e9c382eb9a61166453cea84b645f9f1886e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x05cf6e9c382eb9a61166453cea84b645f9f1886e-RedstonePriceFeedSerializer' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195)  sends oracle request but RedstonePriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#24-243) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x05cf6e9c382eb9a61166453cea84b645f9f1886e analyzed (18 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 3 / 125 - 合约地址：0x48e5b250ddac3cd14d37f3c5f3b16fec2cac64f5 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x48e5b250ddac3cd14d37f3c5f3b16fec2cac64f5-MarketCompressor' running
+ERROR:ConvertToIR:Function not found getCreditManagers
+ERROR:ContractSolcParsing:Impossible to generate IR for MarketCompressor.getMarketData (contracts/compressors/MarketCompressor.sol#135-165):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getPriceOracle
+ERROR:ContractSolcParsing:Impossible to generate IR for MarketCompressor._getPriceOracle (contracts/compressors/MarketCompressor.sol#178-181):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getLossPolicy
+ERROR:ContractSolcParsing:Impossible to generate IR for MarketCompressor._getLossPolicy (contracts/compressors/MarketCompressor.sol#183-186):
+ 'NoneType' object has no attribute 'type'
+INFO:Detectors:
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (lib/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#74) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#277-279) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV10: publishTime of oracle response in PythPriceFeed.latestRoundData().priceData (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#111) not checked. Please check before use it.
+OCCV12: response in uint256(priceData.conf) * PERCENTAGE_FACTOR > uint256(int256(priceData.price)) * maxConfToPriceRatio (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#113) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in price = price * DECIMALS / pythDecimals (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#161) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV4: PriceFeedCompressor._getPriceFeedTreeNode(address) (contracts/compressors/PriceFeedCompressor.sol#247-280) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PriceFeedCompressor._getPriceFeedTreeNode(address) (contracts/compressors/PriceFeedCompressor.sol#247-280)  sends oracle request but PriceFeedCompressor (contracts/compressors/PriceFeedCompressor.sol#42-281) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: PythPriceFeed.latestRoundData() (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#110-122) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PythPriceFeed.latestRoundData() (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#110-122)  sends oracle request but PythPriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#26-181) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: priceData = IPyth(pyth).getPriceUnsafe(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#111) Instantiates a contract but is not protected. Please add access control.
+OCCV4: PythPriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#128-150) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PythPriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#128-150)  sends oracle request but PythPriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#26-181) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: lastPublishTimestamp = IPyth(pyth).latestPriceInfoPublishTime(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#131) Instantiates a contract but is not protected. Please add access control.
+OCCV3: fee = IPyth(pyth).getUpdateFee(updateData) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#140) Instantiates a contract but is not protected. Please add access control.
+OCCV3: IPyth(pyth).updatePriceFeeds{value: fee}(updateData) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#141) Instantiates a contract but is not protected. Please add access control.
+OCCV3: priceData = IPyth(pyth).getPriceUnsafe(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#143) Instantiates a contract but is not protected. Please add access control.
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195)  sends oracle request but RedstonePriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#24-243) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x48e5b250ddac3cd14d37f3c5f3b16fec2cac64f5 analyzed (141 contracts with 3 detectors), 18 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 4 / 125 - 合约地址：0xf8325847c7c80e51449d3a7b4a83d3ddeca05abf ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf8325847c7c80e51449d3a7b4a83d3ddeca05abf-PrimaryProdExample' running
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValueFromTxMsg(dataFeedId) (contracts/PrimaryProdExample.sol#15) not checked but returned directly. Please check before use it.
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (contracts/PrimaryProdExample.sol#21) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: PrimaryProdExample.getLatestPrice(bytes32) (contracts/PrimaryProdExample.sol#14-16) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PrimaryProdExample.getLatestPrice(bytes32) (contracts/PrimaryProdExample.sol#14-16)  sends oracle request but PrimaryProdExample (contracts/PrimaryProdExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: PrimaryProdExample.getLatestPricesForManyAssets(bytes32[]) (contracts/PrimaryProdExample.sol#18-22) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PrimaryProdExample.getLatestPricesForManyAssets(bytes32[]) (contracts/PrimaryProdExample.sol#18-22)  sends oracle request but PrimaryProdExample (contracts/PrimaryProdExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xf8325847c7c80e51449d3a7b4a83d3ddeca05abf analyzed (12 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 5 / 125 - 合约地址：0x9eb4a2be80abcaa9d6135041244b2327d09892d8 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9eb4a2be80abcaa9d6135041244b2327d09892d8-ArbitrumProdExample' running
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValueFromTxMsg(dataFeedId) (contracts/ArbitrumProdExample.sol#15) not checked but returned directly. Please check before use it.
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (contracts/ArbitrumProdExample.sol#21) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: ArbitrumProdExample.getLatestPrice(bytes32) (contracts/ArbitrumProdExample.sol#14-16) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ArbitrumProdExample.getLatestPrice(bytes32) (contracts/ArbitrumProdExample.sol#14-16)  sends oracle request but ArbitrumProdExample (contracts/ArbitrumProdExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: ArbitrumProdExample.getLatestPricesForManyAssets(bytes32[]) (contracts/ArbitrumProdExample.sol#18-22) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ArbitrumProdExample.getLatestPricesForManyAssets(bytes32[]) (contracts/ArbitrumProdExample.sol#18-22)  sends oracle request but ArbitrumProdExample (contracts/ArbitrumProdExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x9eb4a2be80abcaa9d6135041244b2327d09892d8 analyzed (12 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 6 / 125 - 合约地址：0x16a892d95350dc60cabed136070fc6fbefbb1b80 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x16a892d95350dc60cabed136070fc6fbefbb1b80-AvalancheProdExample' running
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValueFromTxMsg(dataFeedId) (contracts/AvalancheProdExample.sol#15) not checked but returned directly. Please check before use it.
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (contracts/AvalancheProdExample.sol#21) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: AvalancheProdExample.getLatestPrice(bytes32) (contracts/AvalancheProdExample.sol#14-16) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AvalancheProdExample.getLatestPrice(bytes32) (contracts/AvalancheProdExample.sol#14-16)  sends oracle request but AvalancheProdExample (contracts/AvalancheProdExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AvalancheProdExample.getLatestPricesForManyAssets(bytes32[]) (contracts/AvalancheProdExample.sol#18-22) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AvalancheProdExample.getLatestPricesForManyAssets(bytes32[]) (contracts/AvalancheProdExample.sol#18-22)  sends oracle request but AvalancheProdExample (contracts/AvalancheProdExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x16a892d95350dc60cabed136070fc6fbefbb1b80 analyzed (12 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 7 / 125 - 合约地址：0xdc498aea83e33ac2df6cd95b2ffdd2d7b6326130 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xdc498aea83e33ac2df6cd95b2ffdd2d7b6326130-PrimaryDemoExample' running
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValueFromTxMsg(dataFeedId) (contracts/PrimaryDemoExample.sol#15) not checked but returned directly. Please check before use it.
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (contracts/PrimaryDemoExample.sol#21) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: PrimaryDemoExample.getLatestPrice(bytes32) (contracts/PrimaryDemoExample.sol#14-16) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PrimaryDemoExample.getLatestPrice(bytes32) (contracts/PrimaryDemoExample.sol#14-16)  sends oracle request but PrimaryDemoExample (contracts/PrimaryDemoExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: PrimaryDemoExample.getLatestPricesForManyAssets(bytes32[]) (contracts/PrimaryDemoExample.sol#18-22) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PrimaryDemoExample.getLatestPricesForManyAssets(bytes32[]) (contracts/PrimaryDemoExample.sol#18-22)  sends oracle request but PrimaryDemoExample (contracts/PrimaryDemoExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xdc498aea83e33ac2df6cd95b2ffdd2d7b6326130 analyzed (12 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 8 / 125 - 合约地址：0xceb7b1de518af5c3077e1e639efc79b1c2877d47 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xceb7b1de518af5c3077e1e639efc79b1c2877d47-ArbitrumDemoExample' running
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValueFromTxMsg(dataFeedId) (contracts/ArbitrumDemoExample.sol#15) not checked but returned directly. Please check before use it.
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (contracts/ArbitrumDemoExample.sol#21) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: ArbitrumDemoExample.getLatestPrice(bytes32) (contracts/ArbitrumDemoExample.sol#14-16) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ArbitrumDemoExample.getLatestPrice(bytes32) (contracts/ArbitrumDemoExample.sol#14-16)  sends oracle request but ArbitrumDemoExample (contracts/ArbitrumDemoExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: ArbitrumDemoExample.getLatestPricesForManyAssets(bytes32[]) (contracts/ArbitrumDemoExample.sol#18-22) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ArbitrumDemoExample.getLatestPricesForManyAssets(bytes32[]) (contracts/ArbitrumDemoExample.sol#18-22)  sends oracle request but ArbitrumDemoExample (contracts/ArbitrumDemoExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xceb7b1de518af5c3077e1e639efc79b1c2877d47 analyzed (12 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 9 / 125 - 合约地址：0xac455974edc1dc7a20a51696a28d8f098f0f6968 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xac455974edc1dc7a20a51696a28d8f098f0f6968-AvalancheDemoExample' running
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValueFromTxMsg(dataFeedId) (contracts/AvalancheDemoExample.sol#15) not checked but returned directly. Please check before use it.
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (contracts/AvalancheDemoExample.sol#21) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: AvalancheDemoExample.getLatestPrice(bytes32) (contracts/AvalancheDemoExample.sol#14-16) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AvalancheDemoExample.getLatestPrice(bytes32) (contracts/AvalancheDemoExample.sol#14-16)  sends oracle request but AvalancheDemoExample (contracts/AvalancheDemoExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AvalancheDemoExample.getLatestPricesForManyAssets(bytes32[]) (contracts/AvalancheDemoExample.sol#18-22) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AvalancheDemoExample.getLatestPricesForManyAssets(bytes32[]) (contracts/AvalancheDemoExample.sol#18-22)  sends oracle request but AvalancheDemoExample (contracts/AvalancheDemoExample.sol#9-23) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xac455974edc1dc7a20a51696a28d8f098f0f6968 analyzed (12 contracts with 3 detectors), 6 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 10 / 125 - 合约地址：0xec34d1cf550dda751ff20cd4ecc7ff9219551b04 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xec34d1cf550dda751ff20cd4ecc7ff9219551b04-EthereumPriceFeedPrimeEchelonWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xec34d1cf550dda751ff20cd4ecc7ff9219551b04 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 11 / 125 - 合约地址：0xb90018d7448d44b5dfaab87a0cfe43696e0dc9b2 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb90018d7448d44b5dfaab87a0cfe43696e0dc9b2-EthereumPriceFeedPromptWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xb90018d7448d44b5dfaab87a0cfe43696e0dc9b2 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 12 / 125 - 合约地址：0xb5d303b9f984e42eb5e3c00bdf733a309c654630 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb5d303b9f984e42eb5e3c00bdf733a309c654630-EthereumPriceFeedEigenWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xb5d303b9f984e42eb5e3c00bdf733a309c654630 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 13 / 125 - 合约地址：0xa3a75fd9f19bd334605f59527552dbc6c7f6fd88 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa3a75fd9f19bd334605f59527552dbc6c7f6fd88-EthereumPriceFeedTacethFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xa3a75fd9f19bd334605f59527552dbc6c7f6fd88 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 14 / 125 - 合约地址：0x4cec96a68cb9a979621b104f3c94884be1a66da0 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4cec96a68cb9a979621b104f3c94884be1a66da0-EthereumPriceFeedTacusdFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x4cec96a68cb9a979621b104f3c94884be1a66da0 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 15 / 125 - 合约地址：0x96572d32d699ce463fdf36610273cc76b7d83f9b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x96572d32d699ce463fdf36610273cc76b7d83f9b-EthereumPriceFeedTacbtcFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x96572d32d699ce463fdf36610273cc76b7d83f9b analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 16 / 125 - 合约地址：0xe56bd00690495df904abc3f7223438a9681f55a4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe56bd00690495df904abc3f7223438a9681f55a4-PriceFeedCompressor' running
+ERROR:ConvertToIR:Function not found getCreditManagers
+ERROR:ContractSolcParsing:Impossible to generate IR for BaseCompressor._getCreditManagers (contracts/compressors/BaseCompressor.sol#93-123):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getPriceOracle
+ERROR:ContractSolcParsing:Impossible to generate IR for BaseCompressor._getPriceOracle (contracts/compressors/BaseCompressor.sol#144-147):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getLossPolicy
+ERROR:ContractSolcParsing:Impossible to generate IR for BaseCompressor._getLossPolicy (contracts/compressors/BaseCompressor.sol#149-152):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getCreditManagers
+ERROR:ContractSolcParsing:Impossible to generate IR for PriceFeedCompressor._getCreditManagers (contracts/compressors/BaseCompressor.sol#93-123):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getPriceOracle
+ERROR:ContractSolcParsing:Impossible to generate IR for PriceFeedCompressor._getPriceOracle (contracts/compressors/BaseCompressor.sol#144-147):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found getLossPolicy
+ERROR:ContractSolcParsing:Impossible to generate IR for PriceFeedCompressor._getLossPolicy (contracts/compressors/BaseCompressor.sol#149-152):
+ 'NoneType' object has no attribute 'type'
+INFO:Detectors:
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#294-296) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (lib/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#84) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV10: publishTime of oracle response in PythPriceFeed.latestRoundData().priceData (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#111) not checked. Please check before use it.
+OCCV12: response in uint256(priceData.conf) * PERCENTAGE_FACTOR > uint256(int256(priceData.price)) * maxConfToPriceRatio (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#113) may be tampered by state variables. The oracle data should not be influenced or modified by any user.
+OCCV12: response in price = price * DECIMALS / pythDecimals (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#161) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV4: PriceFeedCompressor._getPriceFeedTreeNode(address) (contracts/compressors/PriceFeedCompressor.sol#264-297) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PriceFeedCompressor._getPriceFeedTreeNode(address) (contracts/compressors/PriceFeedCompressor.sol#264-297)  sends oracle request but PriceFeedCompressor (contracts/compressors/PriceFeedCompressor.sol#33-311) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: PythPriceFeed.latestRoundData() (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#110-122) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PythPriceFeed.latestRoundData() (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#110-122)  sends oracle request but PythPriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#26-181) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: priceData = IPyth(pyth).getPriceUnsafe(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#111) Instantiates a contract but is not protected. Please add access control.
+OCCV4: PythPriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#128-150) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: PythPriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#128-150)  sends oracle request but PythPriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#26-181) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV3: lastPublishTimestamp = IPyth(pyth).latestPriceInfoPublishTime(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#131) Instantiates a contract but is not protected. Please add access control.
+OCCV3: fee = IPyth(pyth).getUpdateFee(updateData) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#140) Instantiates a contract but is not protected. Please add access control.
+OCCV3: IPyth(pyth).updatePriceFeeds{value: fee}(updateData) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#141) Instantiates a contract but is not protected. Please add access control.
+OCCV3: priceData = IPyth(pyth).getPriceUnsafe(priceFeedId) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/PythPriceFeed.sol#143) Instantiates a contract but is not protected. Please add access control.
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#173-195)  sends oracle request but RedstonePriceFeed (lib/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#24-243) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xe56bd00690495df904abc3f7223438a9681f55a4 analyzed (79 contracts with 3 detectors), 18 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 17 / 125 - 合约地址：0xffe5f5e9e18b88fbdd7e28d4a583a111c874fb47 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xffe5f5e9e18b88fbdd7e28d4a583a111c874fb47-EthereumPriceFeedBuidlIEthereumFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xffe5f5e9e18b88fbdd7e28d4a583a111c874fb47 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 18 / 125 - 合约地址：0x82721e2c5ef2df1796b09728376361892b155594 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x82721e2c5ef2df1796b09728376361892b155594-EthereumPriceFeedBuidlIEthereumDailyAccrualWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x82721e2c5ef2df1796b09728376361892b155594 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 19 / 125 - 合约地址：0x9174cef3a68837e765e87909cb1d3424fd39810d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9174cef3a68837e765e87909cb1d3424fd39810d-EthereumPriceFeedSwethFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x9174cef3a68837e765e87909cb1d3424fd39810d analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 20 / 125 - 合约地址：0xa74a13439f782498b44a43131784e7d79014596f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa74a13439f782498b44a43131784e7d79014596f-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (contracts/oracles/updatable/RedstonePriceFeed.sol#173-195) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (contracts/oracles/updatable/RedstonePriceFeed.sol#173-195)  sends oracle request but RedstonePriceFeed (contracts/oracles/updatable/RedstonePriceFeed.sol#24-243) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xa74a13439f782498b44a43131784e7d79014596f analyzed (16 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 21 / 125 - 合约地址：0x4e202a7e713d00804f9ce397260362bf5e0eaaa8 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4e202a7e713d00804f9ce397260362bf5e0eaaa8-EthereumPriceFeedVbillEthereumFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x4e202a7e713d00804f9ce397260362bf5e0eaaa8 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 22 / 125 - 合约地址：0x4c66bcda57a812237729637f53ff91cf3aa4677d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4c66bcda57a812237729637f53ff91cf3aa4677d-EthereumMultiFeedAdapterWithoutRoundsV3' running
+Warning: Warning: Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+ --> contracts/ethereumMultiFeed/EthereumMultiFeedAdapterWithoutRoundsV3.sol:9:104:
+  |
+9 |   function _validateBlockTimestamp(uint256 lastBlockTimestamp) internal view virtual override returns (bool) {
+  |                                                                                                        ^^^^
+
+
+
+INFO:Slither:0x4c66bcda57a812237729637f53ff91cf3aa4677d analyzed (17 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 23 / 125 - 合约地址：0x0c6c73865429e1d87b7b817b95bb1f38f2136529 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0c6c73865429e1d87b7b817b95bb1f38f2136529-EthereumMultiFeedAdapterWithoutRoundsV3' running
+INFO:Slither:0x0c6c73865429e1d87b7b817b95bb1f38f2136529 analyzed (17 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 24 / 125 - 合约地址：0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest' running
+Warning: Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> crytic-export/etherscan-contracts/0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa-ExampleRedstoneShowroom.sol
+
+
+
+INFO:Detectors:
+OCCV10: the value in getOracleNumericValuesFromTxMsg(dataFeedIds) (crytic-export/etherscan-contracts/0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa-ExampleRedstoneShowroom.sol#1019) not checked but returned directly. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: ExampleRedstoneShowroom.getPrices() (crytic-export/etherscan-contracts/0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa-ExampleRedstoneShowroom.sol#1011-1020) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: ExampleRedstoneShowroom.getPrices() (crytic-export/etherscan-contracts/0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa-ExampleRedstoneShowroom.sol#1011-1020)  sends oracle request but ExampleRedstoneShowroom (crytic-export/etherscan-contracts/0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa-ExampleRedstoneShowroom.sol#993-1022) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xf5839a9ef554ad59453d78867e3d7de2cd7e80aa analyzed (11 contracts with 3 detectors), 3 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 25 / 125 - 合约地址：0x993b33f7bdd6b60fa3b09e4cf32c72868cce3c82 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x993b33f7bdd6b60fa3b09e4cf32c72868cce3c82-ERC7412RedstoneFeed' running
+INFO:Slither:0x993b33f7bdd6b60fa3b09e4cf32c72868cce3c82 analyzed (17 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 26 / 125 - 合约地址：0xa664ed382e1076613c5b8be721b5cdb3643b1f20 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa664ed382e1076613c5b8be721b5cdb3643b1f20-RedstoneCoreOracle' running
+INFO:Detectors:
+OCCV4: RedstoneCoreOracle.updatePrice(uint48) (lib/euler-price-oracle/src/adapter/redstone/RedstoneCoreOracle.sol#78-103) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstoneCoreOracle.updatePrice(uint48) (lib/euler-price-oracle/src/adapter/redstone/RedstoneCoreOracle.sol#78-103)  sends oracle request but RedstoneCoreOracle (lib/euler-price-oracle/src/adapter/redstone/RedstoneCoreOracle.sol#14-131) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xa664ed382e1076613c5b8be721b5cdb3643b1f20 analyzed (17 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 27 / 125 - 合约地址：0x1e10d23ec871dd8bfe9740e193c714f8b2ffcfe5 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x1e10d23ec871dd8bfe9740e193c714f8b2ffcfe5-RedstoneCoreOracle' running
+INFO:Detectors:
+OCCV4: RedstoneCoreOracle.updatePrice(uint48) (lib/euler-price-oracle/src/adapter/redstone/RedstoneCoreOracle.sol#78-103) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstoneCoreOracle.updatePrice(uint48) (lib/euler-price-oracle/src/adapter/redstone/RedstoneCoreOracle.sol#78-103)  sends oracle request but RedstoneCoreOracle (lib/euler-price-oracle/src/adapter/redstone/RedstoneCoreOracle.sol#14-131) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x1e10d23ec871dd8bfe9740e193c714f8b2ffcfe5 analyzed (17 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 28 / 125 - 合约地址：0x9a65e1853381199ca04593ee5c396291e489b811 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9a65e1853381199ca04593ee5c396291e489b811-RedStonePullOracle' running
+INFO:Detectors:
+OCCV12: response in adjustedPrice = price * 10 ** (targetDecimals - currentDecimals) (src/oracles/providers/RedStonePullOracle.sol#220) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in adjustedPrice = price / 10 ** (currentDecimals - targetDecimals) (src/oracles/providers/RedStonePullOracle.sol#222) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV4: RedStonePullOracle.updatePriceWithFeedId(bytes32[]) (src/oracles/providers/RedStonePullOracle.sol#81-132) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedStonePullOracle.updatePriceWithFeedId(bytes32[]) (src/oracles/providers/RedStonePullOracle.sol#81-132)  sends oracle request but RedStonePullOracle (src/oracles/providers/RedStonePullOracle.sol#28-225) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolDebt.preview(AutopoolState,bool,uint256,uint256,bytes) (src/vault/libs/AutopoolDebt.sol#1153-1212) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolDebt.preview(AutopoolState,bool,uint256,uint256,bytes) (src/vault/libs/AutopoolDebt.sol#1153-1212)  sends oracle request but AutopoolDebt (src/vault/libs/AutopoolDebt.sol#24-1213) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolStrategyHooks.removeHook(AutopoolState,IStrategyHook,bytes) (src/vault/libs/AutopoolStrategyHooks.sol#219-294) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolStrategyHooks.removeHook(AutopoolState,IStrategyHook,bytes) (src/vault/libs/AutopoolStrategyHooks.sol#219-294)  sends oracle request but AutopoolStrategyHooks (src/vault/libs/AutopoolStrategyHooks.sol#14-437) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolStrategyHooks.getHookBytes(AutopoolState) (src/vault/libs/AutopoolStrategyHooks.sol#343-358) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolStrategyHooks.getHookBytes(AutopoolState) (src/vault/libs/AutopoolStrategyHooks.sol#343-358)  sends oracle request but AutopoolStrategyHooks (src/vault/libs/AutopoolStrategyHooks.sol#14-437) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x9a65e1853381199ca04593ee5c396291e489b811 analyzed (76 contracts with 3 detectors), 10 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 29 / 125 - 合约地址：0x470139efeee7c481d08eb0898af87ee9a8b0a0ea ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x470139efeee7c481d08eb0898af87ee9a8b0a0ea-RedStonePullOracle' running
+INFO:Detectors:
+OCCV12: response in adjustedPrice = price * 10 ** (targetDecimals - currentDecimals) (src/oracles/providers/RedStonePullOracle.sol#220) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+OCCV12: response in adjustedPrice = price / 10 ** (currentDecimals - targetDecimals) (src/oracles/providers/RedStonePullOracle.sol#222) may be tampered by parameters. The oracle data should not be influenced or modified by any user.
+Reference: ...
+INFO:Detectors:
+OCCV4: RedStonePullOracle.updatePriceWithFeedId(bytes32[]) (src/oracles/providers/RedStonePullOracle.sol#81-132) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedStonePullOracle.updatePriceWithFeedId(bytes32[]) (src/oracles/providers/RedStonePullOracle.sol#81-132)  sends oracle request but RedStonePullOracle (src/oracles/providers/RedStonePullOracle.sol#28-225) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolDebt.preview(AutopoolState,bool,uint256,uint256,bytes) (src/vault/libs/AutopoolDebt.sol#1153-1212) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolDebt.preview(AutopoolState,bool,uint256,uint256,bytes) (src/vault/libs/AutopoolDebt.sol#1153-1212)  sends oracle request but AutopoolDebt (src/vault/libs/AutopoolDebt.sol#24-1213) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolStrategyHooks.removeHook(AutopoolState,IStrategyHook,bytes) (src/vault/libs/AutopoolStrategyHooks.sol#219-294) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolStrategyHooks.removeHook(AutopoolState,IStrategyHook,bytes) (src/vault/libs/AutopoolStrategyHooks.sol#219-294)  sends oracle request but AutopoolStrategyHooks (src/vault/libs/AutopoolStrategyHooks.sol#14-437) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolStrategyHooks.getHookBytes(AutopoolState) (src/vault/libs/AutopoolStrategyHooks.sol#343-358) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolStrategyHooks.getHookBytes(AutopoolState) (src/vault/libs/AutopoolStrategyHooks.sol#343-358)  sends oracle request but AutopoolStrategyHooks (src/vault/libs/AutopoolStrategyHooks.sol#14-437) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x470139efeee7c481d08eb0898af87ee9a8b0a0ea analyzed (76 contracts with 3 detectors), 10 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 30 / 125 - 合约地址：0xa2db01bbfe8e1eed8c0ac4c92d0bb76c5fee9d0f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa2db01bbfe8e1eed8c0ac4c92d0bb76c5fee9d0f-PriceFeedsAdapterSwell' running
+INFO:Slither:0xa2db01bbfe8e1eed8c0ac4c92d0bb76c5fee9d0f analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 31 / 125 - 合约地址：0x300ae26a5169df07139f99c5f8c23445de1abe8a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x300ae26a5169df07139f99c5f8c23445de1abe8a-PriceFeedsAdapterAngleEth' running
+INFO:Slither:0x300ae26a5169df07139f99c5f8c23445de1abe8a analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 32 / 125 - 合约地址：0x63124550b5de4dddb12d20a530658c096bedd12b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x63124550b5de4dddb12d20a530658c096bedd12b-PriceFeedsAdapterSwellWithRounds' running
+INFO:Slither:0x63124550b5de4dddb12d20a530658c096bedd12b analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 33 / 125 - 合约地址：0x7b36aac85d5dbb297b3595e10d7a0382ed2df202 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7b36aac85d5dbb297b3595e10d7a0382ed2df202-PriceFeedSwellWithRoundsSweth' running
+INFO:Slither:0x7b36aac85d5dbb297b3595e10d7a0382ed2df202 analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 34 / 125 - 合约地址：0xeb9cdd70f7a6827808595394fb4f2d22394c34b2 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xeb9cdd70f7a6827808595394fb4f2d22394c34b2-PriceFeedsAdapterStaderEthx' running
+INFO:Slither:0xeb9cdd70f7a6827808595394fb4f2d22394c34b2 analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 35 / 125 - 合约地址：0x41fded6845d19c7236d2c3fb53fe5bcd503542ad ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x41fded6845d19c7236d2c3fb53fe5bcd503542ad-PriceFeedsAdapterStaderEthxWithRounds' running
+INFO:Slither:0x41fded6845d19c7236d2c3fb53fe5bcd503542ad analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 36 / 125 - 合约地址：0x5a74cef7f818f556732a61c7aa6bad1502f2e9fa ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5a74cef7f818f556732a61c7aa6bad1502f2e9fa-PriceFeedStaderEthxEthxWithRounds' running
+INFO:Slither:0x5a74cef7f818f556732a61c7aa6bad1502f2e9fa analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 37 / 125 - 合约地址：0x36bfe728eeb94b59c9eaafa745c848c45e9535fe ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x36bfe728eeb94b59c9eaafa745c848c45e9535fe-PriceFeedsAdapterSwellWithRoundsV2' running
+INFO:Slither:0x36bfe728eeb94b59c9eaafa745c848c45e9535fe analyzed (17 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 38 / 125 - 合约地址：0x37963f10245e7c3a10c0e9d43a6e617b4bc8440a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x37963f10245e7c3a10c0e9d43a6e617b4bc8440a-PriceFeedSwellSwetheth' running
+INFO:Slither:0x37963f10245e7c3a10c0e9d43a6e617b4bc8440a analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 39 / 125 - 合约地址：0x3b9955313fa8a5c9f874a84b6e3c8e2605fec1ff ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3b9955313fa8a5c9f874a84b6e3c8e2605fec1ff-PriceFeedsAdapterSwellWithRoundsV3' running
+INFO:Slither:0x3b9955313fa8a5c9f874a84b6e3c8e2605fec1ff analyzed (18 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 40 / 125 - 合约地址：0x6985aaf13a197700c3c8747f5924686d7f0be781 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6985aaf13a197700c3c8747f5924686d7f0be781-PriceFeedsAdapterVenusMainnetXvs' running
+INFO:Slither:0x6985aaf13a197700c3c8747f5924686d7f0be781 analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 41 / 125 - 合约地址：0x9a90445b8e05293368f66cf1f7874e3f24d2a392 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9a90445b8e05293368f66cf1f7874e3f24d2a392-PriceFeedsAdapterSwellWithRoundsV4' running
+INFO:Slither:0x9a90445b8e05293368f66cf1f7874e3f24d2a392 analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 42 / 125 - 合约地址：0x2a9e09ede0e569223f05737f846b51591a04e5cf ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x2a9e09ede0e569223f05737f846b51591a04e5cf-PriceFeedsAdapterStaderEthxWithRoundsV2' running
+INFO:Slither:0x2a9e09ede0e569223f05737f846b51591a04e5cf analyzed (19 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 43 / 125 - 合约地址：0x0c2c7ded01ccdfab16f04aff82af766b23d6be0a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0c2c7ded01ccdfab16f04aff82af766b23d6be0a-MergedAdapterWithRoundsWeethV1' running
+INFO:Slither:0x0c2c7ded01ccdfab16f04aff82af766b23d6be0a analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 44 / 125 - 合约地址：0x6e63484daacd224c447b7e2913eaaf659c7bb8b7 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6e63484daacd224c447b7e2913eaaf659c7bb8b7-MergedAdapterWithoutRoundsOsethethV1' running
+INFO:Slither:0x6e63484daacd224c447b7e2913eaaf659c7bb8b7 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 45 / 125 - 合约地址：0x744cb10cdf5eeaae371df375c0367e83045f17dc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x744cb10cdf5eeaae371df375c0367e83045f17dc-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x744cb10cdf5eeaae371df375c0367e83045f17dc analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 46 / 125 - 合约地址：0x031a4f6342175c6b1207c98575258be3b55407eb ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x031a4f6342175c6b1207c98575258be3b55407eb-MergedAdapterWithRoundsWeethethV1' running
+INFO:Slither:0x031a4f6342175c6b1207c98575258be3b55407eb analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 47 / 125 - 合约地址：0x5e667aab698a34661b4b9cdc20d2175195bf8df8 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5e667aab698a34661b4b9cdc20d2175195bf8df8-PriceFeedsAdapterVenusMainnetXvsV2' running
+INFO:Slither:0x5e667aab698a34661b4b9cdc20d2175195bf8df8 analyzed (19 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 48 / 125 - 合约地址：0xbf7d92afdf01c8370e0b164338fdef105a7c8dbb ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xbf7d92afdf01c8370e0b164338fdef105a7c8dbb-MergedAdapterWithoutRoundsOsethethV2' running
+INFO:Slither:0xbf7d92afdf01c8370e0b164338fdef105a7c8dbb analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 49 / 125 - 合约地址：0x4c9add2cea4a79fc6f50da0068a0cf8368c4248b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4c9add2cea4a79fc6f50da0068a0cf8368c4248b-MergedAdapterWithouthRoundsEthxethV1' running
+INFO:Slither:0x4c9add2cea4a79fc6f50da0068a0cf8368c4248b analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 50 / 125 - 合约地址：0x5f2041733b06dd040e3e46158ba93a04767427b6 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5f2041733b06dd040e3e46158ba93a04767427b6-PriceFeedsAdapterStaderEthxWithoutRoundsV3' running
+INFO:Slither:0x5f2041733b06dd040e3e46158ba93a04767427b6 analyzed (18 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 51 / 125 - 合约地址：0xf302012fbd526835e123fc9e25bf80a49b883eaa ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf302012fbd526835e123fc9e25bf80a49b883eaa-MergedAdapterWithoutRoundsEusdV1' running
+INFO:Slither:0xf302012fbd526835e123fc9e25bf80a49b883eaa analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 52 / 125 - 合约地址：0xf4f4632f87dc6c62721788e09eff05c8da01b0f5 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf4f4632f87dc6c62721788e09eff05c8da01b0f5-MergedAdapterWithRoundsApxethethV1' running
+INFO:Slither:0xf4f4632f87dc6c62721788e09eff05c8da01b0f5 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 53 / 125 - 合约地址：0xd83ba0fba552862d679d77d074e01cdf259f7a4f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xd83ba0fba552862d679d77d074e01cdf259f7a4f-MergedAdapterWithRoundsRsethethV1' running
+INFO:Slither:0xd83ba0fba552862d679d77d074e01cdf259f7a4f analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 54 / 125 - 合约地址：0x154d98d7a4d4ec935d63e73281960bda5684ec72 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x154d98d7a4d4ec935d63e73281960bda5684ec72-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x154d98d7a4d4ec935d63e73281960bda5684ec72 analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 55 / 125 - 合约地址：0x3d3344c8f4abb279e192007f7b68eade3c8a5b28 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3d3344c8f4abb279e192007f7b68eade3c8a5b28-MergedAdapterWithRoundsEzethethV1' running
+INFO:Slither:0x3d3344c8f4abb279e192007f7b68eade3c8a5b28 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 56 / 125 - 合约地址：0xa6ab34c11accfaf8c72635fc814ea4e1b7fc705f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa6ab34c11accfaf8c72635fc814ea4e1b7fc705f-PriceFeedsAdapterWithoutRoundsUsdeSusdeV1' running
+INFO:Slither:0xa6ab34c11accfaf8c72635fc814ea4e1b7fc705f analyzed (19 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 57 / 125 - 合约地址：0x8d6d49ddd5fe84b6b43d9420d1dac96b88dba9a1 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x8d6d49ddd5fe84b6b43d9420d1dac96b88dba9a1-PriceFeedsAdapterWithoutRoundsUsdeSusdeV2' running
+INFO:Slither:0x8d6d49ddd5fe84b6b43d9420d1dac96b88dba9a1 analyzed (19 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 58 / 125 - 合约地址：0x564d81b839573761b38ceeb4c0142d1222c588b5 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x564d81b839573761b38ceeb4c0142d1222c588b5-PriceFeedsAdapterAngleEthV2' running
+INFO:Slither:0x564d81b839573761b38ceeb4c0142d1222c588b5 analyzed (19 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 59 / 125 - 合约地址：0x0e2d75d760b12ac1f2ae84cd2ff9fd13cb632942 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0e2d75d760b12ac1f2ae84cd2ff9fd13cb632942-PriceFeedsAdapterWithRoundsRswethRswethethV1' running
+INFO:Slither:0x0e2d75d760b12ac1f2ae84cd2ff9fd13cb632942 analyzed (19 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 60 / 125 - 合约地址：0x4aaf2844c5420bf979d5bc2cf883ef02db07e590 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x4aaf2844c5420bf979d5bc2cf883ef02db07e590-PriceFeedWithRoundsRswethethV1' running
+INFO:Slither:0x4aaf2844c5420bf979d5bc2cf883ef02db07e590 analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 61 / 125 - 合约地址：0xa51738d1937ffc553d5070f43300b385aa2d9f55 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa51738d1937ffc553d5070f43300b385aa2d9f55-PriceFeedWithRoundsRswethV1' running
+INFO:Slither:0xa51738d1937ffc553d5070f43300b385aa2d9f55 analyzed (21 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 62 / 125 - 合约地址：0x9b2c948dba5952a1f5ab6fa16101c1392b8da1ab ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9b2c948dba5952a1f5ab6fa16101c1392b8da1ab-MergedAdapterWithoutRoundsRswethethV2' running
+INFO:Slither:0x9b2c948dba5952a1f5ab6fa16101c1392b8da1ab analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 63 / 125 - 合约地址：0x89e60b56efd70a1d4fbbae947bc33cae41e37a72 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x89e60b56efd70a1d4fbbae947bc33cae41e37a72-MergedAdapterWithRoundsPufetheth' running
+INFO:Slither:0x89e60b56efd70a1d4fbbae947bc33cae41e37a72 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 64 / 125 - 合约地址：0xa41107f9259bb835275eacaad8048307b80d7c00 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa41107f9259bb835275eacaad8048307b80d7c00-MergedAdapterWithRoundsPufethethV1' running
+INFO:Slither:0xa41107f9259bb835275eacaad8048307b80d7c00 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 65 / 125 - 合约地址：0x767619674cc4758cf64bf19de46964dac8fb7b11 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x767619674cc4758cf64bf19de46964dac8fb7b11-MergedAdapterWithRoundsEthplusethV1' running
+INFO:Slither:0x767619674cc4758cf64bf19de46964dac8fb7b11 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 66 / 125 - 合约地址：0xf57ba29437c130e155ca4b65128630777638f05d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf57ba29437c130e155ca4b65128630777638f05d-MergedAdapterWithRoundsEthplusethV1' running
+INFO:Slither:0xf57ba29437c130e155ca4b65128630777638f05d analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 67 / 125 - 合约地址：0x6f13996411743d22566176482b6b677ec4eb6ce6 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6f13996411743d22566176482b6b677ec4eb6ce6-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6f13996411743d22566176482b6b677ec4eb6ce6 analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 68 / 125 - 合约地址：0xcf1fdc8dc6e83b38729d58c117be704bb2ac362a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xcf1fdc8dc6e83b38729d58c117be704bb2ac362a-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xcf1fdc8dc6e83b38729d58c117be704bb2ac362a analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 69 / 125 - 合约地址：0xab60b9a76c5e92aafb05d927166cbd4786c1f406 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xab60b9a76c5e92aafb05d927166cbd4786c1f406-MergedAdapterWithoutRoundsSfrxethethV1' running
+INFO:Slither:0xab60b9a76c5e92aafb05d927166cbd4786c1f406 analyzed (27 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 70 / 125 - 合约地址：0xf9e97dea52d98c80042644497e6370f9b444cc60 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf9e97dea52d98c80042644497e6370f9b444cc60-RedStonePriceOracle' running
+Warning: Warning: This declaration shadows an existing declaration.
+   --> contracts/Compound/Comptroller.sol:371:13:
+    |
+371 |             Error err = addToMarketInternal(CToken(msg.sender), borrower);
+    |             ^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> contracts/Compound/Comptroller.sol:394:10:
+    |
+394 |         (Error err, , uint shortfall) = getHypotheticalAccountLiquidityInternal(
+    |          ^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> contracts/Compound/Comptroller.sol:574:9:
+    |
+574 |         address liquidator,
+    |         ^^^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> contracts/Compound/Comptroller.sol:575:9:
+    |
+575 |         address borrower,
+    |         ^^^^^^^^^^^^^^^^
+
+
+Warning: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> contracts/Compound/Comptroller.sol:636:9:
+    |
+636 |         address dst,
+    |         ^^^^^^^^^^^
+
+
+Warning: Warning: Function state mutability can be restricted to view
+   --> contracts/Compound/Comptroller.sol:243:5:
+    |
+243 |     function mintAllowed(address cToken, address minter, uint mintAmount) external override returns (uint) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+   --> contracts/Compound/Comptroller.sol:288:5:
+    |
+288 |     function redeemAllowed(address cToken, address redeemer, uint redeemTokens) external override returns (uint) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to pure
+   --> contracts/Compound/Comptroller.sol:336:5:
+    |
+336 |     function redeemVerify(address cToken, address redeemer, uint redeemAmount, uint redeemTokens) external override {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+   --> contracts/Compound/Comptroller.sol:436:5:
+    |
+436 |     function repayBorrowAllowed(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+   --> contracts/Compound/Comptroller.sol:489:5:
+    |
+489 |     function liquidateBorrowAllowed(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+   --> contracts/Compound/Comptroller.sol:571:5:
+    |
+571 |     function seizeAllowed(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Warning: Function state mutability can be restricted to view
+   --> contracts/Compound/Comptroller.sol:633:5:
+    |
+633 |     function transferAllowed(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+INFO:Detectors:
+OCCV9: oracle request in loop in extractedPrices[i] = getOracleNumericValueFromTxMsg(feedId[i]) (contracts/Aqua/RedStonePriceOracle.sol#33) Each call should handle only one request at a time.
+Reference: ...
+INFO:Detectors:
+OCCV10: oracle response RedStonePriceOracle.extractPrice(bytes32[]).extractedPrices (contracts/Aqua/RedStonePriceOracle.sol#30) not checked. Please check before use it.
+Reference: ...
+INFO:Detectors:
+OCCV4: RedStonePriceOracle.extractPrice(bytes32[]) (contracts/Aqua/RedStonePriceOracle.sol#30-35) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedStonePriceOracle.extractPrice(bytes32[]) (contracts/Aqua/RedStonePriceOracle.sol#30-35)  sends oracle request but RedStonePriceOracle (contracts/Aqua/RedStonePriceOracle.sol#10-96) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xf9e97dea52d98c80042644497e6370f9b444cc60 analyzed (69 contracts with 3 detectors), 4 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 71 / 125 - 合约地址：0xe26c1864b5d3cc2e541e19c3473caed5d34bc3bf ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe26c1864b5d3cc2e541e19c3473caed5d34bc3bf-PriceFeedCompressor' running
+INFO:Detectors:
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#220-222) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (node_modules/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#68) Each call should handle only one request at a time.
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 72 / 125 - 合约地址：0x13d529e2dc67a6305580388a7c57de53fbefc951 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x13d529e2dc67a6305580388a7c57de53fbefc951-PriceFeedCompressor' running
+INFO:Detectors:
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (node_modules/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#68) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#220-222) Each call should handle only one request at a time.
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 73 / 125 - 合约地址：0xec0445805c1fd40d82b05bad821b158fbd9b033d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xec0445805c1fd40d82b05bad821b158fbd9b033d-PriceFeedCompressor' running
+INFO:Detectors:
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (node_modules/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#68) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#244-246) Each call should handle only one request at a time.
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 74 / 125 - 合约地址：0x26dc62470d4fa7f9cbcd597f9862345a2b3515aa ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x26dc62470d4fa7f9cbcd597f9862345a2b3515aa-MergedAdapterWithoutRoundsPufStakingV1' running
+INFO:Slither:0x26dc62470d4fa7f9cbcd597f9862345a2b3515aa analyzed (20 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 75 / 125 - 合约地址：0x6d711b195925b156fb93502053c2421f46ffb878 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6d711b195925b156fb93502053c2421f46ffb878-EthereumMultiFeedAdapterWithoutRoundsV1' running
+INFO:Slither:0x6d711b195925b156fb93502053c2421f46ffb878 analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 76 / 125 - 合约地址：0x293af9ca6c6f4b1ec799328d1759ef213a5e57a3 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x293af9ca6c6f4b1ec799328d1759ef213a5e57a3-PriceFeedsAdapterSwellWithRoundsV5' running
+INFO:Slither:0x293af9ca6c6f4b1ec799328d1759ef213a5e57a3 analyzed (22 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 77 / 125 - 合约地址：0xe28abf7028c059c4ebbe726aea7c2ef3f429b02d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe28abf7028c059c4ebbe726aea7c2ef3f429b02d-PriceFeedCompressor' running
+INFO:Detectors:
+OCCV9: oracle request in loop in (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() (contracts/compressors/PriceFeedCompressor.sol#245-247) Each call should handle only one request at a time.
+OCCV9: oracle request in loop in (None,answer,None,updatedAt,None) = IPriceFeed(priceFeed).latestRoundData() (node_modules/@gearbox-protocol/core-v3/contracts/traits/PriceFeedValidationTrait.sol#68) Each call should handle only one request at a time.
+Reference: ...
+ERROR:Detectors:The data fields of (price,updatedAt) = IPriceFeed(priceFeed).latestRoundData() is incorrect.
+Traceback (most recent call last):
+  File "/home/ziming/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 776, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 882, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 107, in process_all
+    ) = process_single(compilation, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 87, in process_single
+    return _process(slither, detector_classes, printer_classes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/__main__.py", line 137, in _process
+    detector_resultss = slither.run_detectors()
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/slither.py", line 292, in run_detectors
+    results = [d.detect() for d in self._detectors]
+               ^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/abstract_detector.py", line 203, in detect
+    for r in [output.data for output in self._detect()]:
+                                        ^^^^^^^^^^^^^^
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 178, in _detect
+    self._detect_chainlink_dataFeed()
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 209, in _detect_chainlink_dataFeed
+    self._check_chainlink_round_data(hCall.node)
+  File "/home/ziming/.local/lib/python3.12/site-packages/slither/detectors/functions/oracle_data_check.py", line 228, in _check_chainlink_round_data
+    v2, v3, v5 = responses[1], responses[2], responses[4]
+                               ~~~~~~~~~^^^
+IndexError: list index out of range
+
+[Return code]: 1
+
+================================================================================
+
+--- 分析结果 78 / 125 - 合约地址：0x6978de4916df8cd2bf7732bedebbe7090f028555 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6978de4916df8cd2bf7732bedebbe7090f028555-EthereumPriceFeedLbtcFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6978de4916df8cd2bf7732bedebbe7090f028555 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 79 / 125 - 合约地址：0x6755ec477aa7de20510b4f2529993741dcba679a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6755ec477aa7de20510b4f2529993741dcba679a-MainnetPriceFeedPzethFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6755ec477aa7de20510b4f2529993741dcba679a analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 80 / 125 - 合约地址：0xf43a01a39fd28950031a42861fad703147d5c8e7 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf43a01a39fd28950031a42861fad703147d5c8e7-MainnetPriceFeedPzethWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xf43a01a39fd28950031a42861fad703147d5c8e7 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 81 / 125 - 合约地址：0xca8b247304767619fccf5b0829d0a5aaf414ba7d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xca8b247304767619fccf5b0829d0a5aaf414ba7d-MainnetPriceFeedUsd3WithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xca8b247304767619fccf5b0829d0a5aaf414ba7d analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 82 / 125 - 合约地址：0x878ab91c4929f7ab019a5a5f45e67350aee2414f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x878ab91c4929f7ab019a5a5f45e67350aee2414f-MainnetPriceFeedDeusdWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x878ab91c4929f7ab019a5a5f45e67350aee2414f analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 83 / 125 - 合约地址：0x9570492c4a150c66ae7a1de3d354c9a830a01418 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x9570492c4a150c66ae7a1de3d354c9a830a01418-MainnetPriceFeedPzethethWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x9570492c4a150c66ae7a1de3d354c9a830a01418 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 84 / 125 - 合约地址：0xbb353fd79b7a52438e0c004fa4c2c9dc71e63b03 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xbb353fd79b7a52438e0c004fa4c2c9dc71e63b03-CustomRedStoneOracleAdapter' running
+INFO:Detectors:
+OCCV4: AutopoolDebt.preview(bool,uint256,uint256,bytes,IAutopool.AssetBreakdown,StructuredLinkedList.List,mapping(address => AutopoolDebt.DestinationInfo)) (src/vault/libs/AutopoolDebt.sol#1012-1075) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolDebt.preview(bool,uint256,uint256,bytes,IAutopool.AssetBreakdown,StructuredLinkedList.List,mapping(address => AutopoolDebt.DestinationInfo)) (src/vault/libs/AutopoolDebt.sol#1012-1075)  sends oracle request but AutopoolDebt (src/vault/libs/AutopoolDebt.sol#24-1076) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xbb353fd79b7a52438e0c004fa4c2c9dc71e63b03 analyzed (69 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 85 / 125 - 合约地址：0x368ee51e47a594fe1e9908b48228748a30bc7ca4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x368ee51e47a594fe1e9908b48228748a30bc7ca4-EthereumPriceFeedEbtcwbtcWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x368ee51e47a594fe1e9908b48228748a30bc7ca4 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 86 / 125 - 合约地址：0x67c15923248baf96fb3944a2a326a237b4c21030 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x67c15923248baf96fb3944a2a326a237b4c21030-CustomRedStoneOracleAdapter' running
+INFO:Detectors:
+OCCV4: CustomRedStoneOracleAdapter.updatePriceWithFeedId(bytes32[]) (src/oracles/providers/CustomRedStoneOracleAdapter.sol#80-133) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: CustomRedStoneOracleAdapter.updatePriceWithFeedId(bytes32[]) (src/oracles/providers/CustomRedStoneOracleAdapter.sol#80-133)  sends oracle request but CustomRedStoneOracleAdapter (src/oracles/providers/CustomRedStoneOracleAdapter.sol#27-213) is not upgradeable. Please use OpenZeppelin upgradeable.
+OCCV4: AutopoolDebt.preview(bool,uint256,uint256,bytes,IAutopool.AssetBreakdown,StructuredLinkedList.List,mapping(address => AutopoolDebt.DestinationInfo)) (src/vault/libs/AutopoolDebt.sol#1012-1075) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: AutopoolDebt.preview(bool,uint256,uint256,bytes,IAutopool.AssetBreakdown,StructuredLinkedList.List,mapping(address => AutopoolDebt.DestinationInfo)) (src/vault/libs/AutopoolDebt.sol#1012-1075)  sends oracle request but AutopoolDebt (src/vault/libs/AutopoolDebt.sol#24-1076) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x67c15923248baf96fb3944a2a326a237b4c21030 analyzed (69 contracts with 3 detectors), 4 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 87 / 125 - 合约地址：0x366ae5831480a5bab4a56c888c6bd94eb03f9432 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x366ae5831480a5bab4a56c888c6bd94eb03f9432-EthereumPriceFeedCesrWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x366ae5831480a5bab4a56c888c6bd94eb03f9432 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 88 / 125 - 合约地址：0xd7396fa3afb9833293ce2149eeb3dbf5380b1e0d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xd7396fa3afb9833293ce2149eeb3dbf5380b1e0d-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xd7396fa3afb9833293ce2149eeb3dbf5380b1e0d analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 89 / 125 - 合约地址：0x663b50c9da9bd586f855af13e91ef2f0954c9761 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x663b50c9da9bd586f855af13e91ef2f0954c9761-EthereumPriceFeedSolvbtcWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x663b50c9da9bd586f855af13e91ef2f0954c9761 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 90 / 125 - 合约地址：0xae02d5be17a23c8fdd0676c6a5f9143d91237979 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xae02d5be17a23c8fdd0676c6a5f9143d91237979-EthereumPriceFeedPumpbtcbtcWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xae02d5be17a23c8fdd0676c6a5f9143d91237979 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 91 / 125 - 合约地址：0xbf3ba2b090188b40ef83145be0e9f30c6ca63689 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xbf3ba2b090188b40ef83145be0e9f30c6ca63689-EthereumPriceFeedSolvbtcbtcWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xbf3ba2b090188b40ef83145be0e9f30c6ca63689 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 92 / 125 - 合约地址：0xa0f2ef6cec437a4e5f6127d6c51e1b0d3a746911 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa0f2ef6cec437a4e5f6127d6c51e1b0d3a746911-EthereumPriceFeedFxusdWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xa0f2ef6cec437a4e5f6127d6c51e1b0d3a746911 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 93 / 125 - 合约地址：0xebe443e20adf302b59419648c4dba0c7299cf1a2 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xebe443e20adf302b59419648c4dba0c7299cf1a2-EthereumPriceFeedPufferWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xebe443e20adf302b59419648c4dba0c7299cf1a2 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 94 / 125 - 合约地址：0x2e597e6c827a8527413c19065ec0725e03eeac6e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x2e597e6c827a8527413c19065ec0725e03eeac6e-RedstoneMainnetPriceProvider' running
+INFO:Slither:0x2e597e6c827a8527413c19065ec0725e03eeac6e analyzed (22 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 95 / 125 - 合约地址：0x7efc392f66af226903f8952dce674f15c24b560a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7efc392f66af226903f8952dce674f15c24b560a-RedstoneMainnetPriceProvider' running
+INFO:Slither:0x7efc392f66af226903f8952dce674f15c24b560a analyzed (22 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 96 / 125 - 合约地址：0xb6c8e486f4b5802735118992b1a4f67d182af5d1 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xb6c8e486f4b5802735118992b1a4f67d182af5d1-EthereumPriceFeedPumpbtcFundamentalWithoutRoundsV2' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (contracts/__C6/@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (contracts/__C6/@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (contracts/__C6/@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xb6c8e486f4b5802735118992b1a4f67d182af5d1 analyzed (24 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 97 / 125 - 合约地址：0xed96db504ac622d6920b34f357b30d6651578940 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xed96db504ac622d6920b34f357b30d6651578940-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xed96db504ac622d6920b34f357b30d6651578940 analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 98 / 125 - 合约地址：0x6b0f8c32992b8c824a27ab8c93e94a9dd263cd9f ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6b0f8c32992b8c824a27ab8c93e94a9dd263cd9f-RedstonePriceFeed' running
+INFO:Detectors:
+OCCV4: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: RedstonePriceFeed.updatePrice(bytes) (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#134-156)  sends oracle request but RedstonePriceFeed (node_modules/@gearbox-protocol/oracles-v3/contracts/oracles/updatable/RedstonePriceFeed.sol#49-205) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6b0f8c32992b8c824a27ab8c93e94a9dd263cd9f analyzed (19 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 99 / 125 - 合约地址：0xe8b7324308616d6348c2cc6d89c99c31d3a0a98d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe8b7324308616d6348c2cc6d89c99c31d3a0a98d-EthereumPriceFeedC3mWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xe8b7324308616d6348c2cc6d89c99c31d3a0a98d analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 100 / 125 - 合约地址：0xe8db0a2c50e68d42e0f6e1776766b803597714c7 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe8db0a2c50e68d42e0f6e1776766b803597714c7-EthereumPriceFeedEthxethWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xe8db0a2c50e68d42e0f6e1776766b803597714c7 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 101 / 125 - 合约地址：0x5c9f404daec8c0365be0e948fdccf16d77205d33 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5c9f404daec8c0365be0e948fdccf16d77205d33-EthereumPriceFeedEusdWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x5c9f404daec8c0365be0e948fdccf16d77205d33 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 102 / 125 - 合约地址：0x0da61d997a7b654cb9a8e4743ea777879804f7b8 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0da61d997a7b654cb9a8e4743ea777879804f7b8-EthereumPriceFeedRswethethWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x0da61d997a7b654cb9a8e4743ea777879804f7b8 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 103 / 125 - 合约地址：0x52dd721bdb9b115c4770a614b704dfdc38388cfc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x52dd721bdb9b115c4770a614b704dfdc38388cfc-EthereumPriceFeedSfrxethethWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x52dd721bdb9b115c4770a614b704dfdc38388cfc analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 104 / 125 - 合约地址：0x512e4e781b877a7d47450adcfeefe3fd08fa340a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x512e4e781b877a7d47450adcfeefe3fd08fa340a-EthereumPriceFeedSusdeWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x512e4e781b877a7d47450adcfeefe3fd08fa340a analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 105 / 125 - 合约地址：0x5c499403bc092c651e35893af6fe5ce973692795 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5c499403bc092c651e35893af6fe5ce973692795-EthereumPriceFeedUsdeWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x5c499403bc092c651e35893af6fe5ce973692795 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 106 / 125 - 合约地址：0x6a1c87d11dde3d1d52c24f8ec59b91019f14170d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x6a1c87d11dde3d1d52c24f8ec59b91019f14170d-EthereumPriceFeedBeraethFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x6a1c87d11dde3d1d52c24f8ec59b91019f14170d analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 107 / 125 - 合约地址：0x3401daf2b1f150ef0c709cc0283b5f2e55c3df29 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x3401daf2b1f150ef0c709cc0283b5f2e55c3df29-EthereumPriceFeedSusdxEthFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x3401daf2b1f150ef0c709cc0283b5f2e55c3df29 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 108 / 125 - 合约地址：0x0d9b42a2a73ec528759701d0b70ccf974a327ebb ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x0d9b42a2a73ec528759701d0b70ccf974a327ebb-EthereumPriceFeedUsdxWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x0d9b42a2a73ec528759701d0b70ccf974a327ebb analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 109 / 125 - 合约地址：0x84ad474c33c9ccefb1a2d8b77bdd88bdc592f96b ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x84ad474c33c9ccefb1a2d8b77bdd88bdc592f96b-EthereumPriceFeedSwellethWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x84ad474c33c9ccefb1a2d8b77bdd88bdc592f96b analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 110 / 125 - 合约地址：0xe7f71d6a24ebc391f5ee57b867ed429eb7bd74f4 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe7f71d6a24ebc391f5ee57b867ed429eb7bd74f4-EthereumPriceFeedEthxWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xe7f71d6a24ebc391f5ee57b867ed429eb7bd74f4 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 111 / 125 - 合约地址：0x56b13aa2f3b9fd2a136ab46fc570e3c549191d71 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x56b13aa2f3b9fd2a136ab46fc570e3c549191d71-EthereumPriceFeedXvsWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x56b13aa2f3b9fd2a136ab46fc570e3c549191d71 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 112 / 125 - 合约地址：0x65ed6a4ac085620ee943c0b15525c4428d23e4db ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x65ed6a4ac085620ee943c0b15525c4428d23e4db-EthereumPriceFeedEthWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x65ed6a4ac085620ee943c0b15525c4428d23e4db analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 113 / 125 - 合约地址：0x24edd61cda334bff871a80deb135073a7d7a9187 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x24edd61cda334bff871a80deb135073a7d7a9187-EthereumPriceFeedBtcWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x24edd61cda334bff871a80deb135073a7d7a9187 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 114 / 125 - 合约地址：0xf1454949c6dedfb500ae63aa6c784aa1dde08a6c ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xf1454949c6dedfb500ae63aa6c784aa1dde08a6c-EthereumPriceFeedBioWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xf1454949c6dedfb500ae63aa6c784aa1dde08a6c analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 115 / 125 - 合约地址：0x5e21f6530f656a38cae4f55500944753f662d184 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x5e21f6530f656a38cae4f55500944753f662d184-EthereumPriceFeedBuidlFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x5e21f6530f656a38cae4f55500944753f662d184 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 116 / 125 - 合约地址：0xbcb98c6e72c30725534fc8fbd8170a0bacf0f892 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xbcb98c6e72c30725534fc8fbd8170a0bacf0f892-EthereumPriceFeedDeusdFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xbcb98c6e72c30725534fc8fbd8170a0bacf0f892 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 117 / 125 - 合约地址：0x46a2b84901410a81c6421104a12d6555ca286021 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x46a2b84901410a81c6421104a12d6555ca286021-EthereumMultiFeedAdapterWithoutRoundsV2' running
+INFO:Slither:0x46a2b84901410a81c6421104a12d6555ca286021 analyzed (16 contracts with 3 detectors), 0 result(s) found
+
+[Return code]: 0
+
+================================================================================
+
+--- 分析结果 118 / 125 - 合约地址：0x172ffec924a31f18de44676bb95a7a6849bcc5fc ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x172ffec924a31f18de44676bb95a7a6849bcc5fc-EthereumPriceFeedBeraStoneFundamentalWithoutRoundsV2' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x172ffec924a31f18de44676bb95a7a6849bcc5fc analyzed (24 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 119 / 125 - 合约地址：0x29d295409d5a20b2c851df18054d32a442791346 ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x29d295409d5a20b2c851df18054d32a442791346-EthereumPriceFeedEgethFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x29d295409d5a20b2c851df18054d32a442791346 analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 120 / 125 - 合约地址：0x29d2fec890b037b2d34f061f9a50f76f85ddbcae ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x29d2fec890b037b2d34f061f9a50f76f85ddbcae-EthereumPriceFeedUsrWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x29d2fec890b037b2d34f061f9a50f76f85ddbcae analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 121 / 125 - 合约地址：0xc9e11c60e24bef478cc999fa9fa2d89cc098a86e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xc9e11c60e24bef478cc999fa9fa2d89cc098a86e-EthereumPriceFeedBfbtcFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xc9e11c60e24bef478cc999fa9fa2d89cc098a86e analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 122 / 125 - 合约地址：0x243507c8c114618d7c8ad94b51118db7b4e32ece ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x243507c8c114618d7c8ad94b51118db7b4e32ece-EthereumPriceFeedUsdtbFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x243507c8c114618d7c8ad94b51118db7b4e32ece analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 123 / 125 - 合约地址：0x7d05cd5159f38694a7d4dbf58957146a63c8ad5a ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0x7d05cd5159f38694a7d4dbf58957146a63c8ad5a-EthereumPriceFeedHlscopeFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0x7d05cd5159f38694a7d4dbf58957146a63c8ad5a analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 124 / 125 - 合约地址：0xe2072fb13ff92d04e44cc55574816dba3e539e1d ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xe2072fb13ff92d04e44cc55574816dba3e539e1d-EthereumPriceFeedAcredFundamentalWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xe2072fb13ff92d04e44cc55574816dba3e539e1d analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
+--- 分析结果 125 / 125 - 合约地址：0xa42a6568f1df29ef95dddf440c41e48d4cfb310e ---
+'solc --standard-json --allow-paths /home/ziming/github/oracleTest/crytic-export/etherscan-contracts/0xa42a6568f1df29ef95dddf440c41e48d4cfb310e-EthereumPriceFeedUsualWithoutRoundsV1' running
+INFO:Detectors:
+OCCV4: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89) sends oracle request but is not pausable. Please use OpenZeppelin Pausable.
+OCCV5: MultiFeedAdapterWithoutRounds.updateDataFeedsValuesPartial(bytes32[]) (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#68-89)  sends oracle request but MultiFeedAdapterWithoutRounds (@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol#28-272) is not upgradeable. Please use OpenZeppelin upgradeable.
+Reference: ...
+INFO:Slither:0xa42a6568f1df29ef95dddf440c41e48d4cfb310e analyzed (23 contracts with 3 detectors), 2 result(s) found
+
+[Return code]: 255
+
+================================================================================
+
