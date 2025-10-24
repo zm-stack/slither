@@ -90,8 +90,8 @@ contract Token{
 
         # If this contract implements a function from ERC721, we can assume it is an ERC721 token. These tokens
         # offer functions which are similar to ERC20, but are not compatible.
-        if contract.is_possible_erc721():
-            return []
+        # if contract.is_possible_erc721():
+        #     return []
 
         funcs = contract.functions
         functions = [
