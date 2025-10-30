@@ -40,16 +40,18 @@ class UnlimitedMinting(AbstractDetector):
                 for mod in func.modifiers:
                     if isinstance(mod, Function):
                         for var in mod.state_variables_read:
-                            name = var.name.lower() if var.name else ""
-                            if "supply" in name or "total" in name or "max" in name or "limit" in name:
-                                supplycheck = True
+                            if hasattr(var,"name") and var.name:
+                                name = var.name.lower()
+                                if "supply" in name or "total" in name or "max" in name or "limit" in name:
+                                    supplycheck = True
                 for node in func.nodes:
                     if node.is_conditional(False):
                         cond_vars = node.variables_read
                         for var in cond_vars:
-                            name = var.name.lower() if var.name else ""
-                            if "supply" in name or "total" in name or "max" in name or "limit" in name:
-                                supplycheck = True
+                            if hasattr(var,"name") and var.name:
+                                name = var.name.lower()
+                                if "supply" in name or "total" in name or "max" in name or "limit" in name:
+                                    supplycheck = True
                         for call in node.internal_calls:
                             if call.function and hasattr(call.function, "state_variables_read"):
                                 for var in call.function.state_variables_read:
