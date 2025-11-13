@@ -52,6 +52,7 @@ setup(
     entry_points={
         "console_scripts": [
             "slither = slither.__main__:main",
+            "slither-agent = slither.tools.agent.__main__:main",
             "slither-check-upgradeability = slither.tools.upgradeability.__main__:main",
             "slither-find-paths = slither.tools.possible_paths.__main__:main",
             "slither-simil = slither.tools.similarity.__main__:main",

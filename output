@@ -1,0 +1,18 @@
+
+=== Call Graph for Entry Contract.foo(uint256)===
+Contract.foo(uint256) -> Contract.bar(uint256) (INTERNAL)
+
+=== Call Graph for Entry Contract.addWithLibrary(uint256,uint256)===
+Contract.addWithLibrary(uint256,uint256) -> MathLib.add(uint256,uint256) (HIGH_LEVEL)
+Contract.addWithLibrary(uint256,uint256) -> Contract.baz(uint256) (INTERNAL)
+Contract.baz(uint256) -> Contract.qux() (INTERNAL)
+
+=== Call Graph for Entry Contract.baz(uint256)===
+Contract.baz(uint256) -> Contract.qux() (INTERNAL)
+
+=== Call Graph for Entry Contract.qux()===
+
+=== Call Graph for Entry Contract.callExternal(address)===
+Contract.callExternal(address) -> require(success, "call failed") (INTERNAL)
+Contract.callExternal(address) -> target.call(abi.encodeWithSignature("qux()")) (LOW_LEVEL)
+Contract.callExternal(address) -> abi.encodeWithSignature("qux()") (INTERNAL)
