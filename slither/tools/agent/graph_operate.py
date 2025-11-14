@@ -82,7 +82,7 @@ def _process_calls(call_type, calls, caller, graph) -> None:
             graph.add_node(callee, _to_source(callee_func))
             graph.add_edge(caller, callee, source, call_type)
             if not isinstance(callee, StateVariable):
-                self.build_graph(callee, graph)
+                extend_graph(callee_func, graph)
 
 def _to_source(obj):
     source = getattr(obj, "source_mapping", None)
