@@ -100,27 +100,33 @@ class CallGraph:
         }
 
 @dataclass
-class ContractIR:
-    """Intermediate representation of a contract.
+class ContractModel:
+    """Model of a contract.
     
     Attributes:
         name: contract name.
-        events: canonical name -> contrent.
-        state_vars: canonical name -> state definition.
-        entry_funcs: canonical name -> function summary.
-        entry_ac: inferred access control for entry_func.
-        call_graphs: entry_func canonical name -> CallGraph.
-        inheritances: list of inherited contract names.
+        version: solidity version.
         imports: list of imported contract paths.
+        inheritances: list of inherited contract names.
+        events: event canonical name -> event definition.
+        state_vars: state canonical name -> state definition.
+        modifiers: modifier canonical name -> modifier definition.
+        entry_funcs: funcion canonical name -> function summary.
+        entry_access: inferred access control for entry_func.
+        call_graphs: entry funcion canonical name -> CallGraph.
+        complexity: complexity of contract weighted in features.
+        
         """
     name: str
+    version: str
+    imports: list[str] = field(default_factory=list)
+    inheritances: list[str] = field(default_factory=list)
     events: dict[str, str] = field(default_factory=dict)
     state_vars: dict[str, str] = field(default_factory=dict)
+    modifiers: dict[str, str] = field(default_factory=dict)
     entry_funcs: dict[str, str] = field(default_factory=dict)
-    entry_ac: dict[str, list[ACRule]] = field(default_factory=dict)
+    entry_access: dict[str, list[ACRule]] = field(default_factory=dict)
     call_graphs: dict[str, CallGraph] = field(default_factory=dict)
-    inheritances: list[str] = field(default_factory=list)
-    imports: list[str] = field(default_factory=list)
 
     def add_event(self, name: str, definition: str) -> None:
         """Add an event of the contract."""
@@ -133,19 +139,19 @@ class ContractIR:
     def add_entry(self, name: str, summary: str) -> None:
         """Add an entry function of the contract."""
         self.entry_funcs[name] = summary
-    
+
     def add_entry_ac(self, name: str,
                     ac: list[ACRule]) -> None:
         """Add access control for an entry function."""
         self.entry_ac[name] = ac
-    
+
     def add_call_graph(self, name: str,
                     cg: CallGraph) -> None:
         """Add a call graph for an entry function."""
         self.call_graphs[name] = cg
-    
+
     def _summary_dict(self) -> dict:
-        """Dict summary of ContractIR for quick debug."""
+        """Dict summary of ContractModel for quick debug."""
         return {
             "name": self.name,
             "imports": list(self.imports),
@@ -164,7 +170,7 @@ class ContractIR:
         }
 
     def __str__(self) -> str:
-        """Human-readable summary when print(ContractIR)."""
+        """Human-readable summary when print(ContractModel)."""
         return json.dumps(
             self._summary_dict(),
             ensure_ascii=False,
@@ -172,7 +178,7 @@ class ContractIR:
         )
 
     def to_dict(self, include_snippet: bool = True) -> dict:
-        """Serialize ContractIR into a dict."""
+        """Serialize ContractModel into a dict."""
         return {
             "name": self.name,
             "imports": list(self.imports),

@@ -1,17 +1,19 @@
-from pathlib import Path
 import re
+from pathlib import Path
 from slither.slither import Slither
 from slither.utils.tests_pattern import is_test_file
 from slither.core.declarations.function import Function
 from slither.core.variables.state_variable import StateVariable
 from slither.core.declarations.solidity_variables import SolidityFunction
-from slither.tools.agent.model_contract import CallEdge, CallGraph, ContractIR
+from slither.tools.agent.model_contract import CallEdge, CallGraph, ContractModel
 
-def get_contract_irs(s: Slither) -> list[ContractIR]:
-    """Analyze contracts and build ContractIR summaries."""
-    ir_contracts = []
+def get_contract_models(s: Slither) -> list[ContractModel]:
+    """Build contract model for each contract based on Slither object."""
+    contract_models = []
     for c in s.contracts_derived:
         # Skip unsuitable contracts
+        if not c.source_mapping:
+            continue
         file_path = c.source_mapping.filename.absolute
         if (
             c.is_abstract
@@ -24,20 +26,22 @@ def get_contract_irs(s: Slither) -> list[ContractIR]:
         ):
             continue
 
-        irc = ContractIR(contract_name = c.name)
+        model = ContractModel(name = c.name)
 
         for e in c.events:
-            content = re.sub(
-                r"\s+", " ", e.source_mapping.content)
-            irc.add_event(e.canonical_name, content.strip())
+            if e.source_mapping:
+                content = re.sub(
+                    r"\s+", " ", e.source_mapping.content)
+                model.add_event(e.canonical_name, content.strip())
 
         for sv in c.state_variables:
-            irc.add_state(sv.canonical_name,
-                sv.source_mapping.content)
-        
+            if sv.source_mapping:
+                model.add_state(sv.canonical_name,
+                    sv.source_mapping.content)
+
         parents = [p.name for p in c.inheritance]
-        irc.inheritances = parents
-        
+        model.inheritances = parents
+
         imports = {str(imp.filename_path)
             for imp in c.compilation_unit.import_directives}
         irc.imports.extend(imports)

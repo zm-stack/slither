@@ -5,7 +5,7 @@ from crytic_compile import cryticparser
 # Configure OpenAI LLM client
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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")
+    api_key="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")
 
 # Parse command-line arguments
 def parse_args() -> argparse.Namespace:
@@ -13,7 +13,7 @@ def parse_args() -> argparse.Namespace:
     Parse command-line arguments for the agent.
     """
     parser = argparse.ArgumentParser(
-        description="ACReasoner: An Agent that Reasons" \
+        description="ACInf: An Agent that Reasons" \
         " About Contract Access Control issues" \
         " like a Human Auditor",
     )
