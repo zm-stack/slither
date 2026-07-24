@@ -10,6 +10,7 @@ from slither.tools.agent.model_contract import CallEdge, CallGraph, ContractMode
 def get_contract_models(s: Slither) -> list[ContractModel]:
     """Build contract model for each contract based on Slither object."""
     contract_models = []
+
     for c in s.contracts_derived:
         # Skip unsuitable contracts
         if not c.source_mapping:
@@ -25,8 +26,16 @@ def get_contract_models(s: Slither) -> list[ContractModel]:
             or is_test_file(Path(file_path))
         ):
             continue
+        model = ContractModel(
+            name = c.name,
+            version = c.compilation_unit.solc_version)
+        
+        imports = {str(imp.filename_path)
+            for imp in c.compilation_unit.import_directives}
+        model.imports.extend(imports)
 
-        model = ContractModel(name = c.name)
+        parents = [p.name for p in c.inheritance]
+        model.inheritances = parents
 
         for e in c.events:
             if e.source_mapping:
@@ -35,16 +44,15 @@ def get_contract_models(s: Slither) -> list[ContractModel]:
                 model.add_event(e.canonical_name, content.strip())
 
         for sv in c.state_variables:
+            if 
             if sv.source_mapping:
                 model.add_state(sv.canonical_name,
                     sv.source_mapping.content)
 
-        parents = [p.name for p in c.inheritance]
-        model.inheritances = parents
-
-        imports = {str(imp.filename_path)
-            for imp in c.compilation_unit.import_directives}
-        irc.imports.extend(imports)
+        for modifier in c.modifiers:
+            if modifier.source_mapping:
+                model.add_modifier(modifier.canonical_name,
+                    modifier.source_mapping.content)
 
         for func in c.functions_entry_points:
             # Skip getters / view / pure functions

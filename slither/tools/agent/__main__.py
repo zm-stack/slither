@@ -42,6 +42,8 @@ def main() -> None:
 
     # (1) contract modeling
     contract_models = get_contract_models(slither)
+    for model in contract_models:
+        print(model)
 
     # llm = LLM(client)
     # for irc in ircs:

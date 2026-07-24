@@ -132,9 +132,13 @@ class ContractModel:
         """Add an event of the contract."""
         self.events[name] = definition
 
-    def add_state(self, name: str, expr: str) -> None:
+    def add_state(self, name: str, definition: str) -> None:
         """Add a state variable of the contract."""
-        self.state_vars[name] = expr
+        self.state_vars[name] = definition
+
+    def add_modifier(self, name:str, definition: str) -> None:
+        """Add a modifier of the contract."""
+        self.modifiers[name] = definition
 
     def add_entry(self, name: str, summary: str) -> None:
         """Add an entry function of the contract."""
@@ -143,7 +147,7 @@ class ContractModel:
     def add_entry_ac(self, name: str,
                     ac: list[ACRule]) -> None:
         """Add access control for an entry function."""
-        self.entry_ac[name] = ac
+        self.entry_access[name] = ac
 
     def add_call_graph(self, name: str,
                     cg: CallGraph) -> None:
@@ -161,7 +165,7 @@ class ContractModel:
             "entry_funcs": list(self.entry_funcs.keys()),
             "entry_ac": {
                 cname: [ac.to_dict() for ac in acs]
-                for cname, acs in self.entry_ac.items()
+                for cname, acs in self.entry_access.items()
             },
             "call_graphs": {
                 cname: cg.summary_dict()
@@ -188,7 +192,7 @@ class ContractModel:
             "entry_funcs": self.entry_funcs,
             "entry_ac": {
                 name: [ac.to_dict() for ac in acs]
-                for name, acs in self.entry_ac.items()
+                for name, acs in self.entry_access.items()
             },
             "call_graphs": {
                 name: cg.to_dict(include_snippet)
